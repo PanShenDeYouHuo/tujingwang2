@@ -1,8 +1,0 @@
-version: '2.1'
-
-services:
-  tujingwang2:
-    image: tujingwang2
-    build: .
-    ports:
-      - 3000:3000
