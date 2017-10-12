@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 //////// 连接 ////////
-let db_url = "mongodb://localhost:27017/tujing";
+let db_url = "mongodb://60.205.225.197:27017/tujing";
 mongoose.connect(db_url, {useMongoClient: true});
 
 //////// 连接成功 ////////
