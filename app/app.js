@@ -7,6 +7,9 @@ const socket_authentication = require('./controllers/socket_authentication');	//
 //服务器绑定
 let app = new Koa();
 
+// 初始化路由中间件
+app.use(routers.routes()).use(routers.allowedMethods());
+
 //tls/ssl 数字证书
 
 // let options = {
@@ -20,11 +23,8 @@ let app = new Koa();
 // const io = require('socket.io')(server);
 
 //http
-const server = require('http').createServer(app.callback());
-const io = require('socket.io')(server);
-
-// 初始化路由中间件
-app.use(routers.routes()).use(routers.allowedMethods());
+const server = require('http').createServer(app.callback());				//用koa开启http服务
+const io = require('socket.io')(server); 									//将socket.io绑定到http服务器上
 
 //authentication
 io.use(socket_authentication('hello'));
@@ -33,6 +33,6 @@ io.use(socket_authentication('hello'));
 io.on('connection', socket_routers());
 
 //开始监听3000端口
-server.listen(3000, ()=> {
-	console.log('listen on: 3000');
+server.listen(888, ()=> {
+	console.log('listen on: 888');
 });
