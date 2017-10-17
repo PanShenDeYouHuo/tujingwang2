@@ -2,7 +2,7 @@ const Koa = require('koa');
 const fs = require('fs');
 const routers = require('./routers');											//https服务器路由
 const socket_routers = require('./socket_routers');								//socket.io服务器路由
-
+const socket_authentication = require('./controllers/socket_authentication');	//用户验证中间件
 
 
 //服务器绑定
