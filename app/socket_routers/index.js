@@ -12,6 +12,8 @@ module.exports = ()=> {
 			console.log('a user disconnected:' + socket.id);
 		});
 
+		console.log('hello');
+
 		
 
 		////////////////////////////////////////////////
