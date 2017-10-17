@@ -6,8 +6,8 @@ module.exports = (io)=> {
         let home = require('./home');
         router.use('/', home.routes(), home.allowedMethods());
 
-        let wechatLogin = require('./wechatLogin')(io);
-        router.use('/wechatLogin', wechatLogin.routes(), wechatLogin.allowedMethods());
+        let login = require('./login')(io);
+        router.use('/login', login.routes(), login.allowedMethods());
 
         return router;
     }
