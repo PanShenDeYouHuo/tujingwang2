@@ -1,8 +1,8 @@
 const router = require('koa-router')();
 
 const routers = router
-.get('/', async(ctx)=>{
-    ctx.body = 'hello';
+    .get('/wechatLogin', async(ctx)=>{
+        ctx.body = 'wechat';
 })
 
 module.exports = routers;
