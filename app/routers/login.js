@@ -4,8 +4,12 @@ let routers = router;
 
 module.exports = (io)=> {
     console.log(io.sockets);
-    routers.get('/wecaht/hah', async(ctx)=> {
-        ctx.body = 'wecaht';
+    routers.get('/wechat', async(ctx)=> {
+        console.log(ctx.query);
+        // io.on("connection",function(socket){
+        //     io.to(socketid).emit('message','surprise');
+        // });
+        ctx.body = 'wechat';
     });
 
     return routers;
