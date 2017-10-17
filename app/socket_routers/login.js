@@ -1,4 +1,4 @@
-const token = require('../../modules/node-jwt');
+const token = require('../modules/node-jwt');
 
 module.exports = (socket)=> {
     //token登入
