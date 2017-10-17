@@ -33,7 +33,7 @@ io.use(socket_authentication('hello'));
 //socket.io 初始化 和 socket路由
 io.on('connection', socket_routers());
 
-//开始监听3000端口
-server.listen(888, ()=> {
-	console.log('listen on: 888');
+//开始监听80端口
+server.listen(80, ()=> {
+	console.log('listen on: 80');
 });
