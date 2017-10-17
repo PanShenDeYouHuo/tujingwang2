@@ -2,11 +2,11 @@ const router = require('koa-router')();
 
 
 module.exports = (io)=> {
-        console.log(io);
+
         let home = require('./home');
         router.use('/', home.routes(), home.allowedMethods());
 
-        let wechatLogin = require('./wechatLogin');
+        let wechatLogin = require('./wechatLogin')(io);
         router.use('/', wechatLogin.routes(), wechatLogin.allowedMethods());
 
         return router;

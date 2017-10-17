@@ -19,7 +19,7 @@ const server = require('http').createServer(app.callback());				//用koa开启ht
 const io = require('socket.io')(server); 									//将socket.io绑定到http服务器上
 
 
-const routers = require('./routers')(io);											//https服务器路由
+const routers = require('./routers')(io);										//https服务器路由,传入socket.io对http进行联动
 const socket_routers = require('./socket_routers');								//socket.io服务器路由
 const socket_authentication = require('./controllers/socket_authentication');	//用户验证中间件
 
