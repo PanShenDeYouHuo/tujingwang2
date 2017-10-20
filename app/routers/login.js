@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const request = require('request');
-const wechat = require('../modules/wechat')
+const wechat = require('../modules/wechat')();
 
 
 let routers = router;
