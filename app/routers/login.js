@@ -30,6 +30,7 @@ getAccess_token = (appId, apaSecret, code)=> {
 module.exports = (io)=> {
     routers.get('/wechat', async(ctx)=> {
 
+        console.log(`appid: ${wechat.appId}, appSecret: ${appSecret}`)
         console.log(await getAccess_token(wechat.appId, wechat.appSecret, ctx.query.code));
         
         io.to(ctx.query.state).emit('wechatok','surprise');
