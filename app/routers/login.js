@@ -27,7 +27,7 @@ getAccess_token = (appId, apaSecret, code)=> {
 }
 
 
-module.exports = async (io)=> {
+module.exports = (io)=> {
     routers.get('/wechat', async(ctx)=> {
 
         console.log(__filename);
