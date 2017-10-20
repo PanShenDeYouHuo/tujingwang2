@@ -7,7 +7,6 @@ module.exports = (io)=> {
         io.to(ctx.query.state).emit('wechatok','surprise');
         let html = `
             <script type="text/javascript">
-                document.write("<h1>Hello World!</h1>")
                 self.close()
             </script> 
         `
