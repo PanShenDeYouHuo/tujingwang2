@@ -1,10 +1,39 @@
 const router = require('koa-router')();
-const request = Promise.promisify(require('request'));
+const request = require('request');
+const wechat = require('../modules/wechat')
+
 
 let routers = router;
 
-module.exports = (io)=> {
+/**
+ * 根据用户的code获得access_token
+ * 
+ * @param {string} appId 
+ * @param {string} apaSecret 
+ * @param {扫码获得的code} code 
+ * @returns 返回access_token
+ */
+getAccess_token = (appId, apaSecret, code)=> {
+    let url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appSecret}&code=${code}&grant_type=authorization_code`
+    return new Promise ((resolve, reject)=> {
+        request(url,function(error,response,body){
+            if(!error && response.statusCode == 200){
+                //输出返回的内容
+                console.log(response);
+                console.log(body);
+            }
+        });
+    });
+}
+
+
+module.exports = async (io)=> {
     routers.get('/wechat', async(ctx)=> {
+
+        console.log(__filename);
+
+        console.log(await getAccess_token(ctx.query.code));
+        
         io.to(ctx.query.state).emit('wechatok','surprise');
 
         //成功后关闭
