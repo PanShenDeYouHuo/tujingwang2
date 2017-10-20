@@ -8,6 +8,7 @@ module.exports = (io)=> {
         let html = `
             <script type="text/javascript">
                 document.write("<h1>Hello World!</h1>")
+                self.close()
             </script> 
         `
         ctx.body = html;
