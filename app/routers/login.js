@@ -7,8 +7,10 @@ module.exports = (io)=> {
         io.to(ctx.query.state).emit('wechatok','surprise');
         let html = `
             <h1>koa2 request post demo</h1>
-            <script language="text/javascript"> 
-                setTimeout("self.close()",1000);
+            <script>
+                $(document).ready(function() {
+                    setTimeout("self.close()",1000);
+                })
             </script> 
         `
         ctx.body = html;
