@@ -13,7 +13,7 @@ let routers = router;
  * @param {扫码获得的code} code 
  * @returns 返回access_token
  */
-getAccess_token = (appId, apaSecret, code)=> {
+getAccess_token = (appId, appSecret, code)=> {
     let url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appSecret}&code=${code}&grant_type=authorization_code`
     return new Promise ((resolve, reject)=> {
         request(url,function(error,response,body){
