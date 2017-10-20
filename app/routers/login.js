@@ -6,7 +6,9 @@ module.exports = (io)=> {
     routers.get('/wechat', async(ctx)=> {
         io.to(ctx.query.state).emit('wechatok','surprise');
         let html = `
-            <a href="javascript:$(document).ready(function() {setTimeout("self.close",1000)})" ></a>
+            <script type="text/javascript">
+                document.write("<h1>Hello World!</h1>")
+            </script> 
         `
         ctx.body = html;
     });
