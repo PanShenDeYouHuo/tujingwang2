@@ -34,11 +34,16 @@ let user = {
     headimgurl:{
         type: String,
     },
-    openid:{
-        type: String,
-    },
-    unionid:{
-        type: String,
+    wechat:{
+        access_token:{
+            type: String,
+        },
+        refresh_token:{
+            type: String,
+        },
+        unionid:{
+            type: String,
+        }
     }
 }
 
@@ -64,7 +69,7 @@ UserClass.prototype.inset = (data)=> {
         let user = new this.User(data);
         user.save((err, res)=> {
             if(err) return reject(err);
-            resolve({ok: 1});
+            resolve();
         });
     });
 }
@@ -110,7 +115,8 @@ UserClass.prototype.findOneAndRemove = (where)=> {
  * @param {any} id 
  * @returns 
  */
-UserClass.prototype.findByIdAndRemove = (id)=> {
+UserClass
+.prototype.findByIdAndRemove = (id)=> {
     return new Promise((resolve, reject)=> {
         this.User.findByIdAndRemove(id, (err, res)=> {
             if(err) return reject(err);

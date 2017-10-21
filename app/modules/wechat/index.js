@@ -24,11 +24,9 @@ module.exports = ()=> {
         let url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${appSecret}&code=${code}&grant_type=authorization_code`;
         return new Promise ((resolve, reject)=> {
             request(url,(error,response,body)=> {
-                if(!error && response.statusCode == 200){
-                    resolve(body);
-                } else {
-                    reject(error);
-                }
+                if(error && response.statusCode != 200) return reject(error);
+                resolve(body);
+                    
             });
         });
     }
@@ -44,11 +42,8 @@ module.exports = ()=> {
         let url = `https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken}&openid=${openId}`;
         return new Promise ((resolve, reject)=> {
             request(url, (error, response, body)=> {
-                if(!error && response.statusCode == 200) {
-                    resolve(body);
-                } else {
-                    reject(error);
-                }
+                if(error && response.statusCode != 200) return reject(error);
+                resolve(body);
             });
         });
     }

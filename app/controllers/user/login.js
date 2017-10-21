@@ -14,40 +14,66 @@ function Login() {
  */
 Login.prototype.wechat = ()=> {
     return async(ctx)=> {
-        let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.ode);
-        body = JSON.parse(body);
-        if(body.errcode) {
-            sio.to(ctx.query.state).emit('error', 'body.errmsg');
-            return console.log(body.errmsg);
+        try {
+            //关闭微信登入网页
+            let html = `
+                <script type="text/javascript">
+                    self.close()
+                </script> 
+            `
+            let token = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
+            let user = JSON.parse(await wechat.getUnionId(body.access_token, body.openid));
+
+            if(token.errcode) {
+                ctx.body = html;
+                sio.to(ctx.query.state).emit('error', '发生错误');
+                return console.log(token);
+            }
+
+            if(user.errcode) {
+                ctx.body = html;
+                sio.to(ctx.query.state).emit('error', '发生错误');
+                return console.log(user);
+            }
+
+            let accountInfo = {
+                nickname: user.nickname,
+                sex: user.sex,
+                province: user.province,
+                city: user.city,
+                country: user.country,
+                headimgurl: user.headimgurl,
+                wechat: {
+                    access_token: token.access_token,
+                    refresh_token: token.refresh_token,
+                    unionid: user.unionid
+                }
+            };
+
+            //根据unionid查询，用户是否注册
+            let where = {
+                'wechat.unionid': accountInfo.wechat.unionid,
+            };
+            let count = await m_user.count(where);
+            console.log(count);
+            // if( ) {
+
+            // }
+
+            // await m_user.inset(user);
+            
+            ctx.body = html;
+            sio.to(ctx.query.state).emit('wechatok','surprise');
+            console.log('登入成功');
+
+        } catch (err) {
+            ctx.body = html;
+            sio.to(ctx.query.state).emit('error','发生错误');
+            console.log(err);
         }
-
-        console.log(`access_token:${body.access_token}`);
-        console.log(`expires_in:${body.expires_in}`);
-        console.log(`refresh_token:${body.refresh_token}`);
-        console.log(`openid:${body.openid}`);
-        console.log(`scope:${body.scope}`);
-        
-
-        let user = JSON.parse(await wechat.getUnionId(body.access_token, body.openid));
-        if(user.errcode) {
-            console.log(user.errmsg)
-        }
-
-        console.log(user);
-        
-
-
-
-        sio.to(ctx.query.state).emit('wechatok','surprise');
-
-        //成功后关闭
-        let html = `
-            <script type="text/javascript">
-                self.close()
-            </script> 
-        `
-        ctx.body = html;
     }
 }
+
+
 
 module.exports = new Login();
