@@ -14,13 +14,13 @@ function Login() {
  */
 Login.prototype.wechat = ()=> {
     return async(ctx)=> {
+        //关闭微信登入网页
+        let html = `
+            <script type="text/javascript">
+                self.close()
+            </script> 
+        `
         try {
-            //关闭微信登入网页
-            let html = `
-                <script type="text/javascript">
-                    self.close()
-                </script> 
-            `
             let token = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
             let user = JSON.parse(await wechat.getUnionId(body.access_token, body.openid));
 
