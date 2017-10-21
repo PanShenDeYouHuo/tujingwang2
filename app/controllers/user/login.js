@@ -57,14 +57,14 @@ Login.prototype.wechat = ()=> {
             let isReg = await user_db.count(where) < 1 ? true : false;
             
             if(isReg) {
-                console.log(`${isReg}: 未注册`)
+                await m_user.inset(user);
+                ctx.body = html;
+                sio.to(ctx.query.state).emit('wechatok','surprise');
+            } else {
+                console.log(where);
+                ctx.body = html;
+                sio.to(ctx.query.state).emit('wechatok','surprise');
             }
-
-            // await m_user.inset(user);
-            
-            ctx.body = html;
-            sio.to(ctx.query.state).emit('wechatok','surprise');
-            // console.log('登入成功');
 
         } catch (err) {
             ctx.body = html;

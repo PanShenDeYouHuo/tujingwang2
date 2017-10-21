@@ -156,7 +156,7 @@ UserClass.prototype.update = (where, data)=> {
  */
 UserClass.prototype.findByIdAndUpdate = (id, data)=> {
     return new Promise((resolve, reject)=> {
-        User.findByIdAndUpdate(data._id, data, (err, res)=> {
+        User.findByIdAndUpdate(id, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
         });
