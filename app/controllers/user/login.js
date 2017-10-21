@@ -16,7 +16,7 @@ Login.prototype.wechat = ()=> {
         // console.log(`appid: ${wechat.appId}, appSecret: ${wechat.appSecret}`)
         console.log(`code: ${ctx.query.code}`);
         let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code);
-        console.log(body);
+        body = JSON.parse(body);
         if(body.errcode) {
             console.log(body.errmsg);
         } else {
@@ -26,12 +26,11 @@ Login.prototype.wechat = ()=> {
             console.log(`openid:${body.openid}`);
             console.log(`scope:${body.scope}`);
         }
-        console.log(body.access_token);
-        console.log(body.openid)
 
         let user = await wechat.getUnionId(body.access_token, body.openid);
-        if(body.errcode) {
-            console.log(body.errmsg)
+        user = JSON.parse(user);
+        if(user.errcode) {
+            console.log(user.errmsg)
         } else {
             console.log(user);
         }
