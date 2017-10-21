@@ -11,7 +11,7 @@ function Login() {
  * 
  * @returns 
  */
-Login.prototype.wechat = function(){
+Login.prototype.wechat = ()=> {
     return async(ctx)=> {
         console.log(`appid: ${wechat.appId}, appSecret: ${wechat.appSecret}`)
                 let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code);
