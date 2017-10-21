@@ -72,7 +72,7 @@ Login.prototype.wechat = ()=> {
                 }
                 await user_db.update(where, update);
             }
-            let opt = {'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1,'headimgurl': 1,'wechat.unionid': 1}
+            let opt = {'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1,'headimgurl': 1}
             let account = await user_db.findOne(where, opt);
             ctx.body = html;
             sio.to(ctx.query.state).emit('wechatok', account);
