@@ -45,11 +45,11 @@ Login.prototype.wechat = ()=> {
             
             if(isReg) {
                 let accountInfo = {
-                    nickname: user.nickname,
-                    sex: user.sex,
-                    province: user.province,
-                    city: user.city,
-                    country: user.country,
+                    nickname:   user.nickname,
+                    sex:        user.sex,
+                    province:   user.province,
+                    city:       user.city,
+                    country:    user.country,
                     headimgurl: user.headimgurl,
                     wechat: {
                         accessToken: token.access_token,
@@ -60,15 +60,15 @@ Login.prototype.wechat = ()=> {
                 await user_db.inset(accountInfo);
             } else {
                 let update = {
-                    'nickname': accountInfo.nickname,
-                    'sex': accountInfo.sex,
-                    'province': accountInfo.province,
-                    'city': accountInfo.city,
-                    'country': accountInfo.country,
-                    'headimgurl': accountInfo.headimgurl,
-                    'wechat.accessToken': accountInfo.wechat.accessToken,
-                    'wechat.refreshToken': accountInfo.wechat.refreshToken,
-                    'wechat.unionid': accountInfo.wechat.unionid,
+                    'nickname':             user.nickname,
+                    'sex':                  user.sex,
+                    'province':             user.province,
+                    'city':                 user.city,
+                    'country':              user.country,
+                    'headimgurl':           user.headimgurl,
+                    'wechat.accessToken':   token.access_token,
+                    'wechat.refreshToken':  token.refresh_token,
+                    'wechat.unionid':       user.unionid
                 }
                 await user_db.update(where, update);
             }
