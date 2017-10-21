@@ -3,6 +3,7 @@ const request = require('request');
 const sio = require('../../sio');
 
 console.log(wechat);
+console.log(wechat.appId);
 
 function Login() {
     this.name = 'login';
