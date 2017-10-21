@@ -1,13 +1,9 @@
 const router = require('koa-router')();
 
+const home = require('./home');
+const user = require('./user');
 
-module.exports = (io)=> {
+router.use('/', home.routes(), home.allowedMethods());
+router.user('/user', user.routes(), user.allowedMethods());
 
-        let home = require('./home');
-        router.use('/', home.routes(), home.allowedMethods());
-
-        let user = require('./user')(io);
-        router.user('/user', user.routes(), user.allowedMethods());
-
-        return router;
-    }
+module.exports = router;

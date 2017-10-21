@@ -1,8 +1,8 @@
-const Router = require('koa-router')();
-const Login = require('../controllers/user/login');
+const router = require('koa-router')();
+const login = require('../controllers/user/login');
 
-let routers = Router
-    .get('/wechat', Login.wechat);
+let routers = router
+    .get('/wechat', login.wechat);
 
 
 
