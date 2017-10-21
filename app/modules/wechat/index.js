@@ -7,7 +7,7 @@ module.exports = ()=> {
         appSecret: '88666adf25abd7401bcdb5a42f6565e4',
     }
 
-    Wechat = ()=> {
+    function Wechat() {
         this.appId = conf.appId;
         this.appSecret = conf.appSecret;
     }
