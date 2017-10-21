@@ -57,7 +57,8 @@ Login.prototype.wechat = ()=> {
             let isReg = await user_db.count(where) < 1 ? true : false;
             
             if(isReg) {
-                await m_user.inset(user);
+                console.log(where);
+                // await user_db.inset(user);
                 ctx.body = html;
                 sio.to(ctx.query.state).emit('wechatok','surprise');
             } else {
