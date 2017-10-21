@@ -55,8 +55,8 @@ Login.prototype.wechat = ()=> {
                 'wechat.unionid': accountInfo.wechat.unionid,
             };
             console.log(user_db.name)
-            let count = await user_db.count(where);
-            console.log(count);
+            let c = await user_db.count(where);
+            console.log(c);
             // if( ) {
 
             // }

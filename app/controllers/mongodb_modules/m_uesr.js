@@ -116,8 +116,7 @@ UserClass.prototype.findOneAndRemove = (where)=> {
  * @param {any} id 
  * @returns 
  */
-UserClass
-.prototype.findByIdAndRemove = (id)=> {
+UserClass.prototype.findByIdAndRemove = (id)=> {
     return new Promise((resolve, reject)=> {
         this.User.findByIdAndRemove(id, (err, res)=> {
             if(err) return reject(err);
