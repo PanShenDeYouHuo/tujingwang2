@@ -48,7 +48,7 @@ let user = {
 }
 
 let userSchema = new schema(user);
-let User = mongoose.model("userSchema",userSchema);
+let User = mongoose.model("User",userSchema);
 
 function UserClass() {
 

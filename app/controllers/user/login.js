@@ -57,6 +57,7 @@ Login.prototype.wechat = ()=> {
                         unionid: user.unionid
                     }
                 };
+                console.log(accountInfo);
                 await user_db.inset(user);
             } else {
                 let update = {
