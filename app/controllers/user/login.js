@@ -57,7 +57,7 @@ Login.prototype.wechat = ()=> {
                         unionid: user.unionid
                     }
                 };
-                await user_db.inset(accountInfor);
+                await user_db.inset(accountInfo);
             } else {
                 let update = {
                     'nickname': accountInfo.nickname,
