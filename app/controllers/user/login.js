@@ -26,8 +26,10 @@ Login.prototype.wechat = ()=> {
             console.log(`openid:${body.openid}`);
             console.log(`scope:${body.scope}`);
         }
+        console.log(body.access_token);
+        console.log(body.openid)
 
-        let user = await wechat.getUnionId(body.access_token, body.openId);
+        let user = await wechat.getUnionId(body.access_token, body.openid);
         if(body.errcode) {
             console.log(body.errmsg)
         } else {
