@@ -48,11 +48,11 @@ let user = {
 }
 
 let userSchema = new schema(user);
+let User = mongoose.model("userSchema",userSchema);
 
 function UserClass() {
 
     this.name = 'user_db';
-    this.User = mongoose.model("userSchema",userSchema);
 
 }
 
@@ -67,7 +67,7 @@ function UserClass() {
  */
 UserClass.prototype.inset = (data)=> {
     return new Promise((resolve, reject)=> {
-        let user = new this.User(data);
+        let user = new User(data);
         user.save((err, res)=> {
             if(err) return reject(err);
             resolve();
@@ -88,7 +88,7 @@ UserClass.prototype.inset = (data)=> {
  */
 UserClass.prototype.remove = (where)=> {
     return new Promise((resolve, reject)=> {
-        this.User.remove(where, (err, res)=> {
+        User.remove(where, (err, res)=> {
             if(err) return reject(err);
             resolve(res);
         });
@@ -103,7 +103,7 @@ UserClass.prototype.remove = (where)=> {
  */
 UserClass.prototype.findOneAndRemove = (where)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findOneAndRemove(where, (err, res)=> {
+        User.findOneAndRemove(where, (err, res)=> {
             if(err) return reject(err);
             resolve(res);
         });
@@ -118,7 +118,7 @@ UserClass.prototype.findOneAndRemove = (where)=> {
  */
 UserClass.prototype.findByIdAndRemove = (id)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findByIdAndRemove(id, (err, res)=> {
+        User.findByIdAndRemove(id, (err, res)=> {
             if(err) return reject(err);
             resolve(res);
         });
@@ -140,7 +140,7 @@ UserClass.prototype.findByIdAndRemove = (id)=> {
  */
 UserClass.prototype.update = (where, data)=> {
     return new Promise((resolve, reject)=> {
-        this.User.update(where, data, (err, res)=> {
+        User.update(where, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
         });
@@ -156,7 +156,7 @@ UserClass.prototype.update = (where, data)=> {
  */
 UserClass.prototype.findByIdAndUpdate = (id, data)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findByIdAndUpdate(data._id, data, (err, res)=> {
+        User.findByIdAndUpdate(data._id, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
         });
@@ -172,7 +172,7 @@ UserClass.prototype.findByIdAndUpdate = (id, data)=> {
  */
 UserClass.prototype.findOneAndUpdate = (where, data)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findOneAndUpdate(where, data, (err, res)=> {
+        User.findOneAndUpdate(where, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
         });
@@ -194,7 +194,7 @@ UserClass.prototype.findOneAndUpdate = (where, data)=> {
  */
 UserClass.prototype.find = (where, opt)=> {
     return new Promise((resolve, reject)=> {
-        this.User.find(where, opt, (err, res)=> {
+        User.find(where, opt, (err, res)=> {
             if(err) reject(err);
             resolve(res);
         });
@@ -210,7 +210,7 @@ UserClass.prototype.find = (where, opt)=> {
  */
 UserClass.prototype.findOne = (where, opt)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findOne(where, opt, (err, res)=> {
+        User.findOne(where, opt, (err, res)=> {
             if(err) reject(err);
             resolve(res);
         })
@@ -226,7 +226,7 @@ UserClass.prototype.findOne = (where, opt)=> {
  */
 UserClass.prototype.findById = (id, opt)=> {
     return new Promise((resolve, reject)=> {
-        this.User.findById(id, opt, (err, res)=> {
+        User.findById(id, opt, (err, res)=> {
             if(err) reject(err);
             resolve(res);
         });
@@ -242,7 +242,7 @@ UserClass.prototype.findById = (id, opt)=> {
  */
 UserClass.prototype.count = (where)=> {
     return new Promise((resolve,reject)=> {
-        this.User.count(where, (err, res)=> {
+        User.count(where, (err, res)=> {
             if(err) return reject(err);
             resolve(res);
         });
