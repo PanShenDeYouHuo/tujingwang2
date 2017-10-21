@@ -38,7 +38,7 @@ let user = {
         accessToken:{
             type: String,
         },
-        refreshTtoken:{
+        refreshToken:{
             type: String,
         },
         unionid:{
