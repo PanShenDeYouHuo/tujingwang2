@@ -16,6 +16,7 @@ Login.prototype.wechat = ()=> {
         // console.log(`appid: ${wechat.appId}, appSecret: ${wechat.appSecret}`)
         console.log(`code: ${ctx.query.code}`);
         let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code);
+        console.log(body);
         if(body.errcode) {
             console.log(body.errmsg);
         } else {
