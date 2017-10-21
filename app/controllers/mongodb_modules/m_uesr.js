@@ -14,8 +14,8 @@ let user = {
     },
     anthority:{
         type: Number,
+        default:1,
     },
-
     nickname:{
         type: String,
     },
@@ -35,10 +35,10 @@ let user = {
         type: String,
     },
     wechat:{
-        access_token:{
+        accessToken:{
             type: String,
         },
-        refresh_token:{
+        refreshTtoken:{
             type: String,
         },
         unionid:{

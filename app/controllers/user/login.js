@@ -36,36 +36,46 @@ Login.prototype.wechat = ()=> {
                 return console.log(user);
             }
 
-            let accountInfo = {
-                nickname: user.nickname,
-                sex: user.sex,
-                province: user.province,
-                city: user.city,
-                country: user.country,
-                headimgurl: user.headimgurl,
-                wechat: {
-                    access_token: token.access_token,
-                    refresh_token: token.refresh_token,
-                    unionid: user.unionid
-                }
-            };
-
             //根据unionid查询，用户是否注册
             let where = {
-                'wechat.unionid': accountInfo.wechat.unionid,
+                'wechat.unionid': user.unionid,
             };
+
             let isReg = await user_db.count(where) < 1 ? true : false;
             
             if(isReg) {
-                console.log(where);
-                // await user_db.inset(user);
-                ctx.body = html;
-                sio.to(ctx.query.state).emit('wechatok','surprise');
+                let accountInfo = {
+                    nickname: user.nickname,
+                    sex: user.sex,
+                    province: user.province,
+                    city: user.city,
+                    country: user.country,
+                    headimgurl: user.headimgurl,
+                    wechat: {
+                        accessToken: token.access_token,
+                        refreshToken: token.refresh_token,
+                        unionid: user.unionid
+                    }
+                };
+                await user_db.inset(user);
             } else {
-                console.log(where);
-                ctx.body = html;
-                sio.to(ctx.query.state).emit('wechatok','surprise');
+                let update = {
+                    'nickname': accountInfo.nickname,
+                    'sex': accountInfo.sex,
+                    'province': accountInfo.province,
+                    'city': accountInfo.city,
+                    'country': accountInfo.country,
+                    'headimgurl': accountInfo.headimgurl,
+                    'wechat.accessToken': accountInfo.wechat.accessToken,
+                    'wechat.refreshToken': accountInfo.wechat.refreshToken,
+                    'wechat.unionid': accountInfo.wechat.unionid,
+                }
+                await user_db.update(where, update);
             }
+            let opt = {'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1,'headimgurl': 1,'wechat': 1}
+            let account = await user_db.findOne(where, opt);
+            ctx.body = html;
+            sio.to(ctx.query.state).emit('wechatok', account);
 
         } catch (err) {
             ctx.body = html;
