@@ -133,7 +133,7 @@ User.prototype.findByIdAndRemove = (id)=> {
  * @returns 
  */
 UserClass.prototype.update = (where, data)=> {
-    return new Promise((reject, reject)=> {
+    return new Promise((resolve, reject)=> {
         this.User.update(where, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
