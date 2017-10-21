@@ -1,4 +1,4 @@
-const sio = require('socket.io');
+const sio = require('socket.io')();
 const socket_routers = require('./socket_routers');								//socket.io服务器路由
 const socket_authentication = require('./controllers/socket_authentication');	//用户验证中间件
 
