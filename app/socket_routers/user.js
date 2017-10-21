@@ -12,6 +12,7 @@ module.exports = (socket)=> {
 			}
 		}
     });
+    
     //断开连接
     socket.on('disconnect', (data)=> {
         console.log('a user disconnected:' + socket.id);

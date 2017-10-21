@@ -6,8 +6,8 @@ module.exports = (io)=> {
         let home = require('./home');
         router.use('/', home.routes(), home.allowedMethods());
 
-        let login = require('./login')(io);
-        router.use('/login', login.routes(), login.allowedMethods());
+        let user = require('./user')(io);
+        router.user('/user', user.routes(), user.allowedMethods());
 
         return router;
     }
