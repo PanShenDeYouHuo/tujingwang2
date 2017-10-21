@@ -95,7 +95,7 @@ UserClass.prototype.remove = (where)=> {
  * @param {Object} where 
  * @returns 
  */
-User.prototype.findOneAndRemove = (where)=> {
+UserClass.prototype.findOneAndRemove = (where)=> {
     return new Promise((resolve, reject)=> {
         this.User.findOneAndRemove(where, (err, res)=> {
             if(err) return reject(err);
@@ -110,7 +110,7 @@ User.prototype.findOneAndRemove = (where)=> {
  * @param {any} id 
  * @returns 
  */
-User.prototype.findByIdAndRemove = (id)=> {
+UserClass.prototype.findByIdAndRemove = (id)=> {
     return new Promise((resolve, reject)=> {
         this.User.findByIdAndRemove(id, (err, res)=> {
             if(err) return reject(err);
