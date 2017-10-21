@@ -1,4 +1,5 @@
 const wechat = require('../../modules/wechat')();
+const m_user = require('../mongodb_modules/m_uesr');
 const sio = require('../../sio');
 
 
@@ -13,9 +14,7 @@ function Login() {
  */
 Login.prototype.wechat = ()=> {
     return async(ctx)=> {
-        // console.log(`appid: ${wechat.appId}, appSecret: ${wechat.appSecret}`)
-        console.log(`code: ${ctx.query.code}`);
-        let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code);
+        let body = await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.ode);
         body = JSON.parse(body);
         if(body.errcode) {
             console.log(body.errmsg);
@@ -27,8 +26,7 @@ Login.prototype.wechat = ()=> {
             console.log(`scope:${body.scope}`);
         }
 
-        let user = await wechat.getUnionId(body.access_token, body.openid);
-        user = JSON.parse(user);
+        let user = JSON.parse(await wechat.getUnionId(body.access_token, body.openid));
         if(user.errcode) {
             console.log(user.errmsg)
         } else {
