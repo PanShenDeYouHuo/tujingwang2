@@ -249,6 +249,4 @@ UserClass.prototype.count = (where)=> {
     });
 }
 
-let userClass = new UserClass()
-
-module.exports = userClass();
+module.exports = new UserClass();
