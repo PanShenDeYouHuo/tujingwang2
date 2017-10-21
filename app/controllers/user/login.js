@@ -2,7 +2,7 @@ const wechat = require('../../modules/wechat');
 const request = require('request');
 const sio = require('../../sio');
 
-console.log(wecaht);
+console.log(wechat);
 
 function Login() {
     this.name = 'login';
