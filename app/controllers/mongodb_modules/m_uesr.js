@@ -165,7 +165,7 @@ UserClass.prototype.findByIdAndUpdate = (id, data)=> {
  * @returns 
  */
 UserClass.prototype.findOneAndUpdate = (where, data)=> {
-    return new Promise((reject, reject)=> {
+    return new Promise((resolve, reject)=> {
         this.User.findOneAndUpdate(where, data, (err, res)=> {
             if(err) return reject(err);
             resolve({ok: 1});
