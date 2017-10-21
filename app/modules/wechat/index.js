@@ -2,14 +2,14 @@
 
 module.exports = ()=> {
     
-    let conf = {
-        appId: 'wx578ee588948c8fcc',
-        appSecret: '88666adf25abd7401bcdb5a42f6565e4',
-    }
+    // let conf = {
+    //     appId: 'wx578ee588948c8fcc',
+    //     appSecret: '88666adf25abd7401bcdb5a42f6565e4',
+    // }
 
     function Wechat() {
-        this.appId = conf.appId;
-        this.appSecret = conf.appSecret;
+        this.appId = 'wx578ee588948c8fcc';
+        this.appSecret = '88666adf25abd7401bcdb5a42f6565e4';
     }
 
     /**
