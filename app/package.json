@@ -1,10 +1,10 @@
 {
-  "name": "socket.io-test",
+  "name": "tujing2",
   "version": "0.0.1",
   "description": "test socket.io app",
   "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "DEBUG=* node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "pan",

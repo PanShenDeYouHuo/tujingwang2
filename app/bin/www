@@ -6,7 +6,7 @@
 
 const koa = require('../koa');
 const sio = require('../sio');
-const debug = require('debug')('oneapp:server');
+const debug = require('debug')('tujing:server');
 const http = require('http');
 
 /**

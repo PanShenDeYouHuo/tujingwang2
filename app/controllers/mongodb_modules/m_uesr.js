@@ -44,7 +44,7 @@ let user = {
 
 let userSchema = new schema(user);
 
-UserClass = ()=> {
+function UserClass() {
 
     this.User = mongoose.model("Customer",userSchema);
 
