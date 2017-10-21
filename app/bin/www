@@ -14,7 +14,7 @@ const http = require('http');
  */
 
 let port = normalizePort(process.env.PORT || '80');
-koa.listen(port);
+// koa.listen(port);
 
 /**
  * Create HTTP server.
