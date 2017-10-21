@@ -54,19 +54,17 @@ Login.prototype.wechat = ()=> {
             let where = {
                 'wechat.unionid': accountInfo.wechat.unionid,
             };
-            console.log(user_db.name)
-            console.log(user_db.inset());
-            let c = await user_db.count(where);
-            console.log(c);
-            // if( ) {
-
-            // }
+            let isReg = await user_db.count(where) < 1 ? true : false;
+            
+            if(isReg) {
+                console.log(`${isReg}: 未注册`)
+            }
 
             // await m_user.inset(user);
             
             ctx.body = html;
             sio.to(ctx.query.state).emit('wechatok','surprise');
-            console.log('登入成功');
+            // console.log('登入成功');
 
         } catch (err) {
             ctx.body = html;
