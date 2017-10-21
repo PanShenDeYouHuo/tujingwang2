@@ -1,5 +1,5 @@
 const wechat = require('../../modules/wechat')();
-const m_user = require('../mongodb_modules/m_uesr');
+const user_db = require('../mongodb_modules/m_uesr');
 const sio = require('../../sio');
 
 
@@ -54,7 +54,8 @@ Login.prototype.wechat = ()=> {
             let where = {
                 'wechat.unionid': accountInfo.wechat.unionid,
             };
-            let count = await m_user.count(where);
+            console.log(user_db.name)
+            let count = await user_db.count(where);
             console.log(count);
             // if( ) {
 
