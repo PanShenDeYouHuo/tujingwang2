@@ -22,7 +22,7 @@ Login.prototype.wechat = ()=> {
         `
         try {
             let token = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
-            let user = JSON.parse(await wechat.getUnionId(body.access_token, body.openid));
+            let user = JSON.parse(await wechat.getUnionId(token.access_token, token.openid));
 
             if(token.errcode) {
                 ctx.body = html;
