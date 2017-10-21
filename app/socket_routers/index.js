@@ -1,6 +1,6 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
-const login = require('./login');
+const user = require('./user');
 
 module.exports = ()=> {
 	return (socket)=> {
