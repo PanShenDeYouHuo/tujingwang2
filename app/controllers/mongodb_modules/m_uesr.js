@@ -52,7 +52,7 @@ let userSchema = new schema(user);
 function UserClass() {
 
     this.name = 'user_db';
-    this.User = mongoose.model("Customer",userSchema);
+    this.User = mongoose.model("userSchema",userSchema);
 
 }
 
