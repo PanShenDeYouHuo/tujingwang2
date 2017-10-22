@@ -76,6 +76,7 @@ Login.prototype.wechat = ()=> {
             let account = await user_db.findOne(where, opt);
             ctx.body = html;
             sio.to(ctx.query.state).emit('wechatok', account);
+            console.log (sio.sockets);
 
         } catch (err) {
             ctx.body = html;
