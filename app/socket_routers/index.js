@@ -15,6 +15,7 @@ module.exports = ()=> {
 			console.log('a user disconnected:' + socket.id);
 		});
 
+		socket.emit('error','发生错误');
 
 		//登入认证接口，根据权限开通socket接口
 		socket.on('login', (accessToken)=> {
