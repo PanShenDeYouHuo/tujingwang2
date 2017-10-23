@@ -28,7 +28,7 @@ module.exports = ()=> {
 				let isSame = await user_db.findById(token.payload._id);
 				if(isSame != accessToken) return;
 
-				console.log(isSame != accessToken);
+				console.log(isSame != accessToken); 
 				
 				//对接口进行权限设置
 				switch (token.payload.authority) {
