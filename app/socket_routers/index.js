@@ -55,6 +55,7 @@ module.exports = ()=> {
 					async()=> {
 						// console.log(accessToken);
 						//检测token是否篡改
+						console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
 						if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 	
 						let token = token.jwtParse(accessToken);
