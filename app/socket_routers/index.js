@@ -61,7 +61,7 @@ module.exports = ()=> {
 						socket.authority = token.payload.authority;
 	
 						//检查是否过期
-						let isSame = await user_db.findById(token.payload._id);
+						let isSame = await user_db.findById(token.payload._id, {'_id': 1});
 						if(isSame != accessToken) return;
 	
 						console.log(isSame != accessToken); 
