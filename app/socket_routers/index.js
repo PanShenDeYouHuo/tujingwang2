@@ -25,8 +25,7 @@ module.exports = ()=> {
 				socket.authority = token.payload.authority;
 
 				//检查是否过期
-				let isSame = await user_db.findById(token.payload._id) == accessToken ? false : true;
-				if(isSame) return;
+				if(isSame != accessToken) return;
 				
 				//对接口进行权限设置
 				switch (token.payload.authority) {
