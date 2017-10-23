@@ -70,7 +70,7 @@ Login.prototype.wechat = ()=> {
             };
             let payload = {
                 iss: "cloud.tujingwang.com",
-                exp: "1438956778",
+                exp: new Date().getTime(),
                 _id: account._id,
                 authority: account.authority
             };
