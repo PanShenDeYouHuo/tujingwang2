@@ -20,16 +20,16 @@ module.exports = ()=> {
 			try {
 				if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 
-				let user = token.jwtParse(accessToken);
-				socket.userId = user.payload._id;
-				socket.authority = user.payload.authority;
+				let token = token.jwtParse(accessToken);
+				socket.userId = token.payload._id;
+				socket.authority = token.payload.authority;
 
 				//检查是否过期
-				let isSame = await user.findById(user.payload._id) == accessToken ? false : true;
+				let isSame = await user_db.findById(token.payload._id) == accessToken ? false : true;
 				if(isSame) return;
 				
 				//对接口进行权限设置
-				switch (user.payload.authority) {
+				switch (token.payload.authority) {
 					case 1:
 						user(socket);
 						break;
@@ -39,7 +39,7 @@ module.exports = ()=> {
 				}
 				
 				//登入成功返回最新数据
-				let account = await user_db.findOne({'_id': user.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
+				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
 				socket.emit('loginSuccess', account);
 			} catch (err) {
 				sio.to(ctx.query.state).emit('error','发生错误');
