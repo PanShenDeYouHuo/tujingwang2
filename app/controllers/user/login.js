@@ -1,4 +1,5 @@
 const wechat = require('../../modules/wechat')();
+const token = require('../../modules/node-jwt');
 const user_db = require('../mongodb_modules/m_uesr');
 const sio = require('../../sio');
 
@@ -21,64 +22,100 @@ Login.prototype.wechat = ()=> {
             </script> 
         `
         try {
-            let token = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
-            let user = JSON.parse(await wechat.getUnionId(token.access_token, token.openid));
+            let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
+            let wxuser = JSON.parse(await wechat.getUnionId(token.access_token, token.openid));
 
-            if(token.errcode) {
+            if(wxtoken.errcode) {
                 ctx.body = html;
                 sio.to(ctx.query.state).emit('error', '发生错误');
-                return console.log(token);
+                return console.log(wxtoken);
             }
 
-            if(user.errcode) {
+            if(wxuser.errcode) {
                 ctx.body = html;
                 sio.to(ctx.query.state).emit('error', '发生错误');
-                return console.log(user);
+                return console.log(wxuser);
             }
+
+            
 
             //根据unionid查询，用户是否注册
-            let where = {
-                'wechat.unionid': user.unionid,
+            let where = {'wechat.unionid': wxuser.unionid};
+            let isReg = await user_db.count(where) < 1 ? true : false;
+
+            let header = {
+                typ: "JWT",
+                alg: "HS256"
+            };
+            let payload = {
+                iss: "cloud.tujingwang.com",
+                exp: new Date().getTime(),
+                _id: '',
+                authority: 1
             };
 
-            let isReg = await user_db.count(where) < 1 ? true : false;
+            let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), secret); //生成token
             
             if(isReg) {
                 let accountInfo = {
-                    nickname:   user.nickname,
-                    sex:        user.sex,
-                    province:   user.province,
-                    city:       user.city,
-                    country:    user.country,
-                    headimgurl: user.headimgurl,
+                    state:      true,
+                    nickname:   wxuser.nickname,
+                    sex:        wxuser.sex,
+                    province:   wxuser.province,
+                    city:       wxuser.city,
+                    country:    wxuser.country,
+                    headimgurl: wxuser.headimgurl,
                     wechat: {
-                        accessToken: token.access_token,
-                        refreshToken: token.refresh_token,
-                        unionid: user.unionid
+                        accessToken: wxtoken.access_token,
+                        refreshToken: wxtoken.refresh_token,
+                        unionid: wxuser.unionid
                     }
                 };
                 await user_db.inset(accountInfo);
-            } else {
-                let update = {
-                    'nickname':             user.nickname,
-                    'sex':                  user.sex,
-                    'province':             user.province,
-                    'city':                 user.city,
-                    'country':              user.country,
-                    'headimgurl':           user.headimgurl,
-                    'wechat.accessToken':   token.access_token,
-                    'wechat.refreshToken':  token.refresh_token,
-                    'wechat.unionid':       user.unionid
-                }
-                await user_db.update(where, update);
             }
-            let opt = {'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1,'headimgurl': 1}
-            let account = await user_db.findOne(where, opt);
+
+            //设置
+            let account = await user_db.findOne(where, {'authority': 1});
+
+            let header = {
+                typ: "JWT",
+                alg: "HS256"
+            };
+            let payload = {
+                iss: "cloud.tujingwang.com",
+                exp: "1438956778",
+                _id: account._id,
+                authority: account.authority
+            };
+            console.log(payload);
+            let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), 'meihaodeshijie,meihaodeshenghuo'); //生成token
+
+            //跟新用户数据
+            let update = {
+                'state':                true,
+                'accessToken':          accessToken,
+                'nickname':             wxuser.nickname,
+                'sex':                  wxuser.sex,
+                'province':             wxuser.province,
+                'city':                 wxuser.city,
+                'country':              wxuser.country,
+                'headimgurl':           wxuser.headimgurl,
+                'wechat.accessToken':   wxtoken.access_token,
+                'wechat.refreshToken':  wxtoken.refresh_token,
+                'wechat.unionid':       wxuser.unionid,
+            }
+            await user_db.update(where, update);
+            
+            account.accessToken =   accessToken;
+            account.nickname =      wxuser.nickname;
+            account.sex =           wxuser.sex;
+            account.province =      wxuser.province;
+            account.city =          wxuser.city;
+            account.country =       wxuser.country;
+            account.headimgurl =    wxuser.headimgurl;
+            
             ctx.body = html;
             sio.to(ctx.query.state).emit('wechatok', account);
-            for(let index in sio.to(ctx.query.state)) {
-                console.log(index);
-            }
 
         } catch (err) {
             ctx.body = html;

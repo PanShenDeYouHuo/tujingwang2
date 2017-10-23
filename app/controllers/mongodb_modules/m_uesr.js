@@ -3,8 +3,12 @@ const schema = mongoose.Schema;
 
 let user = {
 
+    state:{
+        type:Boolean,
+        default:false,
+    },
     mail:{
-        type: String,
+        type:String,
     },
     phone:{
 		type:Number,
@@ -15,6 +19,9 @@ let user = {
     anthority:{
         type: Number,
         default:1,
+    },
+    accessToken:{
+        type:String,
     },
     nickname:{
         type: String,
