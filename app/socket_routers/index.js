@@ -1,6 +1,7 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
 const user_db = require('../controllers/mongodb_modules/m_uesr');
+const token = require('../../modules/node-jwt');
 const user = require('./user');
 
 module.exports = ()=> {
@@ -81,6 +82,7 @@ module.exports = ()=> {
 						// //登入成功返回最新数据
 						// let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
 						// socket.emit('loginSuccess', account);
+						socket.emit('error','发生错误');
 					}
 				)()
 
