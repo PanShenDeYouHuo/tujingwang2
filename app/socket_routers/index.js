@@ -29,13 +29,11 @@ module.exports = ()=> {
 				console.log(token);
 
 				//检查是否过期
-				let isSame = await user_db.findById(token.payload._id, {'_id': 1});
+				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
 
-				console.log(isSame);
+				if(isSame.accessToken != accessToken) return;
+
 				
-				if(isSame != accessToken) return;
-
-				console.log(isSame != accessToken); 
 				
 				//对接口进行权限设置
 				switch (token.payload.authority) {
