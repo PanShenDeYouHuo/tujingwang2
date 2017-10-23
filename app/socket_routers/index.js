@@ -80,7 +80,7 @@ module.exports = ()=> {
 					// socket.emit('loginSuccess', account);
 				}
 			)().catch((err)=> {
-				socket.emit('error','发生错误');
+				// socket.emit('error','发生错误');
 				console.log(err);
 			})
 			
