@@ -74,7 +74,6 @@ Login.prototype.wechat = ()=> {
                 _id: account._id,
                 authority: account.authority
             };
-            console.log(payload);
             let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), 'meihaodeshijie,meihaodeshenghuo'); //生成token
 
             //跟新用户数据
@@ -104,7 +103,7 @@ Login.prototype.wechat = ()=> {
             ctx.body = html;
             let socket = sio.to(ctx.query.state);
             socket.userId = account._id;
-            socket.emit('wechatok', account);
+            socket.emit('loginSuccess', account);
 
         } catch (err) {
             ctx.body = html;

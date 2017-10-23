@@ -1,20 +1,53 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
+const user_db = require('../mongodb_modules/m_uesr');
 const user = require('./user');
 
 module.exports = ()=> {
 	return (socket)=> {
-		// //登入成功返回token和用户信息
-		// socket.emit('loginOk', {token:socket.token, name: socket.name});
 
 		//断开连接
 		socket.on('disconnect', (data)=> {
+			if(socket.userId) {
+				console.log(`用户：${socket.userId} 退出`);
+			}
 			console.log('a user disconnected:' + socket.id);
 		});
 
-		// for(let index in socket) {
-		// 	console.log(index);
-		// }
+
+		//登入认证接口，根据权限开通socket接口
+		socket.on('login', (accessToken)=> {
+			try {
+				if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
+
+				let user = token.jwtParse(accessToken);
+				socket.userId = user.payload._id;
+				socket.authority = user.payload.authority;
+
+				//检查是否过期
+				let isSame = await user.findById(user.payload._id) == accessToken ? false : true;
+				if(isSame) return;
+				
+				//对接口进行权限设置
+				switch (user.payload.authority) {
+					case 1:
+						user(socket);
+						break;
+				
+					default:
+						break;
+				}
+				
+				//登入成功返回最新数据
+				let account = await user_db.findOne({'_id': user.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
+				socket.emit('loginSuccess', account);
+			} catch (err) {
+				sio.to(ctx.query.state).emit('error','发生错误');
+				console.log(err);
+			}
+			
+			
+		});
 		
 		
 
