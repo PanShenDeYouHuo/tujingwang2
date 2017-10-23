@@ -16,7 +16,7 @@ let user = {
     password:{
         type: String,
     },
-    anthority:{
+    authority:{
         type: Number,
         default:1,
     },
