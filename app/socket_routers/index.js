@@ -16,7 +16,7 @@ module.exports = ()=> {
 		});
 
 		//登入认证接口，根据权限开通socket接口
-		socket.on('login', (accessToken)=> {
+		socket.on('login', async(accessToken)=> {
 			// try {
 			// 	// if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 
@@ -51,8 +51,7 @@ module.exports = ()=> {
 
 			try {
 				console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
-				(
-					async()=> {
+
 						// console.log(accessToken);
 						//检测token是否篡改
 						console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
@@ -81,8 +80,7 @@ module.exports = ()=> {
 						//登入成功返回最新数据
 						let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
 						socket.emit('loginSuccess', account);
-					}
-				)()
+
 
 			} catch (err) {
 				socket.emit('appError','发生错误');
