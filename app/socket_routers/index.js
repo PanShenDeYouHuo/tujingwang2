@@ -53,6 +53,7 @@ module.exports = ()=> {
 
 						// console.log(accessToken);
 						//检测token是否篡改
+						socket.emit('appError','发生错误');
 						console.log(jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
 						if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 	
@@ -62,6 +63,7 @@ module.exports = ()=> {
 	
 						//检查是否过期
 						let isSame = await user_db.findById(token.payload._id, {'_id': 1});
+						
 						if(isSame != accessToken) return;
 	
 						console.log(isSame != accessToken); 
