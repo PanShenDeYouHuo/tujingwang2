@@ -1,7 +1,7 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
 const user_db = require('../controllers/mongodb_modules/m_uesr');
-const token = require('../modules/node-jwt');
+const jwt = require('../modules/node-jwt');
 const user = require('./user');
 
 module.exports = ()=> {
@@ -50,14 +50,13 @@ module.exports = ()=> {
 			console.log('jingru');
 
 			try {
-				console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
 
 						// console.log(accessToken);
 						//检测token是否篡改
-						console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
-						if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
+						console.log(jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
+						if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 	
-						let token = token.jwtParse(accessToken);
+						let token = jwt.jwtParse(accessToken);
 						socket.userId = token.payload._id;
 						socket.authority = token.payload.authority;
 	
