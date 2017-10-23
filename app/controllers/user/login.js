@@ -27,13 +27,13 @@ Login.prototype.wechat = ()=> {
 
             if(wxtoken.errcode) {
                 ctx.body = html;
-                sio.to(ctx.query.state).emit('error', '发生错误');
+                sio.to(ctx.query.state).emit('appError', '发生错误');
                 return console.log(wxtoken);
             }
 
             if(wxuser.errcode) {
                 ctx.body = html;
-                sio.to(ctx.query.state).emit('error', '发生错误');
+                sio.to(ctx.query.state).emit('appError', '发生错误');
                 return console.log(wxuser);
             }
 
@@ -107,7 +107,7 @@ Login.prototype.wechat = ()=> {
 
         } catch (err) {
             ctx.body = html;
-            sio.to(ctx.query.state).emit('error','发生错误');
+            sio.to(ctx.query.state).emit('appError','发生错误');
             console.log(err);
         }
     }
