@@ -50,7 +50,7 @@ module.exports = ()=> {
 			console.log('jingru');
 
 			try {
-
+				console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
 				(
 					async()=> {
 						// console.log(accessToken);
@@ -84,7 +84,7 @@ module.exports = ()=> {
 				)()
 
 			} catch (err) {
-				socket.emit('error','发生错误');
+				socket.emit('appError','发生错误');
 				console.log(err);
 			}
 
