@@ -16,7 +16,7 @@ module.exports = ()=> {
 
 
 		//登入认证接口，根据权限开通socket接口
-		socket.on('login', (accessToken)=> {
+		socket.on('login', async (accessToken)=> {
 			try {
 				if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 
