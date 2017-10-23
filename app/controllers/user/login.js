@@ -42,19 +42,6 @@ Login.prototype.wechat = ()=> {
             //根据unionid查询，用户是否注册
             let where = {'wechat.unionid': wxuser.unionid};
             let isReg = await user_db.count(where) < 1 ? true : false;
-
-            let header = {
-                typ: "JWT",
-                alg: "HS256"
-            };
-            let payload = {
-                iss: "cloud.tujingwang.com",
-                exp: new Date().getTime(),
-                _id: '',
-                authority: 1
-            };
-
-            let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), secret); //生成token
             
             if(isReg) {
                 let accountInfo = {
@@ -74,7 +61,7 @@ Login.prototype.wechat = ()=> {
                 await user_db.inset(accountInfo);
             }
 
-            //设置
+            //生成accountToken
             let account = await user_db.findOne(where, {'authority': 1});
 
             let header = {
@@ -113,7 +100,7 @@ Login.prototype.wechat = ()=> {
             account.city =          wxuser.city;
             account.country =       wxuser.country;
             account.headimgurl =    wxuser.headimgurl;
-            
+
             ctx.body = html;
             sio.to(ctx.query.state).emit('wechatok', account);
 
