@@ -1,6 +1,6 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
-const user_db = require('../mongodb_modules/m_uesr');
+const user_db = require('../controllers/mongodb_modules/m_uesr');
 const user = require('./user');
 
 module.exports = ()=> {
@@ -25,6 +25,7 @@ module.exports = ()=> {
 				socket.authority = token.payload.authority;
 
 				//检查是否过期
+				let isSame = await user_db.findById(token.payload._id);
 				if(isSame != accessToken) return;
 				
 				//对接口进行权限设置
