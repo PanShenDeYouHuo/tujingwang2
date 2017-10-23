@@ -102,7 +102,9 @@ Login.prototype.wechat = ()=> {
             account.headimgurl =    wxuser.headimgurl;
 
             ctx.body = html;
-            sio.to(ctx.query.state).emit('wechatok', account);
+            let socket = sio.to(ctx.query.state);
+            socket.userId = account._id;
+            socket.emit('wechatok', account);
 
         } catch (err) {
             ctx.body = html;
