@@ -53,6 +53,7 @@ module.exports = ()=> {
 				async()=> {
 					console.log(accessToken);
 					//检测token是否篡改
+					console.log(token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo'));
 					if(!token.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 
 					// let token = token.jwtParse(accessToken);
@@ -80,7 +81,7 @@ module.exports = ()=> {
 					// socket.emit('loginSuccess', account);
 				}
 			)().catch((err)=> {
-				// socket.emit('error','发生错误');
+				socket.emit('error','发生错误');
 				console.log(err);
 			})
 			
