@@ -21,7 +21,7 @@ module.exports = ()=> {
 
 				//检测token是否篡改
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
-
+				//解析token的内容
 				let token = jwt.jwtParse(accessToken);
 				socket.userId = token.payload._id;
 				socket.authority = token.payload.authority;
@@ -30,12 +30,9 @@ module.exports = ()=> {
 
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
-
 				if(isSame.accessToken != accessToken) return;
-
 				
-				
-				//对接口进行权限设置
+				//根据权限开放接口
 				switch (token.payload.authority) {
 					case 1:
 						user(socket);
