@@ -1,5 +1,5 @@
 
-var OSS = require('ali-oss').Wrapper;
+var OSS = require('ali-oss').Wrapper; //Promise函数
 var STS = OSS.STS;
 
 // let sts = new AliSts({
@@ -15,7 +15,7 @@ function Sts() {
     });
 };
 
-Sts.prototype.getSts =  function(uid) {
+Sts.prototype.getSts = async function(uid) {
    
     let policy = {
         "Statement": [
@@ -36,10 +36,8 @@ Sts.prototype.getSts =  function(uid) {
     console.log(this.sts.assumeRole);
     
     //获取token
-     this.sts.assumeRole( arn, policy, 1 * 60, sessionName)
-     .then((res)=> {
-        console.log(res);
-     });
+    let token = await this.sts.assumeRole( arn, policy, 15 * 60, sessionName);
+    console.log(token);
     
 }
 
