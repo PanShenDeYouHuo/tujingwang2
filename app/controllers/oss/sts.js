@@ -1,13 +1,16 @@
 const AliSts = require('ali-oss').STS;
 
-let sts = new AliSts({
-    accessKeyId: 'LTAIesg8W64WwrGI',
-    accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK'
-}) ;
+// let sts = new AliSts({
+//     accessKeyId: 'LTAIesg8W64WwrGI',
+//     accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK'
+// }) ;
 
 function Sts() {
     this.name = 'sts';
-    this.sts = sts;
+    this.sts = new AliSts({
+        accessKeyId: 'LTAIesg8W64WwrGI',
+        accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK'
+    });
 };
 
 Sts.prototype.get = async (uid)=> {
