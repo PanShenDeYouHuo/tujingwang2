@@ -15,7 +15,7 @@ function Sts() {
     });
 };
 
-Sts.prototype.get = async (uid)=> {
+Sts.prototype.getSts = (uid)=> {
    
     let policy = {
         "Statement": [
