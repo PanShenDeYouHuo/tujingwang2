@@ -1,6 +1,6 @@
 // const Socket_finance = require('../controllers/socket_finance');
 // const Socket_statistics = require('../controllers/socket_statistics');
-const user_db = require('../../service/mongodb/m_uesr');
+const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
 const user = require('./user');
 
