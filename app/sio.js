@@ -1,9 +1,10 @@
 const sio = require('socket.io')();
 const socket_routers = require('./socket_routers');								//socket.io服务器路由
-const socket_authentication = require('./controllers/socket_authentication');	//用户验证中间件
 const sts = require('./controllers/oss/sts');
 
 sts.get('sdfsdfsfsdfdsf');
+
+// const socket_authentication = require('./controllers/socket_authentication');	//用户验证中间件
 //authentication
 // sio.use(socket_authentication('hello'));
 
