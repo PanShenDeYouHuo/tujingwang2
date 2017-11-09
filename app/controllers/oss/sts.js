@@ -33,7 +33,7 @@ Sts.prototype.get = async (uid)=> {
 
     let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
     let sessionName = uid;
-
+    console.log(this.name);
     console.log(this.sts);
     
     //获取token
