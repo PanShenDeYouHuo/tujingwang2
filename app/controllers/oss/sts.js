@@ -1,5 +1,5 @@
 
-var OSS = require('ali-oss');
+var OSS = require('ali-oss').Wrapper;
 var STS = OSS.STS;
 
 // let sts = new AliSts({
