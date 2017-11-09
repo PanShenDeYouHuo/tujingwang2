@@ -10,13 +10,14 @@ function Sts() {
     this.sts = sts;
 };
 
-Sts.prototype.get = ()=> {
+Sts.prototype.get = async (uid)=> {
    
-    var policy = {
+    let policy = {
         "Statement": [
             {
                 "Action": [
-                "oss:Get*"
+                    "oss:Get*",
+                    "oss:List*"
                 ],
                 "Effect": "Allow",
                 "Resource": ["acs:oss:*:*:tujingcloud/productionProject/*"]
@@ -24,6 +25,14 @@ Sts.prototype.get = ()=> {
         ],
         "Version": "1"
     };
+
+    let arn = '';
+    let sessionName = uid;
+    
+    //获取token
+    let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
+    console.log(token);
+    
 }
 
 module.exports = new Sts();
