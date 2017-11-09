@@ -1,4 +1,6 @@
-const AliSts = require('ali-oss').STS;
+
+var OSS = require('ali-oss');
+var STS = OSS.STS;
 
 // let sts = new AliSts({
 //     accessKeyId: 'LTAIesg8W64WwrGI',
@@ -7,7 +9,7 @@ const AliSts = require('ali-oss').STS;
 
 function Sts() {
     this.name = 'sts';
-    this.sts = new AliSts({
+    this.sts = new STS({
         accessKeyId: 'LTAIesg8W64WwrGI',
         accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK'
     });
