@@ -15,7 +15,7 @@ function Sts() {
     });
 };
 
-Sts.prototype.getSts = function(uid) {
+Sts.prototype.getSts = async function(uid) {
    
     let policy = {
         "Statement": [
@@ -33,12 +33,10 @@ Sts.prototype.getSts = function(uid) {
 
     let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
     let sessionName = uid;
-    console.log(this.name);
-    console.log(this.sts);
     
     //获取token
-    // let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
-    // console.log(token);
+    let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
+    console.log(token);
     
 }
 
