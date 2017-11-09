@@ -1,4 +1,4 @@
-const m_user = require('../mongodb_modules/m_uesr');
+const user_db = require('../../service/mongodb/m_uesr');
 
 function Reg() {
     this.name = 'Reg';
