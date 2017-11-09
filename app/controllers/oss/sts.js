@@ -15,7 +15,7 @@ function Sts() {
     });
 };
 
-Sts.prototype.getSts = async function(uid) {
+Sts.prototype.getSts =  function(uid) {
    
     let policy = {
         "Statement": [
@@ -36,8 +36,10 @@ Sts.prototype.getSts = async function(uid) {
     console.log(this.sts.assumeRole);
     
     //获取token
-    let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
-    console.log(token);
+     this.sts.assumeRole( arn, policy, 1 * 60, sessionName)
+     .then((res)=> {
+        console.log(res);
+     });
     
 }
 
