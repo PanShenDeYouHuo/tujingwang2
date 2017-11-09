@@ -32,7 +32,7 @@ Sts.prototype.get = async (uid)=> {
     console.log(this.sts);
     
     //获取token
-    let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
+    // let token = await this.sts.assumeRole( arn, policy, 1 * 60, sessionName);
     console.log(token);
     
 }
