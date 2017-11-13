@@ -51,17 +51,20 @@ StsToken.prototype.getReadStsToken = async function(uid) {
 StsToken.prototype.getReadStsToken = async function(uid) {
     
      let policy = {
-         "Statement": [
-             {
-                 "Action": [
-                     "oss:Get*",
-                     "oss:List*"
-                 ],
-                 "Effect": "Allow",
-                 "Resource": ["acs:oss:*:*:tujingcloud/productionProject/*"]
-             }
-         ],
-         "Version": "1"
+        "Statement": [
+            {
+                "Action": [
+                    "oss:Get*",
+                    "oss:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "acs:oss:*:*:tujingcloud/productionProject",
+                    "acs:oss:*:*:tujingcloud/productionProject/*"
+                ]
+            }
+        ],
+        "Version": "1"
      };
  
      let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
@@ -84,14 +87,17 @@ StsToken.prototype.getWriteStsToken = async function(uid) {
      let policy = {
          "Statement": [
              {
-                 "Action": [
+                "Action": [
                     "oss:DeleteObject",
                     "oss:ListParts",
                     "oss:AbortMultipartUpload",
                     "oss:PutObject"
-                 ],
-                 "Effect": "Allow",
-                 "Resource": ["acs:oss:*:*:tujingcloud/productionProject/*"]
+                ],
+                "Effect": "Allow",
+                "Resource": [
+                    "acs:oss:*:*:tujingcloud/productionProject",
+                    "acs:oss:*:*:tujingcloud/productionProject/*"
+                ]
              }
          ],
          "Version": "1"
