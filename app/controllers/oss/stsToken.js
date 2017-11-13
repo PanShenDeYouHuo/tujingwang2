@@ -39,7 +39,6 @@ StsToken.prototype.getReadStsToken = async function(uid) {
     
     //获取token
     let token = await this.sts.assumeRole( arn, policy, 15 * 60, sessionName);
-    console.log(token);
     return token;
     
 }
