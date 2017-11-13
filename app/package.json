@@ -10,14 +10,15 @@
   "author": "pan",
   "license": "ISC",
   "dependencies": {
+    "ali-oss": "^4.11.2",
     "cookie-parser": "^1.4.3",
+    "debug": "~2.6.3",
     "express": "^4.15.3",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "mongoose": "^4.11.5",
     "mysql": "^2.14.1",
     "request": "^2.83.0",
-    "socket.io": "^2.0.3",
-    "debug": "~2.6.3"
+    "socket.io": "^2.0.3"
   }
 }
