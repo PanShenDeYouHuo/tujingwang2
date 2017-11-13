@@ -1,8 +1,8 @@
-// const Socket_finance = require('../controllers/socket_finance');
-// const Socket_statistics = require('../controllers/socket_statistics');
+
 const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
 const user = require('./user');
+const user = require('./ossFile');
 
 module.exports = ()=> {
 	return (socket)=> {
@@ -28,27 +28,30 @@ module.exports = ()=> {
 
 				console.log(token);
 
+				//登入成功返回最新数据
+				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
+				socket.emit('loginSuccess', account);
+
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
 				if(isSame.accessToken != accessToken) return;
 				
+
+
 				//根据权限开放接口
 				switch (token.payload.authority) {
 					case 1:
 						user(socket);
+						ossFile(socket);
 						break;
 				
 					default:
 						break;
 				}
-				
-				//登入成功返回最新数据
-				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
-				socket.emit('loginSuccess', account);
-
+		
 
 			} catch (err) {
-				socket.emit('appError','发生错误');
+				socket.volatile.emit('appError','发生错误');
 				console.log(err);
 			}
 

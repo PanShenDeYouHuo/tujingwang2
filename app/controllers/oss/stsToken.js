@@ -2,12 +2,8 @@
 var OSS = require('ali-oss').Wrapper; //Promise函数
 var STS = OSS.STS;
 
-// let sts = new AliSts({
-//     accessKeyId: 'LTAIesg8W64WwrGI',
-//     accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK'
-// }) ;
 
-function Sts() {
+function StsToken() {
     this.name = 'sts';
     this.sts = new STS({
         accessKeyId: 'LTAIesg8W64WwrGI',
@@ -15,7 +11,13 @@ function Sts() {
     });
 };
 
-Sts.prototype.getSts = async function(uid) {
+/**
+ * 获得oss写权限的sts临时token
+ * 
+ * @param {string} uid 账号id
+ * @returns {object} stsToken
+ */
+StsToken.prototype.getReadStsToken = async function(uid) {
    
     let policy = {
         "Statement": [
@@ -38,7 +40,8 @@ Sts.prototype.getSts = async function(uid) {
     //获取token
     let token = await this.sts.assumeRole( arn, policy, 15 * 60, sessionName);
     console.log(token);
+    return token
     
 }
 
-module.exports = new Sts();
+module.exports = new StsToken();
