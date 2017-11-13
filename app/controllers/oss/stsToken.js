@@ -35,7 +35,6 @@ StsToken.prototype.getReadStsToken = async function(uid) {
 
     let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
     let sessionName = uid;
-    console.log(this.sts.assumeRole);
     
     //获取token
     let token = await this.sts.assumeRole( arn, policy, 15 * 60, sessionName);
