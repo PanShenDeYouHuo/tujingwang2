@@ -2,7 +2,7 @@
 const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
 const user = require('./user');
-const user = require('./ossFile');
+const ossFile = require('./ossFile');
 
 module.exports = ()=> {
 	return (socket)=> {
