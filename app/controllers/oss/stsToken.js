@@ -1,6 +1,6 @@
 
-var OSS = require('ali-oss').Wrapper; //Promise函数
-var STS = OSS.STS;
+const OSS = require('ali-oss').Wrapper; //Promise函数
+const STS = OSS.STS;
 
 
 function StsToken() {
