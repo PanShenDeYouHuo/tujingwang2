@@ -93,18 +93,20 @@ Login.prototype.wechat = ()=> {
             await user_db.update(where, update);
             
             account.accessToken =   accessToken;
-            account.nickname =      wxuser.nickname;
-            account.sex =           wxuser.sex;
-            account.province =      wxuser.province;
-            account.city =          wxuser.city;
-            account.country =       wxuser.country;
-            account.headimgurl =    wxuser.headimgurl;
+            // account.nickname =      wxuser.nickname;
+            // account.sex =           wxuser.sex;
+            // account.province =      wxuser.province;
+            // account.city =          wxuser.city;
+            // account.country =       wxuser.country;
+            // account.headimgurl =    wxuser.headimgurl;
 
-            ctx.body = html;
+            
             let socket = sio.to(ctx.query.state);
             // socket.userId = account._id;
             socket.emit('loginSuccess', account);
-
+            
+            ctx.body = html;
+            
         } catch (err) {
             ctx.body = html;
             sio.to(ctx.query.state).emit('appError','发生错误');

@@ -36,7 +36,7 @@ module.exports = ()=> {
 				//登入成功返回最新数据
 				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
 				socket.account = account;
-				socket.emit('loginSuccess', account);
+				socket.emit('authenticationSuccess', account);
 
 
 				//根据权限开放接口
