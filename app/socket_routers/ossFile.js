@@ -6,7 +6,7 @@ module.exports = (socket)=> {
     socket.on('getReadStsToken', (uid, fu)=>{
         try {
             console.log(uid);
-            fu(stsToken.getReadStsToken(uid));
+            fu(await stsToken.getReadStsToken(uid));
         } catch (err) {
             console.log(err);
             socket.volatile.emit('appError','发生错误');
