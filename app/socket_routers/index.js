@@ -12,7 +12,7 @@ module.exports = ()=> {
 
 		//断开连接
 		socket.on('disconnect', (data)=> {
-			if(socket.userId) {
+			if(socket.account._id) {
 				console.log(`userId：${socket.account._id} , nickname: ${socket.account.nickname} 退出`);
 			}
 			console.log('a user disconnected:' + socket.id);
