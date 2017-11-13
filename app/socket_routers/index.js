@@ -14,8 +14,9 @@ module.exports = ()=> {
 		socket.on('disconnect', (data)=> {
 			if(socket.account._id) {
 				console.log(`userId：${socket.account._id} , nickname: ${socket.account.nickname} 退出`);
+			} else {
+				console.log('a user disconnected:' + socket.id);
 			}
-			console.log('a user disconnected:' + socket.id);
 		});
 
 		//登入认证接口，根据权限开通socket接口
