@@ -25,22 +25,21 @@ module.exports = ()=> {
 				let token = jwt.jwtParse(accessToken);
 				socket.userId = token.payload._id;
 				socket.authority = token.payload.authority;
-
-				console.log(token);
-
-				//登入成功返回最新数据
-				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
-				socket.emit('loginSuccess', account);
-
+				
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
 				if(isSame.accessToken != accessToken) return;
 				
+				//登入成功返回最新数据
+				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
+				socket.emit('loginSuccess', account);
 
+				console.log(token);
 
 				//根据权限开放接口
 				switch (token.payload.authority) {
 					case 1:
+						console.log('开启一号权限');
 						user(socket);
 						ossFile(socket);
 						break;
