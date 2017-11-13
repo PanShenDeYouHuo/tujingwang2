@@ -7,24 +7,27 @@ const ossFile = require('./ossFile');
 module.exports = ()=> {
 	return (socket)=> {
 
+
+
+
 		//断开连接
 		socket.on('disconnect', (data)=> {
 			if(socket.userId) {
-				console.log(`用户：${socket.userId} 退出`);
+				console.log(`userId：${socket.account._id} , nickname: ${socket.account.nickname} 退出`);
 			}
 			console.log('a user disconnected:' + socket.id);
 		});
 
 		//登入认证接口，根据权限开通socket接口
-		socket.on('login', async(accessToken)=> {
+		socket.on('authentication', async(accessToken)=> {
 			try {
 
 				//检测token是否篡改
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 				//解析token的内容
 				let token = jwt.jwtParse(accessToken);
-				socket.userId = token.payload._id;
-				socket.authority = token.payload.authority;
+				// socket.userId = token.payload._id;
+				// socket.authority = token.payload.authority;
 				
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
@@ -32,9 +35,9 @@ module.exports = ()=> {
 				
 				//登入成功返回最新数据
 				let account = await user_db.findOne({'_id': token.payload._id}, {'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,});
+				socket.account = account;
 				socket.emit('loginSuccess', account);
 
-				console.log(token);
 
 				//根据权限开放接口
 				switch (token.payload.authority) {

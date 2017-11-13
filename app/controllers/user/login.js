@@ -102,7 +102,7 @@ Login.prototype.wechat = ()=> {
 
             ctx.body = html;
             let socket = sio.to(ctx.query.state);
-            socket.userId = account._id;
+            // socket.userId = account._id;
             socket.emit('loginSuccess', account);
 
         } catch (err) {
