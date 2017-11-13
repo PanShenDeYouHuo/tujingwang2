@@ -5,10 +5,7 @@ module.exports = (socket)=> {
     //获得oss写权限的sts临时token
     socket.on('getReadStsToken', async (uid, fu)=>{
         try {
-            let token = await stsToken.getReadStsToken(uid)
-            console.log(token);
-
-            
+            let token = await stsToken.getWriteStsToken(uid)
             fu(token);
         } catch (err) {
             console.log(err);

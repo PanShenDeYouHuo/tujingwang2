@@ -42,4 +42,68 @@ StsToken.prototype.getReadStsToken = async function(uid) {
     
 }
 
+/**
+ * 获得oss写权限的sts临时token
+ * 
+ * @param {string} uid 账号id
+ * @returns {object} stsToken
+ */
+StsToken.prototype.getReadStsToken = async function(uid) {
+    
+     let policy = {
+         "Statement": [
+             {
+                 "Action": [
+                     "oss:Get*",
+                     "oss:List*"
+                 ],
+                 "Effect": "Allow",
+                 "Resource": ["acs:oss:*:*:tujingcloud/productionProject/*"]
+             }
+         ],
+         "Version": "1"
+     };
+ 
+     let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
+     let sessionName = uid;
+     
+     //获取token
+     let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+     return token;
+     
+ }
+
+ /**
+ * 获得oss读权限的sts临时token
+ * 
+ * @param {string} uid 账号id
+ * @returns {object} stsToken
+ */
+StsToken.prototype.getWriteStsToken = async function(uid) {
+    
+     let policy = {
+         "Statement": [
+             {
+                 "Action": [
+                    "oss:DeleteObject",
+                    "oss:ListParts",
+                    "oss:AbortMultipartUpload",
+                    "oss:PutObject"
+                 ],
+                 "Effect": "Allow",
+                 "Resource": ["acs:oss:*:*:tujingcloud/productionProject/*"]
+             }
+         ],
+         "Version": "1"
+     };
+ 
+     let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
+     let sessionName = uid;
+     
+     //获取token
+     let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+     return token;
+     
+ }
+
 module.exports = new StsToken();
