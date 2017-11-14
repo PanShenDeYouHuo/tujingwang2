@@ -6,6 +6,7 @@ module.exports = (socket)=> {
     socket.on('getReadStsToken', async (uid, fu)=>{
         try {
             let token = await stsToken.getReadStsToken(uid)
+            console.log(token);
             fu(token);
         } catch (err) {
             console.log(err);
