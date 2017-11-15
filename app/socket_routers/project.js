@@ -10,7 +10,7 @@ module.exports = (socket)=> {
             } catch (err) {
                 console.log(err);
                 fu(false);
-                socket.volatile.emit('appError','发生错误');
+                socket.emit('appError','发生错误');
             }
         });
     
