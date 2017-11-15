@@ -9,8 +9,8 @@ module.exports = (socket)=> {
                 fu(pid);
             } catch (err) {
                 console.log(err);
-                socket.volatile.emit('appError','发生错误');
-                fu({err: -1});
+                // socket.volatile.emit('appError','发生错误');
+                fu({err: true, message: '发生错误'});
 
             }
         });
@@ -21,7 +21,7 @@ module.exports = (socket)=> {
 
             } catch (err) {
                 console.log(err);
-                socket.volatile.emit('appError','发生错误');
+                fu({err: true, message: '发生错误'});
             }
         });
         
