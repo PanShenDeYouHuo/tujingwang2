@@ -5,11 +5,11 @@ module.exports = (socket)=> {
         //创建项目
         socket.on('postProject', async (project, fu)=>{
             try {   
+                console.log(project);
                 let pid  =  await project.postProject(project.name, project.uid);
                 fu(pid);
             } catch (err) {
                 console.log(err);
-                // socket.volatile.emit('appError','发生错误');
                 fu({err: true, message: '发生错误'});
 
             }
