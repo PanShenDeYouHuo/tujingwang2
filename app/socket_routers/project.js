@@ -7,5 +7,8 @@ module.exports = (socket)=> {
     
         //根据pid获取项目
         socket.on('getProject', project.getProject());
+
+        //保存项目
+        socket.on('putProject', project.putProject());
         
     }

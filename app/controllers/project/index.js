@@ -12,7 +12,6 @@ function Project() {
 Project.prototype.postProject = ()=> {
     return async (data, fu)=> {
         try {  
-            console.log('post'); 
             fu(await project_db.inset({name: data.name, publisher: data.uid}));
         } catch (err) {
             console.log(err);
@@ -20,6 +19,7 @@ Project.prototype.postProject = ()=> {
         }
     }
 }
+
 /**
  * @param {object} data.pid 项目编号 
  * 
@@ -28,9 +28,23 @@ Project.prototype.postProject = ()=> {
 Project.prototype.getProject = ()=> {
     return async (data, fu)=> {
         try{
-            console.log('hello');
-            console.log(await project_db.findById(data.pid, {}));
             fu(await project_db.findById(data.pid, {}));
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * @param {object} data 项目数据
+ * 
+ * @returns 
+ */
+Project.prototype.putProject = ()=> {
+    return async (data, fu)=> {
+        try{
+            fu(await project_db.findByIdAndUpdate(data.id, data));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
