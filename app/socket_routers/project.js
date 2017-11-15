@@ -3,10 +3,9 @@ const project = require('../controllers/project');
 module.exports = (socket)=> {
     
         //创建项目
-        socket.on('postProject', async (project, fu)=>{
+        socket.on('postProject', async (data, fu)=>{
             try {   
-                console.log(project);
-                let pid  =  await project.postProject(project.name, project.uid);
+                let pid  =  await project.postProject(data.name, data.uid);
                 fu(pid);
             } catch (err) {
                 console.log(err);
