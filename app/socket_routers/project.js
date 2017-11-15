@@ -6,6 +6,6 @@ module.exports = (socket)=> {
         socket.on('postProject', project.postProject());
     
         //根据pid获取项目
-        socket.on('getProjecta', project.getProject());
+        socket.on('getProject', project.getProject());
         
     }
