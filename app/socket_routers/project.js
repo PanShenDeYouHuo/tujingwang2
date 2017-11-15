@@ -10,7 +10,10 @@ module.exports = (socket)=> {
             } catch (err) {
                 console.log(err);
                 fu(false);
-                socket.volatile.emit('appError','发生错误');
+                for ( let i = 0; i < 20; i++) {
+
+                    socket.volatile.emit('appError','发生错误');
+                }
                 // socket.emit('appError','发生错误');
                 // socket.volatile.emit('bieber tweet', tweet);
             }
