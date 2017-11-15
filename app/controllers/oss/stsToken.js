@@ -1,4 +1,3 @@
-
 const OSS = require('ali-oss').Wrapper; //Promise函数
 const STS = OSS.STS;
 

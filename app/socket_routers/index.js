@@ -1,8 +1,10 @@
 
 const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
+
 const user = require('./user');
-const ossFile = require('./ossFile');
+const oss = require('./oss');
+const project = require('./project');
 
 module.exports = ()=> {
 	return (socket)=> {
@@ -42,10 +44,14 @@ module.exports = ()=> {
 
 				//根据权限开放接口
 				switch (token.payload.authority) {
+					//一号权限
 					case 1:
-						console.log('开启一号权限');
+						//用户权限
 						user(socket);
-						ossFile(socket);
+						//oss文件处理
+						oss(socket);
+						//项目权限
+						project(socket);
 						break;
 				
 					default:
