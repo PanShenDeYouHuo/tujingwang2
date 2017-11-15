@@ -11,7 +11,8 @@ function Project() {
  */
 Project.prototype.postProject = ()=> {
     return async (data, fu)=> {
-        try {   
+        try {  
+            console.log('post'); 
             fu(await project_db.inset({name: data.name, publisher: data.uid}));
         } catch (err) {
             console.log(err);
