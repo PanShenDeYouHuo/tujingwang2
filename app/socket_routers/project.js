@@ -3,25 +3,9 @@ const project = require('../controllers/project');
 module.exports = (socket)=> {
     
         //创建项目
-        socket.on('postProject', async (data, fu)=>{
-            try {   
-                let pid  =  await project.postProject(data.name, data.uid);
-                fu(pid);
-            } catch (err) {
-                console.log(err);
-                fu({err: true, message: '发生错误'});
-
-            }
-        });
+        socket.on('postProject', project.postProject());
     
-        //获得oss写权限的sts临时token
-        socket.on('postProjecta', async (uid, fu)=>{
-            try {
-
-            } catch (err) {
-                console.log(err);
-                fu({err: true, message: '发生错误'});
-            }
-        });
+        //根据pid获取项目
+        socket.on('getProjecta', project.getProject());
         
     }

@@ -205,7 +205,7 @@ ProejctDB.prototype.findOne = (where, opt)=> {
  * 根据id查询
  * 
  * @param {String} id 
- * @param {Object} opt 
+ * @param {Object} opt 设定返回那些属性
  * @returns 
  */
 ProejctDB.prototype.findById = (id, opt)=> {
