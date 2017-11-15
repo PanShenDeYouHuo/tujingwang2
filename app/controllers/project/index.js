@@ -27,6 +27,7 @@ Project.prototype.postProject = ()=> {
 Project.prototype.getProject = ()=> {
     return async (data, fu)=> {
         try{
+            console.log(await project_db.findById(data.pid, {}));
             fu(await project_db.findById(data.pid, {}));
         } catch (err) {
             console.log(err);
