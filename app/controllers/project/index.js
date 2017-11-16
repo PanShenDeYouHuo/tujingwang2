@@ -48,7 +48,7 @@ Project.prototype.getProjects = ()=> {
         try{
 
             let projects = await project_db.findProjects({publisher:data.uid}, data.pageSize, data.currentPage, {_id: 1});
-            let count = await project_db.count(where);
+            let count = await project_db.count({publisher:data.uid});
             count = Math.ceil(count/data.pageSize);
             fu({projects, count});
         } catch (err) {
