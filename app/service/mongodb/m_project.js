@@ -18,7 +18,7 @@ let project = {
         {
             state: { type: Number, default: 0 },
             designType: { type: Number },     //设计类型
-            style: { type: String },    //设计风格
+            style: { type: String },    //设计风格  
             space: { type: String },    //设计空间
             area: { type: String},      //设计区域
             imageType: { type: Number },//图片类型
