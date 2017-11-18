@@ -67,7 +67,7 @@ Project.prototype.getProjects = ()=> {
 Project.prototype.putProject = ()=> {
     return async (data, fu)=> {
         try{
-            fu(await project_db.findByIdAndUpdate(data.id, data));
+            fu(await project_db.findByIdAndUpdate(data._id, data));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
