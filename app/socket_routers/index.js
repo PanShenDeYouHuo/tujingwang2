@@ -34,6 +34,7 @@ module.exports = ()=> {
 				
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
+				console.log(accessToken);
 				if(isSame.accessToken != accessToken) return;
 				
 				//登入成功返回最新数据
