@@ -57,3 +57,5 @@ Admin.prototype.deleteBossAccount = ()=> {
         }
     }
 }
+
+module.exports = new Admin();
