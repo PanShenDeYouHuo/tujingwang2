@@ -8,7 +8,9 @@ const oss = require('./oss');
 const project = require('./project');
 
 function setAuthority(socket, functionNames) {
+	
 	for( let i = 0; i < functionNames.lenght; i++) {
+		console.log(`authority.${functionName[i]}(${socket})`);
 		eval(`authority.${functionName[i]}(${socket})`);
 	}
 };
