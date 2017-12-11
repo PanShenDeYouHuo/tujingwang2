@@ -49,7 +49,7 @@ module.exports = ()=> {
 
 
 				//根据权限开放接口
-				setAuthority(token.payload.authority, socket);
+				setAuthority(socket, token.payload.authority);
 		
 
 			} catch (err) {
