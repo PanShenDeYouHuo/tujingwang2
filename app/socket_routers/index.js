@@ -1,16 +1,20 @@
-
 const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
+const authority = require('./authority');
 
+const admin = require('./admin');
 const user = require('./user');
 const oss = require('./oss');
 const project = require('./project');
 
+function setAuthority(socket, functionNames) {
+	for( let i = 0; i < functionNames.lenght; i++) {
+		eval(`authority.${functionName[i]}(${socket})`);
+	}
+};
+
 module.exports = ()=> {
 	return (socket)=> {
-
-
-
 
 		//断开连接
 		socket.on('disconnect', (data)=> {
@@ -34,7 +38,6 @@ module.exports = ()=> {
 				
 				//检查是否过期
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
-				console.log(isSame);
 				if(isSame.accessToken != accessToken) return;
 				
 				//登入成功返回最新数据
@@ -44,32 +47,16 @@ module.exports = ()=> {
 
 
 				//根据权限开放接口
-				switch (token.payload.authority) {
-					//一号权限
-					case 1:
-						//用户权限
-						user(socket);
-						//oss文件处理
-						oss(socket);
-						//项目权限
-						project(socket);
-						break;
-				
-					default:
-						break;
-				}
+				setAuthority(token.payload.authority, socket);
 		
 
 			} catch (err) {
 				socket.volatile.emit('appError','发生错误');
 				console.log(err);
-			}
-
-
-			
+			}	
 			
 		});
 		
 		
 	}
-}
+};

@@ -7,6 +7,9 @@ let user = {
         type:Boolean,
         default:false,
     },
+    name:{
+        type:String,
+    },
     mail:{
         type:String,
     },
@@ -16,10 +19,9 @@ let user = {
     password:{
         type: String,
     },
-    authority:{
-        type: Number,
-        default:1,
-    },
+    authority:[
+        
+    ],
     accessToken:{
         type:String,
     },
@@ -202,7 +204,7 @@ UserClass.prototype.findOneAndUpdate = (where, data)=> {
 UserClass.prototype.find = (where, opt)=> {
     return new Promise((resolve, reject)=> {
         User.find(where, opt, (err, res)=> {
-            if(err) reject(err);
+            if(err) return reject(err);
             resolve(res);
         });
     });
@@ -218,7 +220,7 @@ UserClass.prototype.find = (where, opt)=> {
 UserClass.prototype.findOne = (where, opt)=> {
     return new Promise((resolve, reject)=> {
         User.findOne(where, opt, (err, res)=> {
-            if(err) reject(err);
+            if(err) return reject(err);
             resolve(res);
         })
     });
@@ -234,7 +236,7 @@ UserClass.prototype.findOne = (where, opt)=> {
 UserClass.prototype.findById = (id, opt)=> {
     return new Promise((resolve, reject)=> {
         User.findById(id, opt, (err, res)=> {
-            if(err) reject(err);
+            if(err) return reject(err);
             resolve(res);
         });
     });

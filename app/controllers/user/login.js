@@ -31,11 +31,11 @@ Login.prototype.wechat = ()=> {
                 return console.log(wxtoken);
             }
 
-            if(wxuser.errcode) {
-                ctx.body = html;
-                sio.to(ctx.query.state).emit('appError', '发生错误');
-                return console.log(wxuser);
-            }
+            // if(wxuser.errcode) {
+            //     ctx.body = html;
+            //     sio.to(ctx.query.state).emit('appError', '发生错误');
+            //     return console.log(wxuser);
+            // }
 
             
 
@@ -92,17 +92,10 @@ Login.prototype.wechat = ()=> {
             }
             await user_db.update(where, update);
             
-            account.accessToken =   accessToken;
-            // account.nickname =      wxuser.nickname;
-            // account.sex =           wxuser.sex;
-            // account.province =      wxuser.province;
-            // account.city =          wxuser.city;
-            // account.country =       wxuser.country;
-            // account.headimgurl =    wxuser.headimgurl;
-
+            account.accessToken = accessToken;
             
+            //登入成功返回给客户端
             let socket = sio.to(ctx.query.state);
-            // socket.userId = account._id;
             socket.emit('loginSuccess', account);
             
             ctx.body = html;

@@ -18,31 +18,36 @@ function StsToken() {
  * @returns {object} stsToken
  */
 StsToken.prototype.getReadStsToken = async function(uid) {
-    
-     let policy = {
-        "Statement": [
-            {
-                "Action": [
-                    "oss:Get*",
-                    "oss:List*"
+    return async (uid, fu)=> {
+        try{
+            let policy = {
+                "Statement": [
+                    {
+                        "Action": [
+                            "oss:Get*",
+                            "oss:List*"
+                        ],
+                        "Effect": "Allow",
+                        "Resource": [
+                            "acs:oss:*:*:tujingcloud/productionProject",
+                            "acs:oss:*:*:tujingcloud/productionProject/*"
+                        ]
+                    }
                 ],
-                "Effect": "Allow",
-                "Resource": [
-                    "acs:oss:*:*:tujingcloud/productionProject",
-                    "acs:oss:*:*:tujingcloud/productionProject/*"
-                ]
-            }
-        ],
-        "Version": "1"
-     };
- 
-     let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-     let sessionName = uid;
-     
-     //获取token
-     let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-     return token;
-     
+                "Version": "1"
+            };
+        
+            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
+            let sessionName = uid;
+            
+            //获取token
+            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+            fu(token);
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
  }
 
  /**
@@ -51,34 +56,42 @@ StsToken.prototype.getReadStsToken = async function(uid) {
  * @param {string} uid 账号id
  * @returns {object} stsToken
  */
-StsToken.prototype.getWriteStsToken = async function(uid) {
-    
-     let policy = {
-         "Statement": [
-             {
-                "Action": [
-                    "oss:DeleteObject",
-                    "oss:ListParts",
-                    "oss:AbortMultipartUpload",
-                    "oss:PutObject"
+StsToken.prototype.getWriteStsToken = ()=> {
+    return async (uid, fu)=> {
+        try{
+            let policy = {
+                "Statement": [
+                    {
+                        "Action": [
+                            "oss:DeleteObject",
+                            "oss:ListParts",
+                            "oss:AbortMultipartUpload",
+                            "oss:PutObject"
+                        ],
+                        "Effect": "Allow",
+                        "Resource": [
+                            "acs:oss:*:*:tujingcloud/productionProject",
+                            "acs:oss:*:*:tujingcloud/productionProject/*"
+                        ]
+                    }
                 ],
-                "Effect": "Allow",
-                "Resource": [
-                    "acs:oss:*:*:tujingcloud/productionProject",
-                    "acs:oss:*:*:tujingcloud/productionProject/*"
-                ]
-             }
-         ],
-         "Version": "1"
-     };
- 
-     let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-     let sessionName = uid;
-     
-     //获取token
-     let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-     return token;
+                "Version": "1"
+            };
+        
+            let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
+            let sessionName = uid;
+            
+            //获取token
+            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+
+            fu(token);
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
      
  }
+
 
 module.exports = new StsToken();
