@@ -1,14 +1,14 @@
-const jwt = require('../../modules/node-jwt');
+const admin = require('../controllers/admin');
 
 module.exports = (socket)=> {
     
     //boss账号注册
-    socket.on('postBossAccount', stsToken.postBossAccount());
+    socket.on('postBossAccount', admin.postBossAccount());
 
     //boss账号权限管理
-    socket.on('putBossAccount', stsToken.putBossAccount());
+    socket.on('putBossAccount', admin.putBossAccount());
 
     //boss账号删除
-    socket.on('deleteBossAccount', stsToken.deleteBossAccount());
+    socket.on('deleteBossAccount', admin.deleteBossAccount());
 
 }
