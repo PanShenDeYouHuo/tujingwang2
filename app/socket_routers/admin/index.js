@@ -1,4 +1,4 @@
-const admin = require('../controllers/admin');
+const admin = require('../../controllers/admin');
 
 module.exports = (socket)=> {
     
