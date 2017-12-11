@@ -10,7 +10,8 @@ const project = require('./project');
 function setAuthority(socket, functionNames) {
 	for( let i = 0; i < functionNames.length; i++) {
 		console.log(`authority.${functionNames[i]}()`);
-		eval(`authority.${functionNames[i]}(${socket})`);
+		new Function('authority.' + functionNames[i] + '(' + socket + ')');
+		// new Function(`authority.${functionNames[i]}(${socket})`);
 	}
 };
 
