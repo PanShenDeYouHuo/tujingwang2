@@ -17,7 +17,7 @@ Authority.prototype.admin = (socket)=> {
     admin(socket);
     user(socket);
     project(socket);
-    oss(socket);
+    // oss(socket);
 }
 
 /**
