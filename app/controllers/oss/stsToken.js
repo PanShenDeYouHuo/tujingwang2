@@ -17,7 +17,7 @@ function StsToken() {
  * @param {string} uid 账号id
  * @returns {object} stsToken
  */
-StsToken.prototype.getReadStsToken = async function() {
+StsToken.prototype.getReadStsToken = ()=> {
     return async (uid, fu)=> {
         try{
             let policy = {
