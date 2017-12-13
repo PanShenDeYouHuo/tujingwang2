@@ -15,6 +15,9 @@ function Authority() {
 Authority.prototype.admin = (socket)=> {
     console.log('开启管理员接口')
     admin(socket);
+    user(socket);
+    project(socket);
+    oss(socket);
 }
 
 /**
