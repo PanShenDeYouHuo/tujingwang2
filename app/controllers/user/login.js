@@ -29,15 +29,7 @@ Login.prototype.wechat = ()=> {
                 ctx.body = html;
                 sio.to(ctx.query.state).emit('appError', '发生错误');
                 return console.log(wxtoken);
-            }
-
-            // if(wxuser.errcode) {
-            //     ctx.body = html;
-            //     sio.to(ctx.query.state).emit('appError', '发生错误');
-            //     return console.log(wxuser);
-            // }
-
-            
+            }           
 
             //根据unionid查询，用户是否注册
             let where = {'wechat.unionid': wxuser.unionid};
@@ -100,10 +92,10 @@ Login.prototype.wechat = ()=> {
             
             ctx.body = html;
             
-        } catch (err) {
+        } catch (error) {
             ctx.body = html;
             sio.to(ctx.query.state).emit('appError','发生错误');
-            console.log(err);
+            console.log(error);
         }
     }
 }

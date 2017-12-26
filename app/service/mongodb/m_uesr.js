@@ -1,58 +1,64 @@
-const mongoose = require("./mongodb.js");
+////const mongoose = require("./mongodb.js");
 const schema = mongoose.Schema;
 
 let user = {
 
+    //账号状态是否登入
     state:{
         type:Boolean,
         default:false,
     },
-    name:{
-        type:String,
+    //真实个人信息
+    information:{
+        name:{type:String},
+        IDCardFront:{type:String},
+        IDCardReverse:{type:String},
     },
-    mail:{
-        type:String,
-    },
-    phone:{
-		type:Number,
-    },
-    password:{
-        type: String,
-    },
+    //通知
+    notify:[
+        {   
+            //通知状态
+            state:{type:Boolean, default:false},
+            //通知类型
+            ntype:{type:String},
+            //通知标题
+            title:{type:String},
+            //通知内容
+            concent:{type:String},
+            //通知路由
+            router:{type:String},
+        }
+    ],
+    //用户邮箱
+    mail:{type:String},
+    //手机号码
+    phone:{type:Number},
+    //登入密码
+    password:{type:String},
+    //权限
     authority:[
         
     ],
-    accessToken:{
-        type:String,
-    },
-    nickname:{
-        type: String,
-    },
-    sex: {
-        type: Number,
-    },
-    province:{
-        type: String,
-    },
-    city:{
-        type: String,
-    },
-    country:{
-        type: String,
-    },
-    headimgurl:{
-        type: String,
-    },
+    //访问令牌
+    accessToken:{type:String},
+    //昵称
+    nickname:{type:String},
+    //性别
+    sex: {type:Number},
+    //省份
+    province:{type:String},
+    //城市
+    city:{type: String},
+    //国家
+    country:{type: String},
+    //头像地址
+    headimgurl:{type: String},
+    //微信需要的访问令牌
     wechat:{
-        accessToken:{
-            type: String,
-        },
-        refreshToken:{
-            type: String,
-        },
-        unionid:{
-            type: String,
-        }
+        accessToken:{type: String},
+        refreshToken:{type: String},
+        //跨网站唯一id
+        unionid:{type: String}
     }
 }
 

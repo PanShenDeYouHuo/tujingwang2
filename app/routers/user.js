@@ -1,8 +1,13 @@
 const router = require('koa-router')();
 const login = require('../controllers/user/login');
+const reg = require('../controllers/user/reg');
 
 let routers = router
-    .get('/wechat', login.wechat());
+    .get('/wechat', login.wechat())
+    //boss级账号注册
+    .get('/bossWechatReg', reg.bossWechatReg())
+    //employee级账号注册
+    .get('/employeeWechatReg', reg.employeeWechatReg())
 
 
 

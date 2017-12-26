@@ -46,7 +46,6 @@ module.exports = ()=> {
 				socket.account = account;
 				socket.emit('authenticationSuccess', account);
 
-
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);
 		

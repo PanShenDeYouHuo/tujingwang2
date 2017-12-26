@@ -17,15 +17,15 @@ let project = {
     image: [
         {
             state: { type: Number, default: 0 },
-            designType: { type: String },     //设计类型
-            style: { type: String },    //设计风格  
-            space: { type: String },    //设计空间
-            area: { type: String},      //设计区域
-            imageType: { type: String },//图片类型
-            price: { type: Number },    //价格
-            murl: { type: String },     //模型地址
-            iurl: { type: String },     //图片地址
-            productionsGroup: [         //工作类型和id
+            designType: { type: String },       //设计类型
+            style: { type: String },            //设计风格
+            space: { type: String },            //设计空间
+            area: { type: String},              //设计区域
+            imageType: { type: String },        //图片类型
+            price: { type: Number },            //价格
+            murl: { type: String },             //模型地址
+            iurl: { type: String },             //图片地址
+            productionsGroup: [                 //工作类型和id
                 { workType: { type: String}, userId: { type: String} }
             ]
         }
