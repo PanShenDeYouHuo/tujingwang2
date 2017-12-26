@@ -10,11 +10,11 @@ function Reg() {
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
-        let socket = sio.to(ctx.query.state);
+        let namespace = sio.to(ctx.query.state);
 
-        console.log(Object.keys(socket.connected)); 
+        console.log(Object.keys(namespace.connected)); 
 
-        console.log(socket.connected);
+        console.log(namespace.connected[Object.keys(namespace.connected)].Socket.account);
         //关闭微信登入网页
         let html = `
             <script type="text/javascript">
