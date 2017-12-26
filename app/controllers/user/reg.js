@@ -10,15 +10,16 @@ function Reg() {
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
+        console.log(sio.sockets.connected)
+
         let namespace = sio.to(ctx.query.state);
         let account = {};
+
+        //获得账号信息
         for( let i in namespace.connected) {
             account = namespace.connected[i].account;
         }
 
-        console.log(account);
-
-        // console.log(namespace.connected[0].Socket.account);
         //关闭微信登入网页
         let html = `
             <script type="text/javascript">
@@ -26,6 +27,23 @@ Reg.prototype.bossWechatReg = ()=> {
             </script> 
         `
         try {
+
+            let namespace = sio.to(ctx.query.state);
+            let account = {};
+    
+            //获得账号信息
+            for( let i in namespace.connected) {
+                account = namespace.connected[i].account;
+            }
+
+            //是否是admin权限
+            if(account.authority.indexOf('admin') === -1) {
+                ctx.body = html;
+                sio.to(ctx.query.state).emit('appError', '注册发生错误');
+                return console.log(wxtoken);
+            }
+
+            //获取微信信息
             let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
             let wxuser = JSON.parse(await wechat.getUnionId(wxtoken.access_token, wxtoken.openid));
 
