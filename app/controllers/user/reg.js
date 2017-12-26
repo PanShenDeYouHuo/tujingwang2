@@ -9,6 +9,10 @@ function Reg() {
 
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
+
+        let socket = sio.to(ctx.query.state);
+
+        console.log(socket.account);
         //关闭微信登入网页
         let html = `
             <script type="text/javascript">
@@ -32,7 +36,7 @@ Reg.prototype.bossWechatReg = ()=> {
             if(!isReg) {
                 ctx.body = html;
                 sio.to(ctx.query.state).emit('appError', '此微信已经注册');
-                return console.log(wxtoken);
+                return;
             }
 
             let accountInfo = {
@@ -51,6 +55,8 @@ Reg.prototype.bossWechatReg = ()=> {
             };
             await user_db.inset(accountInfo);
 
+            //注册成功
+            ctx.body = html;
             sio.to(ctx.query.state).emit('bossWechatRegSuccess','注册成功');
 
         } catch (error) {
@@ -105,6 +111,8 @@ Reg.prototype.employeeWechatReg = ()=> {
             };
             await user_db.inset(accountInfo);
 
+            //注册成功
+            ctx.body = html;
             sio.to(ctx.query.state).emit('employeeWechatRegSuccess','注册成功');
 
         } catch (error) {
