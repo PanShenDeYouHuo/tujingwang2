@@ -9,35 +9,31 @@ function Reg() {
 
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
-
+        
         //关闭微信登入网页
         let html = `
             <script type="text/javascript">
                 self.close()
             </script> 
         `
+        
         try {
 
-
+            //得到此链接的socket
             let socket = sio.sockets.connected[ctx.query.state];
-
-            if (socket) {
+            
+            if (!socket) {
                 ctx.body = html;
-                socket.volatile.emit('appError', '1注册发生错误');
+                socket.volatile.emit('appError', '注册发生错误');
                 return;
             }
     
-            // //获得账号信息
-            // for( let i in namespace.connected) {
-            //     account = namespace.connected[i].account;
-            // }
-
-            // //是否是admin权限
-            // if(account.authority.indexOf('admin') === -1) {
-            //     ctx.body = html;
-            //     sio.to(ctx.query.state).emit('appError', '注册发生错误');
-            //     return;
-            // }
+            //是否是admin权限
+            if(socket.account.authority.indexOf('admin') === -1) {
+                ctx.body = html;
+                socket.volatile.emit('appError', '注册发生错误');
+                return;
+            }
 
             //获取微信信息
             let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
@@ -45,7 +41,7 @@ Reg.prototype.bossWechatReg = ()=> {
 
             if(wxtoken.errcode) {
                 ctx.body = html;
-                sio.to(ctx.query.state).emit('appError', '注册发生错误');
+                socket.volatile.emit('appError', '注册发生错误');
                 return console.log(wxtoken);
             }
 
@@ -55,10 +51,11 @@ Reg.prototype.bossWechatReg = ()=> {
 
             if(!isReg) {
                 ctx.body = html;
-                sio.to(ctx.query.state).emit('appError', '此微信已经注册');
+                socket.volatile.emit('appError', '此微信已经注册');
                 return;
             }
 
+            //注册信息
             let accountInfo = {
                 nickname:   wxuser.nickname,
                 sex:        wxuser.sex,
@@ -77,11 +74,11 @@ Reg.prototype.bossWechatReg = ()=> {
 
             //注册成功
             ctx.body = html;
-            sio.to(ctx.query.state).emit('bossWechatRegSuccess','注册成功');
+            socket.volatile.emit('bossWechatRegSuccess', '注册成功');
 
         } catch (error) {
             ctx.body = html;
-            sio.to(ctx.query.state).emit('appError','注册发生错误');
+            sio.to(ctx.query.state).volatile.emit('appError','注册发生错误');
             console.log(error);
         }
     }
