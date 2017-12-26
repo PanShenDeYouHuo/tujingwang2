@@ -12,6 +12,8 @@ Reg.prototype.bossWechatReg = ()=> {
 
         let socket = sio.to(ctx.query.state);
 
+        console.log(Object.keys(socket)); 
+
         console.log(socket.connected);
         //关闭微信登入网页
         let html = `
