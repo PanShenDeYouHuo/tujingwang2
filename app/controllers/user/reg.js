@@ -11,9 +11,13 @@ Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
         let namespace = sio.to(ctx.query.state);
+        
+        for( let i in namespace.connected) {
+            console.log(i);
+        }
 
-        console.log(Object.keys(namespace.connected)); 
-        console.log(namespace.connected[0]); 
+        // console.log(Object.keys(namespace.connected)); 
+        // console.log(namespace.connected[0]); 
 
         // console.log(namespace.connected[0].Socket.account);
         //关闭微信登入网页
