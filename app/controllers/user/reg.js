@@ -10,7 +10,7 @@ function Reg() {
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
-        console.log(sio.sockets.connected[socketid].account)
+        console.log(sio.sockets.connected[ctx.query.state].account)
 
         // let namespace = sio.to(ctx.query.state).account;
         // console.log(namespace);
