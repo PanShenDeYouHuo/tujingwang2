@@ -14,7 +14,7 @@ Reg.prototype.bossWechatReg = ()=> {
 
         console.log(Object.keys(namespace.connected)); 
 
-        console.log(namespace.connected[Object.keys(namespace.connected)].Socket.account);
+        console.log(namespace.connected[0].Socket.account);
         //关闭微信登入网页
         let html = `
             <script type="text/javascript">
