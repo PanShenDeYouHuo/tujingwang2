@@ -10,15 +10,16 @@ function Reg() {
 Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
-        console.log(sio.sockets.connected)
+        // console.log(sio.sockets.connected)
 
-        let namespace = sio.to(ctx.query.state);
-        let account = {};
+        let namespace = sio.to(ctx.query.state).account;
+        console.log(namespace);
+        // let account = {};
 
-        //获得账号信息
-        for( let i in namespace.connected) {
-            account = namespace.connected[i].account;
-        }
+        // //获得账号信息
+        // for( let i in namespace.connected) {
+        //     account = namespace.connected[i].account;
+        // }
 
         //关闭微信登入网页
         let html = `
