@@ -13,7 +13,7 @@ Reg.prototype.bossWechatReg = ()=> {
         let namespace = sio.to(ctx.query.state);
         let account = {};
         for( let i in namespace.connected) {
-            account = namespace.connected[i];
+            account = namespace.connected[i].account;
         }
 
         console.log(account);
