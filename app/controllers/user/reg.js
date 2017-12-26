@@ -23,21 +23,21 @@ Reg.prototype.bossWechatReg = ()=> {
 
             if (socket) {
                 ctx.body = html;
-                socket.volatile.emit('appError', '注册发生错误');
+                socket.volatile.emit('appError', '1注册发生错误');
                 return;
             }
     
-            //获得账号信息
-            for( let i in namespace.connected) {
-                account = namespace.connected[i].account;
-            }
+            // //获得账号信息
+            // for( let i in namespace.connected) {
+            //     account = namespace.connected[i].account;
+            // }
 
-            //是否是admin权限
-            if(account.authority.indexOf('admin') === -1) {
-                ctx.body = html;
-                sio.to(ctx.query.state).emit('appError', '注册发生错误');
-                return;
-            }
+            // //是否是admin权限
+            // if(account.authority.indexOf('admin') === -1) {
+            //     ctx.body = html;
+            //     sio.to(ctx.query.state).emit('appError', '注册发生错误');
+            //     return;
+            // }
 
             //获取微信信息
             let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
