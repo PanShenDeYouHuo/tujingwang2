@@ -11,9 +11,9 @@ Reg.prototype.bossWechatReg = ()=> {
     return async(ctx)=> {
 
         let namespace = sio.to(ctx.query.state);
-        
+        let account = {};
         for( let i in namespace.connected) {
-            console.log(i);
+            account = namespace.connected[i].Socket.account;
         }
 
         // console.log(Object.keys(namespace.connected)); 
