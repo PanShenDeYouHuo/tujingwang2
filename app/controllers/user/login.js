@@ -33,40 +33,25 @@ Login.prototype.wechat = ()=> {
 
             //根据unionid查询，用户是否注册
             let where = {'wechat.unionid': wxuser.unionid};
-            let isReg = await user_db.count(where) < 1 ? true : false;
+            // let isReg = await user_db.count(where) < 1 ? true : false;
             
-            if(isReg) {
-                let accountInfo = {
-                    state:      true,
-                    nickname:   wxuser.nickname,
-                    sex:        wxuser.sex,
-                    province:   wxuser.province,
-                    city:       wxuser.city,
-                    country:    wxuser.country,
-                    headimgurl: wxuser.headimgurl,
-                    wechat: {
-                        accessToken: wxtoken.access_token,
-                        refreshToken: wxtoken.refresh_token,
-                        unionid: wxuser.unionid
-                    }
-                };
-                await user_db.inset(accountInfo);
-            }
-
-            //生成accountToken
-            let account = await user_db.findOne(where, {'authority': 1});
-
-            let header = {
-                typ: "JWT",
-                alg: "HS256"
-            };
-            let payload = {
-                iss: "cloud.tujingwang.com",
-                exp: new Date().getTime(),
-                _id: account._id,
-                authority: account.authority
-            };
-            let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), 'meihaodeshijie,meihaodeshenghuo'); //生成token
+            // if(isReg) {
+            //     let accountInfo = {
+            //         state:      true,
+            //         nickname:   wxuser.nickname,
+            //         sex:        wxuser.sex,
+            //         province:   wxuser.province,
+            //         city:       wxuser.city,
+            //         country:    wxuser.country,
+            //         headimgurl: wxuser.headimgurl,
+            //         wechat: {
+            //             accessToken: wxtoken.access_token,
+            //             refreshToken: wxtoken.refresh_token,
+            //             unionid: wxuser.unionid
+            //         }
+            //     };
+            //     await user_db.inset(accountInfo);
+            // }
 
             //跟新用户数据
             let update = {
@@ -83,6 +68,21 @@ Login.prototype.wechat = ()=> {
                 'wechat.unionid':       wxuser.unionid,
             }
             await user_db.update(where, update);
+
+            //生成accountToken
+            let account = await user_db.findOne(where, {'authority': 1});
+
+            let header = {
+                typ: "JWT",
+                alg: "HS256"
+            };
+            let payload = {
+                iss: "cloud.tujingwang.com",
+                exp: new Date().getTime(),
+                _id: account._id,
+                authority: account.authority
+            };
+            let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), 'meihaodeshijie,meihaodeshenghuo'); //生成token
             
             account.accessToken = accessToken;
             

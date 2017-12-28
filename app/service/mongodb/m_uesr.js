@@ -264,4 +264,26 @@ UserClass.prototype.count = (where)=> {
     });
 }
 
+/**
+ * 根据条件进行分页查询
+ * 
+ * @param {any} whereStr    查询条件
+ * @param {any} pageSize    单页面总数
+ * @param {any} currentPage 当前页面
+ * @param {any} sort        排序条件
+ * @returns 
+ */
+UserClass.prototype.findUsers = (whereStr,pageSize,currentPage,sort)=> {
+
+    //跳过数
+    let skipnum = (currentPage - 1) * pageSize;
+
+    return new Promise((resolve, reject)=> {
+        User.find(whereStr).skip(skipnum).limit(pageSize).sort(sort).exec((err, res)=> {
+            if (err) return reject(err);
+            resolve(res);
+        });
+    });
+}
+
 module.exports = new UserClass();

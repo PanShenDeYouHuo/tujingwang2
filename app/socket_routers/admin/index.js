@@ -2,8 +2,14 @@ const admin = require('../../controllers/admin');
 
 module.exports = (socket)=> {
     
-    //boss账号注册
-    socket.on('postBossAccount', admin.postBossAccount());
+    // //boss账号注册
+    // socket.on('postBossAccount', admin.postBossAccount());
+
+    //boss账号列表获取
+    socket.on('getBossAccounts', admin.getBossAccounts());
+
+    //boss账号获取
+    socket.on('getBossAccount', admin.getBossAccount());
 
     //boss账号权限管理
     socket.on('putBossAccount', admin.putBossAccount());
