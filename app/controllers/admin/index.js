@@ -27,6 +27,28 @@ function Admin() {
 // }
 
 /**
+ * boss账号个数统计 总数 禁用数
+ * 
+ * @returns total 总数, disable 禁用数
+ */
+Admin.prototype.getBossAccountStatistics = ()=> {
+    return async (data, fu)=> {
+        try {
+            let where = {
+                authority: 'boss'
+            }
+            let total = await user_db.count(where);
+            where.state = 2;
+            let disable = await user_db.count(where);
+            fu({total, disable})
+        } catch (err) {
+            console.log(err);
+            fu({err:true, message: '发生错误'});
+        }
+    }
+}
+
+/**
  * 获取boss级账号列表
  * 
  * data.state 2查询禁用列表

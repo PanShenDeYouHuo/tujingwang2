@@ -5,6 +5,9 @@ module.exports = (socket)=> {
     // //boss账号注册
     // socket.on('postBossAccount', admin.postBossAccount());
 
+    //boss账号个数统计 总数 禁用数
+    socket.on('getBossAccountStatistics', admin.getBossAccountStatistics());
+
     //boss账号列表获取
     socket.on('getBossAccounts', admin.getBossAccounts());
 
