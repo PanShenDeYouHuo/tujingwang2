@@ -29,12 +29,21 @@ function Admin() {
 /**
  * 获取boss级账号列表
  * 
+ * data.state 2查询禁用列表
+ * data.state 小于2 查询未禁用列表
+ * 
  * @returns 
  */
 Admin.prototype.getBossAccounts = ()=> {
     return async (data, fu)=> {
         try {
-            let where = {'authority': 'boss'};
+            let where = {
+                authority: 'boss',
+                state: {$lt: 2}
+            };
+            if(data.state === 2) {
+                where.state = 2;
+            }
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
