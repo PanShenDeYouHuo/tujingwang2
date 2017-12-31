@@ -14,7 +14,7 @@ module.exports = (socket)=> {
     //boss账号获取
     socket.on('getBossAccount', admin.getBossAccount());
 
-    //boss账号权限管理
+    //boss账号是否禁用设置
     socket.on('putBossAccount', admin.putBossAccount());
 
     //boss账号删除

@@ -101,7 +101,7 @@ Admin.prototype.getBossAccount = ()=> {
 Admin.prototype.putBossAccount = ()=> {
     return async (data, fu)=> {
         try{
-            fu(await user_db.findByIdAndUpdate(data._id, data));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {state: data.state}}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
