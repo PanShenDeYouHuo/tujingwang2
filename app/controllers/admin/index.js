@@ -101,6 +101,7 @@ Admin.prototype.getBossAccount = ()=> {
 Admin.prototype.putBossAccount = ()=> {
     return async (data, fu)=> {
         try{
+            console.log(data);
             fu(await user_db.findByIdAndUpdate(data._id, {$set: {state: data.state}}));
         } catch (err) {
             console.log(err);
