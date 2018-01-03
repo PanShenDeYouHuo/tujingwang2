@@ -12,14 +12,12 @@ function Boss() {
 Boss.prototype.getStaffAccounts = ()=> {
     return async (data, fu)=> {
         try {
+            console.log(data);
+            let where = {};
             if(data.authority === 'all') {
-                let where = {
-                    authority: {$ne:{$all:['boss', 'admin']}},
-                };
+                where.authority = {$ne:{$all:['boss', 'admin']}};
             } else {
-                let where = {
-                    authority: data.authority,
-                }
+                where.authority = data.authority;
             }
             console.log(where);
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
