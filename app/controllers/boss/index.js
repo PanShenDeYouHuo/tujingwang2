@@ -9,7 +9,7 @@ function Boss() {
  * 
  * @returns 
  */
-Boss.prototype.getBossAccounts = ()=> {
+Boss.prototype.getStaffAccounts = ()=> {
     return async (data, fu)=> {
         try {
             if(data.authority === 'all') {
