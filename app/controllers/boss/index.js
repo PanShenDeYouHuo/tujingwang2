@@ -32,3 +32,5 @@ Boss.prototype.getBossAccounts = ()=> {
         }
     }
 }
+
+module.exports = new Boss();
