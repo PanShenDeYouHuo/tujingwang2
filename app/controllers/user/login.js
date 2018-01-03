@@ -53,21 +53,6 @@ Login.prototype.wechat = ()=> {
             //     await user_db.inset(accountInfo);
             // }
 
-            //跟新用户数据
-            let update = {
-                'state':                true,
-                'accessToken':          accessToken,
-                'nickname':             wxuser.nickname,
-                'sex':                  wxuser.sex,
-                'province':             wxuser.province,
-                'city':                 wxuser.city,
-                'country':              wxuser.country,
-                'headimgurl':           wxuser.headimgurl,
-                'wechat.accessToken':   wxtoken.access_token,
-                'wechat.refreshToken':  wxtoken.refresh_token,
-                'wechat.unionid':       wxuser.unionid,
-            }
-            await user_db.update(where, update);
 
             //生成accountToken
             let account = await user_db.findOne(where, {'authority': 1});
@@ -83,10 +68,26 @@ Login.prototype.wechat = ()=> {
                 authority: account.authority
             };
             let accessToken = token.jwtSignature(JSON.stringify(header), JSON.stringify(payload), 'meihaodeshijie,meihaodeshenghuo'); //生成token
+
+            //跟新用户数据
+            let update = {
+                'state':                1,
+                'accessToken':          accessToken,
+                'nickname':             wxuser.nickname,
+                'sex':                  wxuser.sex,
+                'province':             wxuser.province,
+                'city':                 wxuser.city,
+                'country':              wxuser.country,
+                'headimgurl':           wxuser.headimgurl,
+                'wechat.accessToken':   wxtoken.access_token,
+                'wechat.refreshToken':  wxtoken.refresh_token,
+                'wechat.unionid':       wxuser.unionid,
+            }
+            await user_db.update(where, update);
             
-            account.accessToken = accessToken;
             
             //登入成功返回给客户端
+            account.accessToken = accessToken;
             let socket = sio.to(ctx.query.state);
             socket.emit('loginSuccess', account);
             

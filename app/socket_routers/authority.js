@@ -1,4 +1,5 @@
 const admin = require('./admin');
+const boss = require('./boss');
 const user = require('./user');
 const oss = require('./oss');
 const project = require('./project');
@@ -15,6 +16,7 @@ function Authority() {
 Authority.prototype.admin = (socket)=> {
     console.log('开启管理员接口')
     admin(socket);
+    boss(socket);
     user(socket);
     project(socket);
     oss(socket);
@@ -25,7 +27,7 @@ Authority.prototype.admin = (socket)=> {
  * 
  */
 Authority.prototype.boss = (socket)=> {
-
+    boss(socket);
 }
 
 /**

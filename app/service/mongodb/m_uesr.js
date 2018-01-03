@@ -8,6 +8,29 @@ let user = {
         type:Number,
         default:0,
     },
+    //用户邮箱
+    mail:{type:String},
+    //手机号码
+    phone:{type:Number},
+    //登入密码
+    password:{type:String},
+    //访问令牌
+    accessToken:{type:String},
+    //所属公司
+    company:{type:String},
+    // //boss公司属性设置
+    // companyConfig:{
+    //     name:{type:String}, //公司名
+    //     position:[          //职位
+
+    //     ],
+    //     assignment:[        //任务类型
+    //         {
+    //             name:{type:String},
+    //             percentage:{type:Number},
+    //         }
+    //     ],
+    // },
     //真实个人信息
     information:{
         name:{type:String},
@@ -29,18 +52,10 @@ let user = {
             router:{type:String},
         }
     ],
-    //用户邮箱
-    mail:{type:String},
-    //手机号码
-    phone:{type:Number},
-    //登入密码
-    password:{type:String},
     //权限
     authority:[
         
     ],
-    //访问令牌
-    accessToken:{type:String},
     //昵称
     nickname:{type:String},
     //性别

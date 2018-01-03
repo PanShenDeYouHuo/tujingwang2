@@ -49,7 +49,7 @@ Reg.prototype.bossWechatReg = ()=> {
                 return console.log(wxtoken);
             }
 
-            //根据unionid查询，用户是否注册
+            //根据unionid查询，用户是否注册过
             let where = {'wechat.unionid': wxuser.unionid};
             let isReg = await user_db.count(where) < 1 ? true : false;
 
@@ -93,7 +93,7 @@ Reg.prototype.bossWechatReg = ()=> {
  * 
  * @returns 
  */
-Reg.prototype.employeeWechatReg = ()=> {
+Reg.prototype.staffWechatReg = ()=> {
     return async(ctx)=> {
 
         //关闭微信登入网页
@@ -131,7 +131,7 @@ Reg.prototype.employeeWechatReg = ()=> {
                 return console.log(wxtoken);
             }
 
-            //根据unionid查询，用户是否注册
+            //根据unionid查询，用户是否注册过
             let where = {'wechat.unionid': wxuser.unionid};
             let isReg = await user_db.count(where) < 1 ? true : false;
 
@@ -143,6 +143,7 @@ Reg.prototype.employeeWechatReg = ()=> {
 
             //注册信息
             let accountInfo = {
+                company:    ctx.query.state,
                 nickname:   wxuser.nickname,
                 sex:        wxuser.sex,
                 province:   wxuser.province,

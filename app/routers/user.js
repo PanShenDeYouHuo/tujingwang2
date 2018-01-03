@@ -7,7 +7,7 @@ let routers = router
     //boss级账号注册
     .get('/bossWechatReg', reg.bossWechatReg())
     //employee级账号注册
-    .get('/employeeWechatReg', reg.employeeWechatReg())
+    .get('/staffWechatReg', reg.staffWechatReg())
 
 
 
