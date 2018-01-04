@@ -15,7 +15,7 @@ Boss.prototype.getStaffAccounts = ()=> {
             console.log(data);
             let where = {};
             if(data.authority === 'all') {
-                where.authority = {$ne:{$all:['boss', 'admin']}};
+                where.authority = {$all:['boss', 'admin']};
             } else {
                 where.authority = data.authority;
             }
