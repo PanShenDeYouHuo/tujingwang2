@@ -7,6 +7,7 @@ const user = require('./user');
 const oss = require('./oss');
 const project = require('./project');
 
+//权限映射
 function setAuthority(socket, functionNames) {
 	for( let i = 0; i < functionNames.length; i++) {
 		console.log(`authority.${functionNames[i]}()`);
