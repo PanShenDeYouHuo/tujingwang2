@@ -13,7 +13,9 @@ Boss.prototype.getStaffAccounts = ()=> {
     return async (data, fu)=> {
         try {
             console.log(data);
-            let where = {};
+            let where = {
+                company: data._id,
+            };
             if(data.authority === 'all') {
                 where.authority = {$nin:['boss', 'admin']};
             } else {
