@@ -73,14 +73,13 @@ Admin.prototype.getBossAccount = ()=> {
 }
 
 /**
- * 跟新账号
+ * 设置boss账号是否禁用接口
  * 
  * @returns 
  */
 Admin.prototype.putBossAccount = ()=> {
     return async (data, fu)=> {
         try{
-            console.log(data);
             fu(await user_db.findByIdAndUpdate(data._id, {$set: {state: data.state}}));
         } catch (err) {
             console.log(err);

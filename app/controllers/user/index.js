@@ -58,15 +58,15 @@ function User() {
 // }
 
 /**
- * 跟新项目数据
+ * 跟新联系方式
  * 
  * @param {object} data._id 项目编号
  * @returns 
  */
-User.prototype.putUser = ()=> {
+User.prototype.putContactInformation = ()=> {
     return async (data, fu)=> {
         try{
-            fu(await user_db.findByIdAndUpdate(data._id, data));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
