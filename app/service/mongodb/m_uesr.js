@@ -16,8 +16,14 @@ let user = {
     password:{type:String},
     //访问令牌
     accessToken:{type:String},
-    //所属公司
-    company:{type:String},
+    //所属公司 
+    company:{type:String},      //公司所有者的账号id
+    //联系方式
+    contactInformation:{
+        QQ:{type:String},       //qq账号
+        wechat:{type:String},   //微信账号
+    },
+
     // //boss公司属性设置
     // companyConfig:{
     //     name:{type:String}, //公司名
@@ -32,7 +38,7 @@ let user = {
     //     ],
     // },
     //真实个人信息
-    information:{
+    realInformation:{
         name:{type:String},
         IDCardFront:{type:String},
         IDCardReverse:{type:String},

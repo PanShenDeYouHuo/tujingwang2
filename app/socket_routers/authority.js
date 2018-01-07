@@ -8,15 +8,21 @@ const project = require('./project');
 function Authority() {
     this.name = 'authority';
 }
+/**
+ * 默认接口
+ * 
+ * @param {any} socket 
+ */
+Authority.prototype.all = (socket)=> {
+    user(socket);
+}
 
 /**
  * 管理员权限接口
  * 
  */
 Authority.prototype.admin = (socket)=> {
-    console.log('开启管理员接口')
     admin(socket);
-    user(socket);
     project(socket);
     oss(socket);
 }
@@ -50,7 +56,7 @@ Authority.prototype.service = (socket)=> {
  * 
  */
 Authority.prototype.leder = (socket)=> {
-
+    
 }
 
 /**

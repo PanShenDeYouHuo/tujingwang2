@@ -2,10 +2,10 @@ const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
 const authority = require('./authority');
 
-const admin = require('./admin');
-const user = require('./user');
-const oss = require('./oss');
-const project = require('./project');
+// const admin = require('./admin');
+// const user = require('./user');
+// const oss = require('./oss');
+// const project = require('./project');
 
 //权限映射
 function setAuthority(socket, functionNames) {
@@ -47,6 +47,9 @@ module.exports = ()=> {
 				socket.account = account;
 				socket.emit('authenticationSuccess', account);
 
+				//公共接口
+				authority.user(socket);
+				
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);
 		

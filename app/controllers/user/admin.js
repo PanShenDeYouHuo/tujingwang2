@@ -4,27 +4,6 @@ function Admin() {
     this.name = 'admin';
 };
 
-// /**
-//  * 创建boss账号
-//  * 
-//  */
-// Admin.prototype.postBossAccount = ()=> {
-//     return async (data, fu)=> {
-//         try{
-//             let accountInfo = {
-//                 phone: data.phone,
-//                 name: data.name,
-//                 password: '123456',
-//                 authority: ['boss'],
-//             };
-//             await user_db.inset(accountInfo);
-//             fu();
-//         } catch (err) {
-//             console.log(err);
-//             fu({err: true, message: '注册错误'});
-//         }
-//     }
-// }
 
 /**
  * boss账号个数统计 总数 禁用数

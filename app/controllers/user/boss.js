@@ -12,7 +12,6 @@ function Boss() {
 Boss.prototype.getStaffAccounts = ()=> {
     return async (data, fu)=> {
         try {
-            console.log(data);
             let where = {
                 company: data._id,
             };
@@ -20,8 +19,7 @@ Boss.prototype.getStaffAccounts = ()=> {
                 where.authority = {$nin:['boss', 'admin']};
             } else {
                 where.authority = data.authority;
-            }
-            console.log(where);
+            };
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
