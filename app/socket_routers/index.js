@@ -48,7 +48,7 @@ module.exports = ()=> {
 				socket.emit('authenticationSuccess', account);
 
 				//公共接口
-				authority.user(socket);
+				authority.universal(socket);
 				
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);

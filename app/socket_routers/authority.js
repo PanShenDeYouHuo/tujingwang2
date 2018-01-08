@@ -13,7 +13,7 @@ function Authority() {
  * 
  * @param {any} socket 
  */
-Authority.prototype.all = (socket)=> {
+Authority.prototype.universal = (socket)=> {
     user(socket);
 }
 
