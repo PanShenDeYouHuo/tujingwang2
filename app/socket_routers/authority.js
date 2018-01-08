@@ -9,7 +9,7 @@ function Authority() {
     this.name = 'authority';
 }
 /**
- * 默认接口
+ * 同意接口
  * 
  * @param {any} socket 
  */
