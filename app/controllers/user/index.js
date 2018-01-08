@@ -66,6 +66,7 @@ function User() {
 User.prototype.putContactInformation = ()=> {
     return async (data, fu)=> {
         try{
+            console.log(data);
             fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
         } catch (err) {
             console.log(err);
