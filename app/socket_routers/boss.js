@@ -1,4 +1,4 @@
-const boss = require('../../controllers/user/boss');
+const boss = require('../controllers/user/boss');
 
 module.exports = (socket)=> {
     
