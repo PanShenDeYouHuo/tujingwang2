@@ -9,7 +9,7 @@ const routers = router
     .post('/', async(ctx, next)=>{
         console.log(ctx);
         ctx.response.status = 200;
-		ctx.body = 'osscallback';
+		ctx.body = {text:'osscallback'};
 	})
 
 module.exports = routers;
