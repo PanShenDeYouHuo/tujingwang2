@@ -57,7 +57,7 @@ StsToken.prototype.getReadStsToken = ()=> {
  * @returns {object} stsToken
  */
 StsToken.prototype.getWriteStsToken = ()=> {
-    console.log(this.sts);
+    console.log(this);
     return async (uid, fu)=> {
         try{
             let policy = {
