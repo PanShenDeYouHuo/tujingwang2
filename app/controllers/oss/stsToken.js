@@ -56,7 +56,7 @@ StsToken.prototype.getReadStsToken = ()=> {
  * @param {string} uid 账号id
  * @returns {object} stsToken
  */
-StsToken.prototype.getWriteStsToken = ()=> {
+StsToken.prototype.getWriteStsToken = function() {
     console.log(this);
     return async (uid, fu)=> {
         try{
