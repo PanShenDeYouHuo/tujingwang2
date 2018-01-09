@@ -1,5 +1,3 @@
-import { request } from 'http';
-
 const router = require('koa-router')();
 
 const home = require('./home');
