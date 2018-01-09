@@ -3,10 +3,11 @@ const login = require('../controllers/user/login');
 const reg = require('../controllers/user/reg');
 
 let routers = router
+    //微信登入
     .get('/wechat', login.wechat())
-    //boss级账号注册
+    //微信boss级账号注册
     .get('/bossWechatReg', reg.bossWechatReg())
-    //employee级账号注册
+    //微信employee级账号注册
     .get('/staffWechatReg', reg.staffWechatReg())
 
 
