@@ -81,6 +81,7 @@ StsToken.prototype.getWriteStsToken = ()=> {
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = uid;
             
+            console.log(this.sts);
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 

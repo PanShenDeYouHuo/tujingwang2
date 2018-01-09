@@ -66,9 +66,23 @@ function User() {
 User.prototype.putContactInformation = ()=> {
     return async (data, fu)=> {
         try{
-            console.log(data);
-            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
+             fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
         } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+/**
+ * 实名认证
+ * 
+ * @returns 
+ */
+User.prototype.putRealInformation = ()=> {
+    return async (data, fu)=> {
+        try{
+
+        }catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
         }

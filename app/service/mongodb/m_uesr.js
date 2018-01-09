@@ -39,6 +39,7 @@ let user = {
     // },
     //真实个人信息
     realInformation:{
+        state:{type:Number, default:0}, //0未认证, 1已认证
         name:{type:String},
         IDCardFront:{type:String},
         IDCardReverse:{type:String},
@@ -47,7 +48,7 @@ let user = {
     notify:[
         {   
             //通知状态
-            state:{type:Boolean, default:false},
+            state:{type:Number, default:0}, //0未读, 1已读
             //通知类型
             ntype:{type:String},
             //通知标题
