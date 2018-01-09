@@ -5,6 +5,11 @@ const routers = router
         console.log(ctx);
         ctx.response.status = 200;
 		ctx.body = 'osscallback';
+    })
+    .post('/', async(ctx, next)=>{
+        console.log(ctx);
+        ctx.response.status = 200;
+		ctx.body = 'osscallback';
 	})
 
 module.exports = routers;
