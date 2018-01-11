@@ -160,7 +160,7 @@ Reg.prototype.staffWechatReg = ()=> {
 
             //注册成功
             ctx.body = html;
-            socket.volatile.emit('bossWechatRegSuccess', '注册成功');
+            socket.volatile.emit('staffWechatRegSuccess', '注册成功');
 
         } catch (error) {
             ctx.body = html;
