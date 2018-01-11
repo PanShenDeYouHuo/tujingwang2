@@ -143,7 +143,7 @@ Reg.prototype.staffWechatReg = ()=> {
 
             //注册信息
             let accountInfo = {
-                company:    socket.account._id,
+                'company.bossId':    socket.account._id,
                 nickname:   wxuser.nickname,
                 sex:        wxuser.sex,
                 province:   wxuser.province,

@@ -17,11 +17,13 @@ let user = {
     //访问令牌
     accessToken:{type:String},
     //所属公司 
-    company:{type:String},      //公司所有者的账号id
-    //联系方式
-    contactInformation:{
-        QQ:{type:String},       //qq账号
-        wechat:{type:String},   //微信账号
+    company:{
+        bossId:{type:String},                   //公司所有者的账号id  
+        basicSalary:{type:Number, default:0},   //底薪
+        commission:{                            //提成
+            render:{type:Number, default:0},    //渲染提成单位百分比
+            model:{type:Number, default:0},     //渲染提成
+        }
     },
 
     // //boss公司属性设置
@@ -39,18 +41,24 @@ let user = {
     // },
     //真实个人信息
     realInformation:{
-        state:{type:Number, default:0}, //0未认证, 1已认证
-        name:{type:String},
-        IDCardFront:{type:String},
-        IDCardReverse:{type:String},
+        state:{type:Number, default:0}, //0未认证, 1审核中, 2认证
+
+        name:{type:String},             //姓名
+        IDNumber:{type:String},         //身份证号码
+        IDCardFront:{type:String},      //身份证正面
+        IDCardReverse:{type:String},    //身份证反面
+
+        bankCardAccount:{type:Number},  //银行卡账号
+        openingBank:{type:String},      //开户行
+        bankCardFront:{type:String},    //银行卡正面
     },
     //通知
     notify:[
         {   
             //通知状态
-            state:{type:Number, default:0}, //0未读, 1已读
+            state:{type:Number, default:0}, //0未点击, 1已点击
             //通知类型
-            ntype:{type:String},
+            ntype:{type:String},            //系统、团队、任务  
             //通知标题
             title:{type:String},
             //通知内容
@@ -59,10 +67,28 @@ let user = {
             router:{type:String},
         }
     ],
+    //个人信息认证
+    InfoAuth: [
+        {
+            //认证状态
+            state:{type:Number, default:0}, //0审核中, 1成功, 2失败
+            //认证账号id
+            id:{type:String},
+            //认证结果说明
+            content:{type:String},
+        }
+    ],
     //权限
     authority:[
         
     ],
+
+
+    //联系方式
+    contactInformation:{
+        QQ:{type:String},       //qq账号
+        wechat:{type:String},   //微信账号
+    },
     //昵称
     nickname:{type:String},
     //性别
