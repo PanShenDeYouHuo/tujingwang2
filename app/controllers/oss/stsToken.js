@@ -102,6 +102,7 @@ StsToken.prototype.getWriteStsToken = function() {
 StsToken.prototype.getWriteAccountStsToken = function() {
     return async (uid, fu)=> {
         try{
+            console.log('haha');
             let policy = {
                 "Statement": [
                     {
@@ -126,7 +127,7 @@ StsToken.prototype.getWriteAccountStsToken = function() {
 
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-
+            console.log('haha1');
             fu(token);
         } catch (err) {
             console.log(err);
