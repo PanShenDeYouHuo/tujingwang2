@@ -51,7 +51,7 @@ StsToken.prototype.getReadStsToken = function() {
  }
 
  /**
- * 获得oss写权限的sts临时token
+ * 获得oss productionProject写权限的sts临时token
  * 
  * @param {string} uid 账号id
  * @returns {object} stsToken
@@ -94,7 +94,7 @@ StsToken.prototype.getWriteStsToken = function() {
  }
 
 /**
- * 获得oss写权限的sts临时token
+ * 获得oss account写权限的sts临时token
  * 
  * @param {string} uid 账号id
  * @returns {object} stsToken
@@ -102,7 +102,6 @@ StsToken.prototype.getWriteStsToken = function() {
 StsToken.prototype.getWriteAccountStsToken = function() {
     return async (uid, fu)=> {
         try{
-            console.log('haha');
             let policy = {
                 "Statement": [
                     {
@@ -127,7 +126,7 @@ StsToken.prototype.getWriteAccountStsToken = function() {
 
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-            console.log('haha1');
+
             fu(token);
         } catch (err) {
             console.log(err);
@@ -135,6 +134,51 @@ StsToken.prototype.getWriteAccountStsToken = function() {
         }
     }
      
- }
+}
+
+/**
+ * 获得oss account写权限的sts临时token
+ * 
+ * @param {string} uid 账号id
+ * @returns {object} stsToken
+ */
+StsToken.prototype.getWriteAccountStsToken = function() {
+    return async (uid, fu)=> {
+        try{
+            let policy = {
+                "Statement": [
+                    {
+                        "Action": [
+                            "oss:DeleteObject",
+                            "oss:ListParts",
+                            "oss:AbortMultipartUpload",
+                            "oss:PutObject"
+                        ],
+                        "Effect": "Allow",
+                        "Resource": [
+                            `acs:oss:*:*:tujingcloud/temporaryFile/${uid}`,
+                            `acs:oss:*:*:tujingcloud/temporaryFile/${uid}/*`
+                        ]
+                    }
+                ],
+                "Version": "1"
+            };
+        
+            let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
+            let sessionName = uid;
+
+            //获取token
+            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+
+            fu(token);
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+     
+}
+
+
 
 module.exports = new StsToken();
