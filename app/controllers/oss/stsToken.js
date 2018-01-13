@@ -114,8 +114,8 @@ StsToken.prototype.getWriteAccountStsToken = function() {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            "acs:oss:*:*:tujingcloud/Account",
-                            "acs:oss:*:*:tujingcloud/Account/*"
+                            "acs:oss:*:*:tujingcloud/account",
+                            "acs:oss:*:*:tujingcloud/account/*"
                         ]
                     }
                 ],
