@@ -33,6 +33,7 @@ Authority.prototype.admin = (socket)=> {
  */
 Authority.prototype.boss = (socket)=> {
     boss(socket);
+    oss(socket);
 }
 
 /**
