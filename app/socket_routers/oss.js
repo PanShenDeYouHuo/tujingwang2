@@ -6,9 +6,7 @@ module.exports = (socket)=> {
     //获得oss读权限的sts临时token
     socket.on('getReadStsToken', stsToken.getReadStsToken());
 
-
-
     // //获得oss写权限的sts临时token
     socket.on('getWriteStsToken', stsToken.getWriteStsToken());
-    
+    socket.on('getWriteAccountStsToken', stsToken.getWriteAccountStsToken());
 }

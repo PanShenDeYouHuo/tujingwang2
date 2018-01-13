@@ -18,7 +18,7 @@ let user = {
     accessToken:{type:String},
     //所属公司 
     company:{
-        bossId:{type:String},                   //公司所有者的账号id  
+        bossId:{type:String},                   //公司所有者的账号id
         basicSalary:{type:Number, default:0},   //底薪
         commission:{                            //提成
             render:{type:Number, default:0},    //渲染提成单位百分比
@@ -52,6 +52,19 @@ let user = {
         openingBank:{type:String},      //开户行
         bankCardFront:{type:String},    //银行卡正面
     },
+    //真实信息认证
+    //个人信息认证
+    InfoAuth: [
+        {
+            //认证状态
+            state:{type:Number}, //0待审核, 1成功, 2失败
+            //认证账号id
+            id:{type:String},
+            //认证结果说明
+            content:{type:String},
+        }
+    ],
+    
     //通知
     notify:[
         {   
@@ -65,17 +78,6 @@ let user = {
             concent:{type:String},
             //通知路由
             router:{type:String},
-        }
-    ],
-    //个人信息认证
-    InfoAuth: [
-        {
-            //认证状态
-            state:{type:Number, default:0}, //0审核中, 1成功, 2失败
-            //认证账号id
-            id:{type:String},
-            //认证结果说明
-            content:{type:String},
         }
     ],
     //权限
