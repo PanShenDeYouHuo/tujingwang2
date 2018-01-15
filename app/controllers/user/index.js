@@ -115,7 +115,7 @@ User.prototype.putRealInformation = function(account) {
             };
 
             //保存到数据库
-            await user_db.findByIdAndUpdate(account._id, {$set: realInformation
+            let res = await user_db.findByIdAndUpdate(account._id, {$set: realInformation
                 // {
                 //     'realInformation.state': 1,                                                 //0未认证, 1审核中, 2认证成功
                 //     'realInformation.name': data.name,                                          //姓名
@@ -128,6 +128,7 @@ User.prototype.putRealInformation = function(account) {
                     
                 // }
             });
+            console.log('res');
             
             //检查是否有公司
             if(account.company) {
