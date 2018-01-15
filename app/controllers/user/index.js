@@ -93,7 +93,7 @@ User.prototype.putRealInformation = function(account) {
                 delimiter: '/'
             });
             for (let i = 0; i < list.objects.length; i++ ) {
-                let res = await this.client.copy(obj.name.substr(14), obj.name);
+                let res = await this.client.copy(list.objects[i].substr(14), list.objects[i]);
                 console.log(res);
             }
 
