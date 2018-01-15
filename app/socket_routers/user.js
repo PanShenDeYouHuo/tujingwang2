@@ -1,5 +1,5 @@
-const token = require('../modules/node-jwt');
-const user = require('../controllers/user')
+// const token = require('../modules/node-jwt');
+const user = require('../controllers/user');
 
 module.exports = (socket)=> {
     // //token登入
@@ -8,5 +8,8 @@ module.exports = (socket)=> {
 
     //联系信息更新
     socket.on('putContactInformation', user.putContactInformation());
+
+    //账户认证
+    socket.on('putRealInformation', user.putRealInformation(socket.account._id));
     
 }

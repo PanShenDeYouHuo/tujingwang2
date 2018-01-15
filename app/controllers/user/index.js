@@ -1,7 +1,14 @@
 const user_db = require('../../service/mongodb/m_uesr');
+const OSS = require('ali-oss').Wrapper;                 //Promise函数
 
 function User() {
     this.name = 'user';
+    this.client = new OSS({
+        region: 'oss-cn-beijing',
+        accessKeyId: 'LTAIesg8W64WwrGI',
+        accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
+        bucket: 'tujingcloud',
+    });
 }
 /**
  * 用项目名称和客服创建项目
@@ -78,9 +85,14 @@ User.prototype.putContactInformation = ()=> {
  * 
  * @returns 
  */
-User.prototype.putRealInformation = ()=> {
+User.prototype.putRealInformation = function(_id) {
     return async (data, fu)=> {
         try{
+            console.log(_id);
+            let list = this.client.list({
+                marker: 'temporaryFile/account/',
+            });
+            console.log(list);
 
         }catch (err) {
             console.log(err);

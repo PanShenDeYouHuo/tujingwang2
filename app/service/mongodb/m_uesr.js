@@ -41,7 +41,7 @@ let user = {
     // },
     //真实个人信息
     realInformation:{
-        state:{type:Number, default:0}, //0未认证, 1审核中, 2认证
+        state:{type:Number, default:0}, //0未认证, 1审核中, 2认证成功
 
         name:{type:String},             //姓名
         IDNumber:{type:String},         //身份证号码
@@ -52,18 +52,18 @@ let user = {
         openingBank:{type:String},      //开户行
         bankCardFront:{type:String},    //银行卡正面
     },
-    //真实信息认证
-    //个人信息认证
-    InfoAuth: [
-        {
-            //认证状态
-            state:{type:Number}, //0待审核, 1成功, 2失败
-            //认证账号id
-            id:{type:String},
-            //认证结果说明
-            content:{type:String},
-        }
-    ],
+    // //真实信息认证
+    // //个人信息认证
+    // InfoAuth: [
+    //     {
+    //         //认证状态
+    //         state:{type:Number}, //0待审核, 1成功, 2失败
+    //         //认证账号id
+    //         id:{type:String},
+    //         //认证结果说明
+    //         content:{type:String},
+    //     }
+    // ],
     
     //通知
     notify:[
