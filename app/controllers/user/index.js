@@ -101,32 +101,32 @@ User.prototype.putRealInformation = function(account) {
                 await this.client.delete(list.objects[i].name);
             }
 
-            //需要保存的认证数据信息
-            let realInformation = {
-                state: 1,                                                   //0未认证, 1审核中, 2认证成功
-                name: data.name,                                            //姓名
-                IDNumber: data.IDNumber,                                     //身份证号码
-                IDCardFrontObjectKey: list.objects[0].name.substr(14),      //身份证正面
-                IDCardReverseObjectKey: list.objects[1].name.substr(14),    //身份证反面
+            // //需要保存的认证数据信息
+            // let realInformation = {
+            //     state: 1,                                                   //0未认证, 1审核中, 2认证成功
+            //     name: data.name,                                            //姓名
+            //     IDNumber: data.IDNumber,                                     //身份证号码
+            //     IDCardFrontObjectKey: list.objects[0].name.substr(14),      //身份证正面
+            //     IDCardReverseObjectKey: list.objects[1].name.substr(14),    //身份证反面
         
-                bankCardAccount: data.bankCardAccount,                      //银行卡账号
-                openingBank: data.openingBank,                              //开户行
-                bankCardFrontObjectKey: list.objects[2].name.substr(14),    //银行卡正面
-            };
+            //     bankCardAccount: data.bankCardAccount,                      //银行卡账号
+            //     openingBank: data.openingBank,                              //开户行
+            //     bankCardFrontObjectKey: list.objects[2].name.substr(14),    //银行卡正面
+            // };
 
             //保存到数据库
-            let res = await user_db.findByIdAndUpdate(account._id, {$set: realInformation
-                // {
-                //     'realInformation.state': 1,                                                 //0未认证, 1审核中, 2认证成功
-                //     'realInformation.name': data.name,                                          //姓名
-                //     'realInformation.IDNumber': data.IDNumber,                                  //身份证号码
-                //     'realInformation.IDCardFrontObjectKey': list.objects[0].name.substr(14),    //身份证正面
-                //     'realInformation.IDCardReverseObjectKey': list.objects[1].name.substr(14),  //身份证反面
-                //     'realInformation.bankCardAccount': data.bankCardAccount,                    //银行卡账号
-                //     'realInformation.openingBank': data.openingBank,                            //开户行
-                //     'realInformation.bankCardFrontObjectKey': list.objects[2].name.substr(14),  //银行卡正面
+            let res = await user_db.findByIdAndUpdate(account._id, {$set: 
+                {
+                    'realInformation.state': 1,                                                 //0未认证, 1审核中, 2认证成功
+                    'realInformation.name': data.name,                                          //姓名
+                    'realInformation.IDNumber': data.IDNumber,                                  //身份证号码
+                    'realInformation.IDCardFrontObjectKey': list.objects[0].name.substr(14),    //身份证正面
+                    'realInformation.IDCardReverseObjectKey': list.objects[1].name.substr(14),  //身份证反面
+                    'realInformation.bankCardAccount': data.bankCardAccount,                    //银行卡账号
+                    'realInformation.openingBank': data.openingBank,                            //开户行
+                    'realInformation.bankCardFrontObjectKey': list.objects[2].name.substr(14),  //银行卡正面
                     
-                // }
+                }
             });
             console.log(res);
             
