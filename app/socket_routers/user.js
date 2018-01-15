@@ -7,7 +7,7 @@ module.exports = (socket)=> {
     // });
 
     //联系信息更新
-    socket.on('putContactInformation', user.putContactInformation());
+    socket.on('putContactInformation', user.putContactInformation(socket.account));
 
     //账户认证
     socket.on('putRealInformation', user.putRealInformation(socket.account));
