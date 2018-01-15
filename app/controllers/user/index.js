@@ -88,9 +88,8 @@ User.prototype.putContactInformation = (account)=> {
 User.prototype.putRealInformation = function(account) {
     return async (data, fu)=> {
         try{
-            console.log(`temporaryFile/account/${account._id}/`);
             let list = await this.client.list({
-                prefix: 'temporaryFile/',
+                prefix: `temporaryFile/account/${account._id}/`,
                 delimiter: '/'
             });
             console.log(list);
