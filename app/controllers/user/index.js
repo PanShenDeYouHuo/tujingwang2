@@ -91,7 +91,6 @@ User.prototype.putRealInformation = function(account) {
             console.log(`temporaryFile/account/${account._id}/`);
             let list = await this.client.list({
                 prefix: 'temporaryFile/',
-                delimiter: '/'
             });
             console.log(list);
             console.log(list.prefixes);
