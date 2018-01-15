@@ -43,14 +43,14 @@ let user = {
     realInformation:{
         state:{type:Number, default:0}, //0未认证, 1审核中, 2认证成功
 
-        name:{type:String},             //姓名
-        IDNumber:{type:String},         //身份证号码
-        IDCardFront:{type:String},      //身份证正面
-        IDCardReverse:{type:String},    //身份证反面
+        name:{type:String},                         //姓名
+        IDNumber:{type:String},                     //身份证号码
+        IDCardFrontObjectKey:{type:String},         //身份证正面
+        IDCardReverseObjectKey:{type:String},       //身份证反面
 
-        bankCardAccount:{type:Number},  //银行卡账号
-        openingBank:{type:String},      //开户行
-        bankCardFront:{type:String},    //银行卡正面
+        bankCardAccount:{type:Number},              //银行卡账号
+        openingBank:{type:String},                  //开户行
+        bankCardFrontObjectKey:{type:String},       //银行卡正面
     },
     // //真实信息认证
     // //个人信息认证
