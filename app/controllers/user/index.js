@@ -90,7 +90,7 @@ User.prototype.putRealInformation = function(account) {
         try{
             console.log(`temporaryFile/account/${account._id}/`);
             let list = await this.client.list({
-                marker: 'temporaryFile/account/5a3c987c8b10af001b53511b/',
+                marker: 'temporaryFile/account/5a3c987c8b10af001b53511b/authenticate/',
             });
             console.log(list.prefixes);
             console.log(list.objects);
