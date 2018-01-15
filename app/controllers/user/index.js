@@ -89,7 +89,7 @@ User.prototype.putRealInformation = function(account) {
     return async (data, fu)=> {
         try{
             let list = await this.client.list({
-                prefix: `temporaryFile/account/${account._id}/`,
+                prefix: `temporaryFile/account/${account._id}/authenticate/`,
                 delimiter: '/'
             });
             console.log(list);
