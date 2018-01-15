@@ -92,9 +92,8 @@ User.prototype.putRealInformation = function(account) {
             let list = await this.client.list({
                 marker: `temporaryFile/account/${account._id}/`,
             });
-            for (let valou of list) {
-                console.log(valou);
-            }
+            console.log(list.prefixes);
+            console.log(list.objects);
 
         }catch (err) {
             console.log(err);
