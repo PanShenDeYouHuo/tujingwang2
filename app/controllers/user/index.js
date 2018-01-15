@@ -128,7 +128,7 @@ User.prototype.putRealInformation = function(account) {
                     
                 // }
             });
-            console.log('res');
+            console.log(res);
             
             //检查是否有公司
             if(account.company) {
