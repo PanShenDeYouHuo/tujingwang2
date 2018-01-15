@@ -8,6 +8,7 @@ let user = {
         type:Number,
         default:0,
     },
+    socketId:{type:String},                    //socket.io的id用于推送信息
     //用户邮箱
     mail:{type:String},
     //手机号码

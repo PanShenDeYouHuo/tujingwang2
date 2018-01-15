@@ -50,11 +50,18 @@ module.exports = ()=> {
 				socket.account = account;
 				socket.emit('authenticationSuccess', account);
 
+				//设置账号上线
+				await user_db.findByIdAndUpdate(account._id, {$set: {'state': 1, 'socketId': socket.id}});
+
+/////////////////////******socket.io接口*******////////////////////
 				//公共接口
 				authority.universal(socket);
 				
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);
+
+/////////////////////******通知*******////////////////////
+				//通知信息查询
 		
 
 			} catch (err) {
