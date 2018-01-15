@@ -92,9 +92,11 @@ User.prototype.putRealInformation = function(account) {
                 prefix: `temporaryFile/account/${account._id}/authenticate/`,
                 delimiter: '/'
             });
-            console.log(list);
-            console.log(list.prefixes);
-            console.log(list.objects);
+
+            list.objects.forEach(obj => {
+               let res = await this.client.copy(obj.name.substr(14), obj.name);
+               console.log(res);
+            });
 
         }catch (err) {
             console.log(err);
