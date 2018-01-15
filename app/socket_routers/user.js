@@ -10,6 +10,6 @@ module.exports = (socket)=> {
     socket.on('putContactInformation', user.putContactInformation());
 
     //账户认证
-    socket.on('putRealInformation', user.putRealInformation(socket.account._id));
+    socket.on('putRealInformation', user.putRealInformation(socket.account));
     
 }
