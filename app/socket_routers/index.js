@@ -21,7 +21,8 @@ module.exports = ()=> {
 		//断开连接
 		socket.on('disconnect', (data)=> {
 			if(socket.account) {
-				await user_db.findByIdAndUpdate(account._id, {$set: {'state': 2, 'socketId': ''}});
+				//设置账号下线
+				await user_db.findByIdAndUpdate(account._id, {$set: {'state': 2}});
 				console.log(`userId：${socket.account._id} , nickname: ${socket.account.nickname} 退出`);
 			} else {
 				console.log('a user disconnected:' + socket.id);
