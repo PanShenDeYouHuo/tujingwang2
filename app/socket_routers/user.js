@@ -11,5 +11,8 @@ module.exports = (socket)=> {
 
     //账户认证
     socket.on('putRealInformation', user.putRealInformation(socket.account));
+
+    //获取通知
+    socket.on('getNotify', user.getNotify(socket.account));
     
 }

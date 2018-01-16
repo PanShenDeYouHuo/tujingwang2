@@ -112,21 +112,41 @@ User.prototype.putRealInformation = function(account) {
                     'realInformation.IDCardReverseObjectKey': list.objects[1].name.substr(14),  //身份证反面
                     'realInformation.bankCardAccount': data.bankCardAccount,                    //银行卡账号
                     'realInformation.openingBank': data.openingBank,                            //开户行
-                    'realInformation.bankCardFrontObjectKey': list.objects[2].name.substr(14),  //银行卡正面
-                    
+                    'realInformation.bankCardFrontObjectKey': list.objects[2].name.substr(14),  //银行卡正面 
                 }
             });
             console.log(res);
+
+            let comments = {
+                state: 0,
+                ntype: 1,
+                concent: `${data.name}进行账号认证，请尽快去审核`,
+                router: '/boss/Authenticate'
+            }
             
             //检查是否有公司
-            if(account.company) {
-                if(account.company.bossId) {
-                    // let result = await user_db.findByIdAndUpdate(account.company.id, {$set: {}})
-                    return fu(account.company.bossId);
-                }
+            if(!account.company) {
+                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'nickname': 1});
+                //将通知保存到数据库
+                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                console.log(result);
+                console.log(admin);
+                return fu(result);
             }
-            let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'nickname': 1});
-            console.log(admin);
+            if(!account.company.bossId) {
+                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'nickname': 1});
+                //将通知保存到数据库
+                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                console.log(result);
+                console.log(admin);
+                return fu(result);
+            }
+            //将通知保存到数据库
+            let result = await user_db.findByIdAndUpdate(account.company.bossId, {$push: {comments}});
+            console.log(result);
+            console.log(account.company.bossId)
+            return fu(result);
+
             // await user_db.findByIdAndUpdate(admin._id, {$set: {}});
 
         }catch (err) {
@@ -135,5 +155,23 @@ User.prototype.putRealInformation = function(account) {
         }
     }
 }
+
+/**
+ * 获得通知信息
+ * 
+ * @param {any} account 
+ * @returns 
+ */
+User.prototype.getNotify = function(account) {
+    return async (data, fu)=> {
+        try{
+            fu( await user_db.findById(account._id, {'notify': 1}) );
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    } 
+}
+
 
 module.exports = new User();
