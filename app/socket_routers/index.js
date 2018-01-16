@@ -16,13 +16,13 @@ function setAuthority(socket, functionNames) {
 };
 
 module.exports = ()=> {
-	return async (socket)=> {
+	return (socket)=> {
 
 		//断开连接
-		socket.on('disconnect', (data)=> {
+		socket.on('disconnect', async (data)=> {
 			if(socket.account) {
 				//设置账号下线
-				// await user_db.findByIdAndUpdate(socket.account._id, {$set: {'state': 2}});
+				await user_db.findByIdAndUpdate(socket.account._id, {$set: {'state': 2}});
 				console.log(`userId：${socket.account._id} , nickname: ${socket.account.nickname} 退出`);
 			} else {
 				console.log('a user disconnected:' + socket.id);
