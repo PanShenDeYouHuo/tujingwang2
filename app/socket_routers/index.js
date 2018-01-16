@@ -16,7 +16,7 @@ function setAuthority(socket, functionNames) {
 };
 
 module.exports = ()=> {
-	return (socket)=> {
+	return async (socket)=> {
 
 		//断开连接
 		socket.on('disconnect', (data)=> {
