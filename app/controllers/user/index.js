@@ -173,7 +173,8 @@ User.prototype.putRealInformation = function(account) {
 User.prototype.getNotify = function(account) {
     return async (data, fu)=> {
         try{
-            fu( await user_db.findById(account._id, {'notify': 1}) );
+            let result = await user_db.findById(account._id, {'notify': 1}) 
+            fu( result.notify );
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
