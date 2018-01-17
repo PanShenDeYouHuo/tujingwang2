@@ -128,7 +128,7 @@ User.prototype.putRealInformation = function(socket) {
             if(!socket.account.company) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
-                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {notify}});
+                let result = await user_db.findByIdAndUpdate(admin._id, {$push: notify});
 
                 socket.to(admin.socketId).volatile.emit('notify');
 
