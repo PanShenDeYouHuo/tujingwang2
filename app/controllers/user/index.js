@@ -117,7 +117,7 @@ User.prototype.putRealInformation = function(socket) {
             });
             console.log(res);
 
-            let comments = {
+            let notify = {
                 state: 0,
                 ntype: 1,
                 concent: `${data.name}进行账号认证，请尽快去审核`,
@@ -128,7 +128,7 @@ User.prototype.putRealInformation = function(socket) {
             if(!socket.account.company) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
-                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {notify}});
 
                 socket.to(admin.socketId).volatile.emit('notify');
 
@@ -139,7 +139,7 @@ User.prototype.putRealInformation = function(socket) {
             if(!socket.account.company.bossId) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
-                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                let result = await user_db.findByIdAndUpdate(admin._id, {$push: {notify}});
                 socket.to(admin.socketId).volatile.emit('notify');
                 // console.log(sio);
                 // sio.to(admin.socketId).volatile.emit('notify');
@@ -149,7 +149,7 @@ User.prototype.putRealInformation = function(socket) {
                 return fu(result);
             }
             //将通知保存到数据库
-            let result = await user_db.findByIdAndUpdate(socket.account.company.bossId, {$push: {comments}});
+            let result = await user_db.findByIdAndUpdate(socket.account.company.bossId, {$push: {notify}});
             socket.to(admin.socketId).volatile.emit('notify');
             // console.log(sio);
             // sio.to(admin.socketId).volatile.emit('notify');
