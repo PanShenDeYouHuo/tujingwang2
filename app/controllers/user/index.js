@@ -130,7 +130,8 @@ User.prototype.putRealInformation = function(account) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
-                sio.to(admin.socketId).volatile.emit('notify');
+
+                console.log(sio);
 
                 console.log(result);
                 console.log(admin);
@@ -140,7 +141,8 @@ User.prototype.putRealInformation = function(account) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
-                sio.to(admin.socketId).volatile.emit('notify');
+                console.log(sio);
+                // sio.to(admin.socketId).volatile.emit('notify');
                 
                 console.log(result);
                 console.log(admin);
@@ -148,7 +150,8 @@ User.prototype.putRealInformation = function(account) {
             }
             //将通知保存到数据库
             let result = await user_db.findByIdAndUpdate(account.company.bossId, {$push: {comments}});
-            sio.to(admin.socketId).volatile.emit('notify');
+            console.log(sio);
+            // sio.to(admin.socketId).volatile.emit('notify');
 
             console.log(result);
             console.log(account.company.bossId);
