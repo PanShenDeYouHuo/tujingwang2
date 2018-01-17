@@ -2,6 +2,8 @@ const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
 const sio = require('../../sio');
 
+console.log(sio);
+
 function User() {
     this.name = 'user';
     this.client = new OSS({
