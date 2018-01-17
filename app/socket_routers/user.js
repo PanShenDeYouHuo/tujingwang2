@@ -7,12 +7,12 @@ module.exports = (socket)=> {
     // });
 
     //联系信息更新
-    socket.on('putContactInformation', user.putContactInformation(socket.account));
+    socket.on('putContactInformation', user.putContactInformation(socket));
 
     //账户认证
-    socket.on('putRealInformation', user.putRealInformation(socket.account));
+    socket.on('putRealInformation', user.putRealInformation(socket));
 
     //获取通知
-    socket.on('getNotify', user.getNotify(socket.account));
+    socket.on('getNotify', user.getNotify(socket));
     
 }

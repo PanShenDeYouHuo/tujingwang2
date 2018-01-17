@@ -70,10 +70,10 @@ function User() {
  * @param {object} data._id 项目编号
  * @returns 
  */
-User.prototype.putContactInformation = (account)=> {
+User.prototype.putContactInformation = (socket)=> {
     return async (data, fu)=> {
         try{
-             fu(await user_db.findByIdAndUpdate(account._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
+             fu(await user_db.findByIdAndUpdate(socket.account._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
@@ -172,10 +172,10 @@ User.prototype.putRealInformation = function(socket) {
  * @param {any} account 
  * @returns 
  */
-User.prototype.getNotify = function(account) {
+User.prototype.getNotify = function(socket) {
     return async (data, fu)=> {
         try{
-            let result = await user_db.findById(account._id, {'notify': 1}) 
+            let result = await user_db.findById(socket.account._id, {'notify': 1}) 
             fu( result.notify );
         } catch (err) {
             console.log(err);
