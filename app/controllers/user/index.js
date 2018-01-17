@@ -1,5 +1,6 @@
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
+const 
 
 function User() {
     this.name = 'user';
@@ -9,6 +10,7 @@ function User() {
         accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
         bucket: 'tujingcloud',
     });
+    this.sio = require('../../sio');
 }
 /**
  * 用项目名称和客服创建项目
@@ -126,25 +128,31 @@ User.prototype.putRealInformation = function(account) {
             
             //检查是否有公司
             if(!account.company) {
-                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'nickname': 1});
+                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                this.sio.to(admin.socketId).volatile.emit('notify');
+
                 console.log(result);
                 console.log(admin);
                 return fu(result);
             }
             if(!account.company.bossId) {
-                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'nickname': 1});
+                let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
+                this.sio.to(admin.socketId).volatile.emit('notify');
+                
                 console.log(result);
                 console.log(admin);
                 return fu(result);
             }
             //将通知保存到数据库
             let result = await user_db.findByIdAndUpdate(account.company.bossId, {$push: {comments}});
+            this.sio.to(admin.socketId).volatile.emit('notify');
+
             console.log(result);
-            console.log(account.company.bossId)
+            console.log(account.company.bossId);
             return fu(result);
 
             // await user_db.findByIdAndUpdate(admin._id, {$set: {}});
