@@ -153,7 +153,6 @@ User.prototype.putRealInformation = function(account) {
             console.log(result);
             console.log(account.company.bossId);
             return fu(result);
-
             // await user_db.findByIdAndUpdate(admin._id, {$set: {}});
 
         }catch (err) {
