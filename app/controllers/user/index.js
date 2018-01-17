@@ -1,8 +1,5 @@
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
-const sio = require('../../sio');
-
-console.log(sio);
 
 function User() {
     this.name = 'user';
@@ -88,12 +85,12 @@ User.prototype.putContactInformation = (account)=> {
  * 
  * @returns 
  */
-User.prototype.putRealInformation = function(account) {
+User.prototype.putRealInformation = function(socket) {
     return async (data, fu)=> {
         try{
             //获取认证的临时文件
             let list = await this.client.list({
-                prefix: `temporaryFile/account/${account._id}/authenticate/`,
+                prefix: `temporaryFile/account/${socket.account._id}/authenticate/`,
                 delimiter: '/'
             });
 
@@ -106,7 +103,7 @@ User.prototype.putRealInformation = function(account) {
 
 
             //保存到数据库
-            let res = await user_db.findByIdAndUpdate(account._id, {$set: 
+            let res = await user_db.findByIdAndUpdate(socket.account._id, {$set: 
                 {
                     'realInformation.state': 1,                                                 //0未认证, 1审核中, 2认证成功
                     'realInformation.name': data.name,                                          //姓名
@@ -128,22 +125,23 @@ User.prototype.putRealInformation = function(account) {
             }
             
             //检查是否有公司
-            if(!account.company) {
+            if(!socket.account.company) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
 
-                console.log(sio);
+                socket.to(admin.socketId).volatile.emit('notify');
 
                 console.log(result);
                 console.log(admin);
                 return fu(result);
             }
-            if(!account.company.bossId) {
+            if(!socket.account.company.bossId) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
-                console.log(sio);
+                socket.to(admin.socketId).volatile.emit('notify');
+                // console.log(sio);
                 // sio.to(admin.socketId).volatile.emit('notify');
                 
                 console.log(result);
@@ -151,12 +149,13 @@ User.prototype.putRealInformation = function(account) {
                 return fu(result);
             }
             //将通知保存到数据库
-            let result = await user_db.findByIdAndUpdate(account.company.bossId, {$push: {comments}});
-            console.log(sio);
+            let result = await user_db.findByIdAndUpdate(socket.account.company.bossId, {$push: {comments}});
+            socket.to(admin.socketId).volatile.emit('notify');
+            // console.log(sio);
             // sio.to(admin.socketId).volatile.emit('notify');
 
             console.log(result);
-            console.log(account.company.bossId);
+            console.log(socket.account.company.bossId);
             return fu(result);
             // await user_db.findByIdAndUpdate(admin._id, {$set: {}});
 
