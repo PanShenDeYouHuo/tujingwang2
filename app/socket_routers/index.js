@@ -32,7 +32,9 @@ module.exports = ()=> {
 		//登入认证接口，根据权限开通socket接口
 		socket.on('authentication', async(accessToken)=> {
 			try {
-
+/////////////////////******ip验证*******////////////////////
+				console.log(socket.handshake.address);
+/////////////////////******token验证*******////////////////////
 				//检测token是否篡改
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 				//解析token的内容
