@@ -1,5 +1,6 @@
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
+const sio = require('../../sio');
 
 function User() {
     this.name = 'user';
@@ -9,7 +10,6 @@ function User() {
         accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
         bucket: 'tujingcloud',
     });
-    this.sio = require('../../sio');
 }
 /**
  * 用项目名称和客服创建项目
@@ -130,7 +130,7 @@ User.prototype.putRealInformation = function(account) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
-                this.sio.to(admin.socketId).volatile.emit('notify');
+                sio.to(admin.socketId).volatile.emit('notify');
 
                 console.log(result);
                 console.log(admin);
@@ -140,7 +140,7 @@ User.prototype.putRealInformation = function(account) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {comments}});
-                this.sio.to(admin.socketId).volatile.emit('notify');
+                sio.to(admin.socketId).volatile.emit('notify');
                 
                 console.log(result);
                 console.log(admin);
@@ -148,7 +148,7 @@ User.prototype.putRealInformation = function(account) {
             }
             //将通知保存到数据库
             let result = await user_db.findByIdAndUpdate(account.company.bossId, {$push: {comments}});
-            this.sio.to(admin.socketId).volatile.emit('notify');
+            sio.to(admin.socketId).volatile.emit('notify');
 
             console.log(result);
             console.log(account.company.bossId);
