@@ -2,8 +2,6 @@ const wechat = require('../../modules/wechat')();
 const token = require('../../modules/node-jwt');
 const user_db = require('../../service/mongodb/m_uesr');
 const sio = require('../../sio');
-console.log('aaa');
-console.log(sio)
 
 function Reg() {
     this.name = 'Reg';

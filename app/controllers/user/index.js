@@ -1,9 +1,6 @@
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
-const myio = require('../../sio');
 
-console.log('bbbbbb')
-console.log(myio);
 
 function User() {
     this.name = 'user';
@@ -119,7 +116,6 @@ User.prototype.putRealInformation = function(socket) {
                     'realInformation.bankCardFrontObjectKey': list.objects[2].name.substr(14),  //银行卡正面 
                 }
             });
-            console.log(res);
 
             let notify = {
                 state: 0,
@@ -127,7 +123,9 @@ User.prototype.putRealInformation = function(socket) {
                 concent: `${data.name}进行账号认证，请尽快去审核`,
                 router: '/boss/Authenticate'
             }
-            
+            //sokcet.io推送信息
+            const sio = require('../../sio');
+            console.log(sio);
             //检查是否有公司
             if(!socket.account.company) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
