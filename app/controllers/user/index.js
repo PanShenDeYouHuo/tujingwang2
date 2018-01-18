@@ -150,7 +150,7 @@ User.prototype.putRealInformation = function(socket) {
             }
             //将通知保存到数据库
             let result = await user_db.findByIdAndUpdate(socket.account.company.bossId, {$push: {notify}});
-            socket.to(admin.socketId).volatile.emit('notify');
+            socket.to(socket.account.company.bossId).volatile.emit('notify');
             // console.log(sio);
             // sio.to(admin.socketId).volatile.emit('notify');
 
