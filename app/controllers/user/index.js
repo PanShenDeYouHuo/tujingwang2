@@ -125,15 +125,14 @@ User.prototype.putRealInformation = function(socket) {
             }
             //sokcet.io推送信息
             const sio = require('../../sio');
-            console.log(sio);
             //检查是否有公司
             if(!socket.account.company) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: notify});
 
-                socket.to(admin.socketId).emit('notify');
-
+                sio.to(admin.socketId).volatile.emit('notify');
+ 
                 console.log(result);
                 console.log(admin);
                 return fu(result);
@@ -142,7 +141,7 @@ User.prototype.putRealInformation = function(socket) {
                 let admin = await user_db.findOne({'authority': 'admin'}, {'_id': 1,'socketId': 1});
                 //将通知保存到数据库
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: {notify}});
-                socket.to(admin.socketId).emit('notify');
+                sio.to(admin.socketId).volatile.emit('notify');
                 // console.log(sio);
                 // sio.to(admin.socketId).volatile.emit('notify');
                 
@@ -152,9 +151,7 @@ User.prototype.putRealInformation = function(socket) {
             }
             //将通知保存到数据库
             let result = await user_db.findByIdAndUpdate(socket.account.company.bossId, {$push: {notify}});
-            socket.to(socket.account.company.bossId).emit('notify');
-            // console.log(sio);
-            // sio.to(admin.socketId).volatile.emit('notify');
+            sio.to(socket.account.company.bossId).volatile.emit('notify');
 
             console.log(result);
             console.log(socket.account.company.bossId);
