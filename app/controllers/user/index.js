@@ -2,6 +2,7 @@ const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
 const myio = require('../../sio');
 
+console.log('bbbbbb')
 console.log(myio);
 
 function User() {
