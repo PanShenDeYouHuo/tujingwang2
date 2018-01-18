@@ -132,9 +132,7 @@ User.prototype.putRealInformation = function(socket) {
                 let result = await user_db.findByIdAndUpdate(admin._id, {$push: notify});
 
                 sio.to(admin.socketId).emit('notify');
- 
-                console.log(result);
-                console.log(admin);
+
                 return fu(result);
             }
             if(!socket.account.company.bossId) {
@@ -145,8 +143,6 @@ User.prototype.putRealInformation = function(socket) {
                 // console.log(sio);
                 // sio.to(admin.socketId).volatile.emit('notify');
                 
-                console.log(result);
-                console.log(admin);
                 return fu(result);
             }
             //将通知保存到数据库
@@ -154,10 +150,7 @@ User.prototype.putRealInformation = function(socket) {
             let boss = await user_db.findById(socket.account.company.bossId, {'_id': 1,'socketId': 1})
             sio.to(boss.socketId).emit('notify');
 
-            console.log(result);
-            console.log(socket.account.company.bossId);
             return fu(result);
-            // await user_db.findByIdAndUpdate(admin._id, {$set: {}});
 
         }catch (err) {
             console.log(err);
