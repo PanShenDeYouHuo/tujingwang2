@@ -5,15 +5,15 @@ function Boss() {
 };
 
 /**
- * 获取staff账号
+ * //获取账号列表，设置权限
  * 
  * @returns 
  */
-Boss.prototype.getStaffAccounts = ()=> {
+Boss.prototype.getStaffAccounts = function(socket) {
     return async (data, fu)=> {
         try {
             let where = {
-                'company.bossId': data._id,
+                'company.bossId': socket.account._id,
             };
             if(data.authority === 'all') {
                 where.authority = {$nin:['boss', 'admin']};
@@ -24,6 +24,29 @@ Boss.prototype.getStaffAccounts = ()=> {
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
             fu({users, count});
+        } catch (err) {
+            console.log(err);
+            fu({err:true, message: '发生错误'});
+        }
+    }
+}
+/**
+ * 获取需要账号认证的账号列表
+ * 
+ * @param {any} socket 
+ * @returns 
+ */
+Boss.prototype.getAuthenticateAccounts = function(socket) {
+    return async (data, fu)=> {
+        try {
+            let where = {
+                'company.bossId': socket.account._id,
+            };
+            if(data.authority === 'all') {
+                where.realInformation.state = {$nin:[1, 2]};
+            } else {
+                where.realInformation.state = data.state;
+            };
         } catch (err) {
             console.log(err);
             fu({err:true, message: '发生错误'});
