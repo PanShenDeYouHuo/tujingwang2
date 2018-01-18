@@ -39,6 +39,7 @@ Boss.prototype.getStaffAccounts = function(socket) {
 Boss.prototype.getAuthenticateAccounts = function(socket) {
     return async (data, fu)=> {
         try {
+            console.log(data);
             let where = {
                 'company.bossId': socket.account._id,
             };
