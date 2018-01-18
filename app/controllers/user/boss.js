@@ -44,7 +44,7 @@ Boss.prototype.getAuthenticateAccounts = function(socket) {
                 'company.bossId': socket.account._id,
             };
             if(data.state === 'all') {
-                where['realInformation.state'] = {$nin:[1, 2]};
+                // where['realInformation.state'] = {$nin:[1, 2]};
             } else {
                 where['realInformation.state'] = data.state;
             };
