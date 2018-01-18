@@ -15,6 +15,7 @@ function Authority() {
  */
 Authority.prototype.universal = (socket)=> {
     user(socket);
+    oss(socket);
 }
 
 /**
