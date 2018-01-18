@@ -52,7 +52,6 @@ module.exports = ()=> {
 					'contactInformation': 1, 'company': 1
 				});
 				socket.account = account;
-				socket.emit('authenticationSuccess', account);
 
 				//设置账号上线
 				await user_db.findByIdAndUpdate(account._id, {$set: {'state': 1, 'socketId': socket.id}});
@@ -64,9 +63,10 @@ module.exports = ()=> {
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);
 
-/////////////////////******通知*******////////////////////
-				//通知信息查询
-				socket.volatile.emit('notify');
+
+/////////////////////******成功返回*******////////////////////
+
+				socket.emit('authenticationSuccess', account);
 
 			} catch (err) {
 				socket.volatile.emit('appError','发生错误');
