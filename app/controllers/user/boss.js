@@ -30,6 +30,7 @@ Boss.prototype.getStaffAccounts = function(socket) {
         }
     }
 }
+
 /**
  * 获取需要账号认证的账号列表
  * 
@@ -39,7 +40,6 @@ Boss.prototype.getStaffAccounts = function(socket) {
 Boss.prototype.getAuthenticateAccounts = function(socket) {
     return async (data, fu)=> {
         try {
-            console.log(data);
             let where = {
                 'company.bossId': socket.account._id,
                 'realInformation.state': data.state,
@@ -59,5 +59,16 @@ Boss.prototype.getAuthenticateAccounts = function(socket) {
         }
     }
 }
+
+// Boss.prototype.getReadAccountStsToken = function(socket) {
+//     return async (data, fu)=> {
+//         try {
+            
+//         } catch (err) {
+//             console.log(err);
+//             fu({err:true, message: '发生错误'});
+//         }
+//     }
+// }
 
 module.exports = new Boss();
