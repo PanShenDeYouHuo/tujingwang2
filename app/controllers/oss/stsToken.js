@@ -106,8 +106,8 @@ StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
                        ],
                        "Effect": "Allow",
                        "Resource": [
-                           `acs:oss:*:*:tujingcloud/account/${socket.account.uid}`,
-                           `acs:oss:*:*:tujingcloud/account/${socket.account.uid}/*`
+                           `acs:oss:*:*:tujingcloud/account/${uid}`,
+                           `acs:oss:*:*:tujingcloud/account/${uid}/*`
                        ]
                    }
                ],
