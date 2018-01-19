@@ -1,4 +1,4 @@
-const wechat = require('../../modules/wechat')();
+const wechat = require('../../modules/wechat');
 const token = require('../../modules/node-jwt');
 const user_db = require('../../service/mongodb/m_uesr');
 const sio = require('../../sio');
@@ -40,7 +40,7 @@ Reg.prototype.bossWechatReg = ()=> {
             }
 
             //获取微信信息
-            let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
+            let wxtoken = JSON.parse(await wechat.getAccessToken(ctx.query.code));
             let wxuser = JSON.parse(await wechat.getUnionId(wxtoken.access_token, wxtoken.openid));
 
             if(wxtoken.errcode) {
@@ -122,7 +122,7 @@ Reg.prototype.staffWechatReg = ()=> {
             }
 
             //获取微信信息
-            let wxtoken = JSON.parse(await wechat.getAccessToken(wechat.appId, wechat.appSecret, ctx.query.code));
+            let wxtoken = JSON.parse(await wechat.getAccessToken(ctx.query.code));
             let wxuser = JSON.parse(await wechat.getUnionId(wxtoken.access_token, wxtoken.openid));
 
             if(wxtoken.errcode) {

@@ -42,12 +42,13 @@ Boss.prototype.getAuthenticateAccounts = function(socket) {
             console.log(data);
             let where = {
                 'company.bossId': socket.account._id,
+                'realInformation.state': data.state,
             };
-            if(data.state === 'all') {
-                // where['realInformation.state'] = {$nin:[1, 2]};
-            } else {
-                where['realInformation.state'] = data.state;
-            };
+            // if(data.state === 'all') {
+            //     where['realInformation.state'] = {$nin:[1, 2]};
+            // } else {
+                // where['realInformation.state'] = data.state;
+            // };
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
