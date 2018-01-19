@@ -98,6 +98,7 @@ User.prototype.putRealInformation = function(socket) {
    
             //拷贝文件
             for (let i = 0; i < list.objects.length; i++ ) {
+                console.log(list.objects[i].name);
                 await this.client.copy(list.objects[i].name.substr(14), list.objects[i].name);
                 await this.client.delete(list.objects[i].name);
             }
