@@ -8,7 +8,7 @@ const config = require('../../config');
 // }
 
 function Wechat() {
-    this.name = wechat;
+    this.name = 'wechat';
     this.appId = config.wechat.appId;
     this.appSecret = config.wechat.appSecret;
 }
