@@ -103,18 +103,22 @@ StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
                    {
                        "Action": [
                             "oss:GetObject",
-                            "oss:ListParts"
+                            "oss:ListParts",
+                            "oss:Get*",
+                            "oss:List*"
                        ],
                        "Effect": "Allow",
                        "Resource": [
-                           `acs:oss:*:*:tujingcloud/account/${uid}`,
-                           `acs:oss:*:*:tujingcloud/account/${uid}/*`
+                           `acs:oss:*:*:tujingcloud/account/`,
+                           `acs:oss:*:*:tujingcloud/account/*`
                        ]
                    }
                ],
                "Version": "1"
            };
-       
+
+           console.log()
+        
            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
            let sessionName = socket.account._id.toString();
            
