@@ -7,6 +7,8 @@ function StsToken() {
 };
 
 
+ /////////////////////////////////////**********写权限********///////////////////////////////////////////
+
 /**
  * 获得oss productionProject读权限的sts临时token
  * 
@@ -34,7 +36,7 @@ StsToken.prototype.getReadStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-            let sessionName = socket.account._id;
+            let sessionName = socket.account._id.toString();
             
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
@@ -73,7 +75,7 @@ StsToken.prototype.getReadAccountStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-            let sessionName = socket.account._id;
+            let sessionName = socket.account._id.toString();
             
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
@@ -113,7 +115,7 @@ StsToken.prototype.getReadAccountStsToken = function(socket) {
            };
        
            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-           let sessionName = socket.account._id;
+           let sessionName = socket.account._id.toString();
            
            //获取token
            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
@@ -127,7 +129,7 @@ StsToken.prototype.getReadAccountStsToken = function(socket) {
 
 
 
- /////////////////////////////////////**********写********///////////////////////////////////////////
+ /////////////////////////////////////**********写权限********///////////////////////////////////////////
 
  /**
  * 获得oss productionProject写权限的sts临时token
@@ -158,10 +160,9 @@ StsToken.prototype.getWriteStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-            let sessionName = socket.account._id;
+            let sessionName = socket.account._id.toString();
 
             //获取token
-            console.log(this.sts);
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
             fu(token);
@@ -203,8 +204,7 @@ StsToken.prototype.getWriteAccountStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-            console.log(socket.account._id.toString());
-            let sessionName = socket.account._id.toString();
+            let sessionName = socket.account._id;
 
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
