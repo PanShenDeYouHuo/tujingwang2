@@ -206,6 +206,7 @@ StsToken.prototype.getWriteAccountStsToken = function(socket) {
             let sessionName = socket.account._id;
 
             //获取token
+            console.log(this.sts);
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
             fu(token);
