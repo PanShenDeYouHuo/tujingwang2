@@ -97,6 +97,7 @@ StsToken.prototype.getReadAccountStsToken = function(socket) {
 StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
     return async (uid, fu)=> {
         try {
+            console.log(uid);
            let policy = {
                "Statement": [
                    {
