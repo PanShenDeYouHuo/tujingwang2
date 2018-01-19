@@ -12,6 +12,6 @@ module.exports = (socket)=> {
     //获取需要账号认证的账号列表
     socket.on('getAuthenticateAccounts', boss.getAuthenticateAccounts(socket));
     //获取account读的权限
-    socket.on('getReadAccountStsToken', stsToken.getReadAccountStsToken(socket));
+    socket.on('getReadAccountStsTokenBoss', stsToken.getReadAccountStsTokenBoss(socket));
 
 }

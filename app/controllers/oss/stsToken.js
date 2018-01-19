@@ -94,7 +94,7 @@ StsToken.prototype.getReadAccountStsToken = function(socket) {
  * @param {any} socket 
  * @returns 
  */
-StsToken.prototype.getReadAccountStsToken = function(socket) {
+StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
     return async (uid, fu)=> {
         try {
            let policy = {
@@ -204,7 +204,7 @@ StsToken.prototype.getWriteAccountStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-            let sessionName = socket.account._id;
+            let sessionName = socket.account._id.toString();
 
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
