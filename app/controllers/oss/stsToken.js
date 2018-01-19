@@ -183,6 +183,7 @@ StsToken.prototype.getWriteStsToken = function(socket) {
 StsToken.prototype.getWriteAccountStsToken = function(socket) {
     return async (uid, fu)=> {
         try{
+            console.log(socket.account._id);
             let policy = {
                 "Statement": [
                     {
