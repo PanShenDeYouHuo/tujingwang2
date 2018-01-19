@@ -102,8 +102,10 @@ StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
                "Statement": [
                    {
                        "Action": [
-                           "oss:Get*",
-                           "oss:List*"
+                            "oss:GetObject",
+                            "oss:ListParts",
+                            "oss:Get*",
+                            "oss:List*"
                        ],
                        "Effect": "Allow",
                        "Resource": [
