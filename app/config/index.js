@@ -5,8 +5,8 @@ const STS = OSS.STS;
 module.exports = {
     oss:{
         sts: new STS({
-            accessKeyId: 'LTAIesg8W64WwrGI',
-            accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
+            accessKeyId:'LTAIesg8W64WwrGI',
+            accessKeySecret:'3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
         }),
         client: new OSS({
             region: 'oss-cn-beijing',

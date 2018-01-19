@@ -183,7 +183,6 @@ StsToken.prototype.getWriteStsToken = function(socket) {
 StsToken.prototype.getWriteAccountStsToken = function(socket) {
     return async (uid, fu)=> {
         try{
-            console.log(socket.account._id);
             let policy = {
                 "Statement": [
                     {
@@ -204,7 +203,7 @@ StsToken.prototype.getWriteAccountStsToken = function(socket) {
             };
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-            let sessionName = socket.account._id;
+            let sessionName = 'socket.account._id';
 
             //获取token
             console.log(this.sts);
