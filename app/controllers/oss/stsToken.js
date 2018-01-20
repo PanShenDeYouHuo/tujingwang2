@@ -7,7 +7,7 @@ function StsToken() {
 };
 
 
- /////////////////////////////////////**********写权限********///////////////////////////////////////////
+ /////////////////////////////////////**********读权限********///////////////////////////////////////////
 
 /**
  * 获得oss productionProject读权限的sts临时token
@@ -48,89 +48,6 @@ StsToken.prototype.getReadStsToken = function(socket) {
     }
  }
 
-/**
- * 获取读的权限
- * 
- * @param {any} socket 
- * @returns 
- */
-StsToken.prototype.getReadAccountStsToken = function(socket) {
-     return async (data, fu)=> {
-         try {
-            let policy = {
-                "Statement": [
-                    {
-                        "Action": [
-                            "oss:Get*",
-                            "oss:List*"
-                        ],
-                        "Effect": "Allow",
-                        "Resource": [
-                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}`,
-                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}/*`
-                        ]
-                    }
-                ],
-                "Version": "1"
-            };
-        
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-            let sessionName = socket.account._id.toString();
-            
-            //获取token
-            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-            fu(token);
-         } catch (err) {
-            console.log(err);
-            fu({err: true, message: '发生错误'});
-         }
-     }
- }
-
-
- /**
- * boss获取读的权限
- * 
- * @param {any} socket 
- * @returns 
- */
-StsToken.prototype.getReadAccountStsTokenBoss = function(socket) {
-    return async (uid, fu)=> {
-        try {
-            console.log(uid);
-           let policy = {
-               "Statement": [
-                   {
-                       "Action": [
-                            "oss:GetObject",
-                            "oss:ListParts",
-                            "oss:Get*",
-                            "oss:List*"
-                       ],
-                       "Effect": "Allow",
-                       "Resource": [
-                           `acs:oss:*:*:tujingcloud/account/`,
-                           `acs:oss:*:*:tujingcloud/account/*`
-                       ]
-                   }
-               ],
-               "Version": "1"
-           };
-
-           console.log()
-        
-           let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
-           let sessionName = socket.account._id.toString();
-           
-           //获取token
-           let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-           fu(token);
-        } catch (err) {
-           console.log(err);
-           fu({err: true, message: '发生错误'});
-        }
-    }
-}
 
 
 
@@ -178,50 +95,6 @@ StsToken.prototype.getWriteStsToken = function(socket) {
     }
      
  }
-
-
-/**
- * 获得oss account写权限的sts临时token
- * 
- * @param {string} uid 账号id
- * @returns {object} stsToken
- */
-StsToken.prototype.getWriteAccountStsToken = function(socket) {
-    return async (uid, fu)=> {
-        try{
-            let policy = {
-                "Statement": [
-                    {
-                        "Action": [
-                            "oss:DeleteObject",
-                            "oss:ListParts",
-                            "oss:AbortMultipartUpload",
-                            "oss:PutObject"
-                        ],
-                        "Effect": "Allow",
-                        "Resource": [
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}`,
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}/*`
-                        ]
-                    }
-                ],
-                "Version": "1"
-            };
-        
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
-            let sessionName = socket.account._id.toString();
-
-            //获取token
-            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
-
-            fu(token);
-        } catch (err) {
-            console.log(err);
-            fu({err: true, message: '发生错误'});
-        }
-    }
-     
-}
 
 
 
