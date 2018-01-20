@@ -8,6 +8,6 @@ module.exports = (socket)=> {
     socket.on('getWriteStsToken', stsToken.getWriteStsToken(socket));
 
     //获取路径account的临时权限
-    socket.on('getReadAccountStsToken', stsToken.getReadAccountStsToken(socket));
-    socket.on('getWriteAccountStsToken', stsToken.getWriteAccountStsToken(socket));
+    socket.on('getReadAccountStsToken', accountSts.getReadAccountStsToken(socket));
+    socket.on('getWriteAccountStsToken', accountSts.getWriteAccountStsToken(socket));
 }
