@@ -92,7 +92,7 @@ AccountSts.prototype.getReadAccountStsTokenBoss = function(socket) {
 
  /////////////////////////////////////**********写权限********///////////////////////////////////////////
 /**
- * 获得oss account写权限的sts临时token
+ * 获得oss account写权限的sts临时token,写在临时文件temporaryFile内
  * 
  * @param {string} uid 账号id
  * @returns {object} stsToken
@@ -158,8 +158,8 @@ AccountSts.prototype.getWriteAndReadAccountStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}`,
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}/*`
+                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}`,
+                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}/*`
                         ]
                     }
                 ],
@@ -204,8 +204,8 @@ AccountSts.prototype.getWriteAndReadAccountStsTokenBoss = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${uid}`,
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${uid}/*`
+                            `acs:oss:*:*:tujingcloud/account/${uid}`,
+                            `acs:oss:*:*:tujingcloud/account/${uid}/*`
                         ]
                     }
                 ],
