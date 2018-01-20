@@ -196,11 +196,12 @@ AccountSts.prototype.getWriteAndReadAccountStsTokenBoss = function(socket) {
                     {
                         "Action": [
                             // "oss:DeleteObject",
-                            "oss:ListParts",
-                            "oss:AbortMultipartUpload",
-                            "oss:PutObject",
-                            "oss:Get*",
-                            "oss:List*"
+                            // "oss:ListParts",
+                            // "oss:AbortMultipartUpload",
+                            // "oss:PutObject",
+                            // "oss:Get*",
+                            // "oss:List*",
+                            "oss:*"
                         ],
                         "Effect": "Allow",
                         "Resource": [
