@@ -63,8 +63,6 @@ AccountSts.prototype.getReadAccountStsTokenBoss = function(socket) {
               "Statement": [
                   {
                       "Action": [
-                           "oss:GetObject",
-                           "oss:ListParts",
                            "oss:Get*",
                            "oss:List*"
                       ],
@@ -77,8 +75,6 @@ AccountSts.prototype.getReadAccountStsTokenBoss = function(socket) {
               ],
               "Version": "1"
           };
-
-          console.log()
        
           let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
           let sessionName = socket.account._id.toString();
@@ -141,27 +137,75 @@ AccountSts.prototype.getWriteAccountStsToken = function(socket) {
 
 /////////////////////////////////////**********读写权限********///////////////////////////////////////////
  /**
- * 获得oss account读写权限的sts临时token
+ * 获得oss account读写权限的sts临时token,没有删除权限
  * 
  * @param {string} uid 账号id
  * @returns {object} stsToken
  */
-AccountSts.prototype.getWriteAccountStsToken = function(socket) {
+AccountSts.prototype.getWriteAndReadAccountStsToken = function(socket) {
     return async (uid, fu)=> {
         try{
             let policy = {
                 "Statement": [
                     {
                         "Action": [
-                            "oss:DeleteObject",
+                            // "oss:DeleteObject",
                             "oss:ListParts",
                             "oss:AbortMultipartUpload",
-                            "oss:PutObject"
+                            "oss:PutObject",
+                            "oss:Get*",
+                            "oss:List*"
                         ],
                         "Effect": "Allow",
                         "Resource": [
                             `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}`,
                             `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}/*`
+                        ]
+                    }
+                ],
+                "Version": "1"
+            };
+        
+            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
+            let sessionName = socket.account._id.toString();
+
+            //获取token
+            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
+
+            fu(token);
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+     
+}
+
+ /**
+ * 获得oss account读写权限的sts临时token,没有删除权限
+ * boss
+ * 
+ * @param {string} uid 账号id
+ * @returns {object} stsToken
+ */
+AccountSts.prototype.getWriteAndReadAccountStsTokenBoss = function(socket) {
+    return async (uid, fu)=> {
+        try{
+            let policy = {
+                "Statement": [
+                    {
+                        "Action": [
+                            // "oss:DeleteObject",
+                            "oss:ListParts",
+                            "oss:AbortMultipartUpload",
+                            "oss:PutObject",
+                            "oss:Get*",
+                            "oss:List*"
+                        ],
+                        "Effect": "Allow",
+                        "Resource": [
+                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${uid}`,
+                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${uid}/*`
                         ]
                     }
                 ],
