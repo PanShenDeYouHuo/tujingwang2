@@ -18,7 +18,7 @@ Boss.prototype.getStaffAccounts = function(socket) {
             if(data.authority === 'all') {
                 where.authority = {$nin:['boss', 'admin']};
             } else {
-                where.authority = data.authority;
+                where.authority = {$elemMatch: data.authority};
             };
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
@@ -80,7 +80,12 @@ Boss.prototype.putAuthenticate = function(socket) {
         }
     }
 }
-
+/**
+ * 修改员工权限
+ * 
+ * @param {any} socket 
+ * @returns 
+ */
 Boss.prototype.putAuthority = function(socket) {
     return async (data, fu)=> {
         try {
