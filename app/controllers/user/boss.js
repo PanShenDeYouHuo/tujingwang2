@@ -70,10 +70,25 @@ Boss.prototype.putAuthenticate = function(socket) {
         try {
             //检查是否是boss本人
             let result = await user_db.findById(data._id, {'company': 1});
-            if(socket.account._id.toString() !== result.company.bossId) return fu({err:true, message:'请不要试图破坏系统'});
+            if (socket.account._id.toString() !== result.company.bossId) return fu({err:true, message:'请不要试图破坏系统'});
             //检查设置账号状态是否有问题
             if (!(data.state === 0 || data.state === 2)) return fu({err:true, message:'请不要试图破坏系统'});
             fu(await user_db.findByIdAndUpdate(data._id, {$set: {'realInformation.state': data.state}}));
+        } catch (err) {
+            console.log(err);
+            fu({err:true, message:'发生错误'});
+        }
+    }
+}
+
+Boss.prototype.putAuthority = function(socket) {
+    return async (data, fu)=> {
+        try {
+            //检查是否是boss本人
+            let result = await user_db.findById(data._id, {'company': 1});
+            if (socket.account._id.toString() !== result.company.bossId) return fu({err:true, message:'请不要试图破坏系统'});
+            if (data.authority.indexOf('boss') === 1 || data.authority.indexOf('admin') === 1) return fu({err:true, message:'请不要试图破坏系统'});
+            fu( await user_db.findByIdAndUpdate(data._id, {$set: {'authority': data.authority}}));
         } catch (err) {
             console.log(err);
             fu({err:true, message:'发生错误'});

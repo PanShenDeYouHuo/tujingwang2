@@ -9,11 +9,11 @@ function Authority() {
     this.name = 'authority';
 }
 /**
- * 同意接口
+ * 公共接口
  * 
  * @param {any} socket 
  */
-Authority.prototype.universal = (socket)=> {
+Authority.prototype.public = (socket)=> {
     user(socket);
     oss(socket);
 }
@@ -54,6 +54,14 @@ Authority.prototype.service = (socket)=> {
 }
 
 /**
+ * 客服主管权限接口
+ * 
+ */
+Authority.prototype.serviceMaster = (socket)=> {
+    
+}
+
+/**
  * 组长权限接口
  * 
  */
@@ -65,8 +73,8 @@ Authority.prototype.leder = (socket)=> {
  * 成员权限接口
  * 
  */
-Authority.prototype.member = (socket)=> {
-
+Authority.prototype.render = (socket)=> {
+    
 }
 
 /**

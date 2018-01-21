@@ -58,7 +58,7 @@ module.exports = ()=> {
 
 /////////////////////******socket.io接口*******////////////////////
 				//公共接口
-				authority.universal(socket);
+				authority.public(socket);
 				
 				//根据权限开放接口
 				setAuthority(socket, token.payload.authority);
