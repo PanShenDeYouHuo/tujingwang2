@@ -79,7 +79,7 @@ Boss.prototype.putAuthenticate = function(socket) {
             if (!(data.state === 0 || data.state === 2)) return fu({err:true, message:'请不要试图破坏系统'});
             console.log(data.state);
             console.log(typeof data.state);
-            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'realInformation.state': 0}}));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'realInformation.state': data.state}}));
         } catch (err) {
             console.log(err);
             fu({err:true, message:'发生错误'});
