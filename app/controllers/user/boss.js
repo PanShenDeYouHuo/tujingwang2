@@ -72,7 +72,7 @@ Boss.prototype.putAuthenticate = function(socket) {
             let result = await user_db.findById(data._id, {'company': 1});
             console.log(socket.account._id)
             console.log(result.company.bossId)
-            console.log(socket.account._id !== result.company.bossId)
+            console.log(socket.account._id.toString() !== result.company.bossId)
             if(socket.account._id.toString() !== result.company.bossId) return fu({err:true, message:'请不要试图破坏系统'});
             //检查设置账号状态是否有问题
             console.log(data.state !== 0 || 2);
