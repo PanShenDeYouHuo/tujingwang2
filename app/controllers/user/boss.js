@@ -12,14 +12,14 @@ function Boss() {
 Boss.prototype.getStaffAccounts = function(socket) {
     return async (data, fu)=> {
         try {
-            console.log(data.authority);
+            console.log([data.authority]);
             let where = {
                 'company.bossId': socket.account._id,
             };
             if(data.authority === 'all') {
                 where.authority = {$nin:['boss', 'admin']};
             } else {
-                where.authority = {$all: data.authority};
+                where.authority = {$all: [data.authority]};
             };
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
