@@ -69,11 +69,11 @@ Boss.prototype.putAuthenticate = function(socket) {
     return async (data, fu)=> {
         try {
             //检查是否是boss本人
-            let result = await user_db.findById(socket.account._id, {'company': 1});
-            if(socket.account._id !== result.companybossId) return fu({err:true, message:'请不要试图破坏系统'});
+            let result = await user_db.findById(data._id, {'company': 1});
+            if(socket.account._id !== result.company.companybossId) return fu({err:true, message:'请不要试图破坏系统'});
             //检查设置账号状态是否有问题
             if (data.state !== 1 || 2) return fu({err:true, message:'请不要试图破坏系统'});
-            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.QQ, 'contactInformation.wechat': data.wechat}}));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.state}}));
         } catch (err) {
             console.log(err);
             fu({err:true, message:'发生错误'});
