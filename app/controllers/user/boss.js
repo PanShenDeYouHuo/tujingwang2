@@ -77,7 +77,7 @@ Boss.prototype.putAuthenticate = function(socket) {
             //检查设置账号状态是否有问题
             console.log(!(data.state === 0 || data.state === 2));
             if (!(data.state === 0 || data.state === 2)) return fu({err:true, message:'请不要试图破坏系统'});
-            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'contactInformation.QQ': data.state}}));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {'realInformation.state': data.state}}));
         } catch (err) {
             console.log(err);
             fu({err:true, message:'发生错误'});
