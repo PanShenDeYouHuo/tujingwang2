@@ -170,6 +170,7 @@ User.prototype.getNotify = function(socket) {
         try{
             let result = await user_db.findById(socket.account._id, {'notify': {$slice: [1,10]}});
             console.log(result);
+            
             fu( result.notify );
         } catch (err) {
             console.log(err);
