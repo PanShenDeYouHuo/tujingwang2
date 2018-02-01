@@ -53,18 +53,6 @@ let user = {
         openingBank:{type:String},                  //开户行
         bankCardFrontObjectKey:{type:String},       //银行卡正面
     },
-    // //真实信息认证
-    // //个人信息认证
-    // InfoAuth: [
-    //     {
-    //         //认证状态
-    //         state:{type:Number}, //0待审核, 1成功, 2失败
-    //         //认证账号id
-    //         id:{type:String},
-    //         //认证结果说明
-    //         content:{type:String},
-    //     }
-    // ],
     
     //通知
     notify:[

@@ -168,7 +168,7 @@ User.prototype.putRealInformation = function(socket) {
 User.prototype.getNotify = function(socket) {
     return async (data, fu)=> {
         try{
-            let result = await user_db.findById(socket.account._id, {'notify': 1}) 
+            let result = await user_db.findById(socket.account._id, {'notify': {$slice: [1, 10]},'notify': 1});
             fu( result.notify );
         } catch (err) {
             console.log(err);
