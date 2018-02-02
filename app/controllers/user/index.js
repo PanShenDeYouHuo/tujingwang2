@@ -188,6 +188,7 @@ User.prototype.putNotify = function(socket) {
         try{
             await user_db.findOneAndUpdate({ _id: socket.account._id, 'notify._id': data._id}, {$set: {'notify.$.state': 1}});
             fu( 's' );
+            
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
