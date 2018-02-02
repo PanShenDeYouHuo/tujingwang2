@@ -34,6 +34,7 @@ module.exports = ()=> {
 			try {
 /////////////////////******ip验证*******////////////////////
 				console.log(socket.handshake.address);
+				
 /////////////////////******token验证*******////////////////////
 				//检测token是否篡改
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
