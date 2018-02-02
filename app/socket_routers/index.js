@@ -34,7 +34,7 @@ module.exports = ()=> {
 			try {
 /////////////////////******ip验证*******////////////////////
 				console.log(socket.handshake.address);
-				
+
 /////////////////////******token验证*******////////////////////
 				//检测token是否篡改
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
@@ -62,7 +62,7 @@ module.exports = ()=> {
 				authority.public(socket);
 				
 				//根据权限开放接口
-				setAuthority(socket, token.payload.authority);
+				setAuthority(socket, account.authority);
 
 
 /////////////////////******成功返回*******////////////////////

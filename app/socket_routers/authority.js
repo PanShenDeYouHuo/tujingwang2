@@ -50,7 +50,6 @@ Authority.prototype.financial = (socket)=> {
  * 
  */
 Authority.prototype.service = (socket)=> {
-    console.log('开通客服权限');
     project(socket);
 }
 
