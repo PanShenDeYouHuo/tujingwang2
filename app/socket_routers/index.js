@@ -42,14 +42,14 @@ module.exports = ()=> {
 				// socket.userId = token.payload._id;
 				// socket.authority = token.payload.authority;
 				
-				//检查是否过期
+				//检查是否过期,只实现了唯一登入时间,过期时间待实现
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
 				if(isSame.accessToken != accessToken) return;
 				
 				//登入成功返回最新数据
 				let account = await user_db.findOne({'_id': token.payload._id}, {
 					'authority': 1, 'accessToken': 1, 'nickname': 1, 'sex': 1, 'province': 1, 'city': 1, 'country': 1, 'headimgurl': 1,
-					'contactInformation': 1, 'company': 1, 'realInformation': 1,
+					'contactInformation': 1, 'company': 1, 'realInformation': 1,'notify': {$slice: [1,10]},
 				});
 				socket.account = account;
 
