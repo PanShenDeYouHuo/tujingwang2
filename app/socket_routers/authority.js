@@ -25,7 +25,7 @@ Authority.prototype.public = (socket)=> {
 Authority.prototype.admin = (socket)=> {
     admin(socket);
     project(socket);
-    oss(socket);
+    // oss(socket);
 }
 
 /**
@@ -34,7 +34,7 @@ Authority.prototype.admin = (socket)=> {
  */
 Authority.prototype.boss = (socket)=> {
     boss(socket);
-    oss(socket);
+    // oss(socket);
 }
 
 /**
@@ -50,6 +50,7 @@ Authority.prototype.financial = (socket)=> {
  * 
  */
 Authority.prototype.service = (socket)=> {
+    console.log('开通客服权限');
     project(socket);
 }
 
