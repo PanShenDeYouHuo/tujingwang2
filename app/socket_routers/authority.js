@@ -50,7 +50,7 @@ Authority.prototype.financial = (socket)=> {
  * 
  */
 Authority.prototype.service = (socket)=> {
-
+    project(socket);
 }
 
 /**
