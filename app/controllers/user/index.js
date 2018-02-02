@@ -168,7 +168,12 @@ User.prototype.putRealInformation = function(socket) {
 User.prototype.getNotify = function(socket) {
     return async (data, fu)=> {
         try{
-            let result = await user_db.findById(socket.account._id, {'notify': {$slice: [1,10]}});
+            let result = {};
+            if( data.notifyType === 0 ) {
+                result = await user_db.findById(socket.account._id, {'notify': {$slice: [1,10]}});
+            } else {
+                result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1,10]}});
+            }
             fu( result.notify );
         } catch (err) {
             console.log(err);
@@ -186,9 +191,9 @@ User.prototype.getNotify = function(socket) {
 User.prototype.putNotify = function(socket) {
     return async (data, fu)=> {
         try{
-            await user_db.findOneAndUpdate({ _id: socket.account._id, 'notify._id': data._id}, {$set: {'notify.$.state': 1}});
+            await user_db.findOneAndUpdate({ '_id': socket.account._id, 'notify._id': data._id}, {$set: {'notify.$.state': 1}});
             fu( 's' );
-            
+
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
