@@ -1,5 +1,3 @@
-import { resolve } from 'url';
-
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
 
