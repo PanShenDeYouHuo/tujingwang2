@@ -172,10 +172,10 @@ User.prototype.getNotify = function(socket) {
             if( data.notifyType === 0 ) {
                 result = await user_db.findById(socket.account._id, {'notify': {$slice: [1,10]}});
             } else {
-                console.log(data.notifyType);
+
                 result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1,10]}});
             }
-            console.log(result);
+            if( !result ) fu([]); 
             fu( result.notify );
         } catch (err) {
             console.log(err);
