@@ -1,3 +1,5 @@
+import { resolve } from 'url';
+
 const user_db = require('../../service/mongodb/m_uesr');
 const OSS = require('ali-oss').Wrapper;                 //Promise函数
 
@@ -169,11 +171,13 @@ User.prototype.getNotify = function(socket) {
     return async (data, fu)=> {
         try{
             let result = {};
+            console.log(data.notifyType);
             if( data.notifyType === 0 ) {
                 result = await user_db.findById(socket.account._id, {'notify': {$slice: [1,10]}});
             } else {
                 result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1,10]}});
             }
+            console.log(result);
             fu( result.notify );
         } catch (err) {
             console.log(err);
@@ -183,7 +187,7 @@ User.prototype.getNotify = function(socket) {
 }
 
 /**
- * 获得通知信息
+ * 修改通知信息
  * 
  * @param {any} account 
  * @returns 
