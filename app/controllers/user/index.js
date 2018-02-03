@@ -121,7 +121,7 @@ User.prototype.putRealInformation = function(socket) {
                 state: 0,
                 ntype: 1,
                 concent: `${data.name}进行账号认证，请尽快去审核`,
-                router: '/boss/Authenticate'
+                router: '/boss/authenticate'
             }
             //sokcet.io推送信息
             const sio = require('../../sio');
@@ -170,10 +170,10 @@ User.prototype.getNotify = function(socket) {
         try{
             let result = {};
             if( data.notifyType === 0 ) {
-                result = await user_db.findById(socket.account._id, {'notify': {$slice: [1 + (data.currentPage - 1)*10, 10]}});
+                result = await user_db.findById(socket.account._id, {'notify': {$slice: [1 + (data.currentPage - 1)*8, 8]}});
             } else {
 
-                result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1 + (data.currentPage - 1)*10, 10]}});
+                result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1 + (data.currentPage - 1)*8, 10]}});
             }
             if( !result ) return fu([]); 
             fu( result.notify );
