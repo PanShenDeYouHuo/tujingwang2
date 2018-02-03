@@ -175,7 +175,7 @@ User.prototype.getNotify = function(socket) {
 
                 result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [1,10]}});
             }
-            if( !result ) fu([]); 
+            if( !result ) return fu([]); 
             fu( result.notify );
         } catch (err) {
             console.log(err);
