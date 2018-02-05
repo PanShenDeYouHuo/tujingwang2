@@ -45,7 +45,7 @@ Customer.prototype.postCustomer = (socket)=> {
  * @param {object} data.uid 客服id 
  * @returns 
  */
-Customer.prototype.getCustomers = ()=> {
+Customer.prototype.getCustomers = (socket)=> {
     return async (data, fu)=> {
         try{
             let where = {
