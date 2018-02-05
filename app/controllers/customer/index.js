@@ -40,7 +40,7 @@ Customer.prototype.postCustomer = (socket)=> {
 
 
 /**
- * 客户列表
+ * 获取客户列表
  * 
  * @param {object} data.uid 客服id 
  * @returns 
@@ -56,6 +56,40 @@ Customer.prototype.getCustomers = (socket)=> {
             let count = await customer_db.count(where);
             count = Math.ceil(count/data.pageSize);
             fu({customers, count});
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * 跟新客户数据
+ * 
+ * @param {object} data._id 项目编号
+ * @returns 
+ */
+Customer.prototype.putCustomer = (socket)=> {
+    return async (data, fu)=> {
+        try{
+            fu(await project_db.findByIdAndUpdate(data._id, data));
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * 删除客户数据
+ * 
+ * @param {object} data._id 项目编号
+ * @returns 
+ */
+Customer.prototype.deleteCustomer = (socket)=> {
+    return async (data, fu)=> {
+        try{
+            fu(await project_db.findByIdAndRemove(data._id));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});

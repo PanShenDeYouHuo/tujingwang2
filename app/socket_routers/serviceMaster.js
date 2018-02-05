@@ -12,9 +12,10 @@ module.exports = (socket)=> {
         socket.on('getCustomers', customer.getCustomers(socket));
         
 
-        // //跟新客户信息
-        // socket.on('putCustomer', customer.putCustomer(socket));
+        //跟新客户信息
+        socket.on('putCustomer', customer.putCustomer(socket));
 
-
+        //删除客户
+        socket.on('deleteCustomer', customer.deleteCustomer(socket));
         
     }
