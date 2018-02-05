@@ -14,6 +14,16 @@ function Customer() {
 Customer.prototype.postCustomer = (socket)=> {
     return async (data, fu)=> {
         try {  
+            let where = {
+                $or: [
+                    {name: data.name},
+                    {phone: data.phone}
+                ]
+            };
+            let count = await customer_db.count(where);
+            console.log(count);
+            if (count !== 0) return fu({err: true, message: '重复登记'});
+
             fu(await customer_db.inset({
                 fromCompany: socket.account.company.bossId,
                 name: data.name, 
