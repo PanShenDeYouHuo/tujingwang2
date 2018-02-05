@@ -14,12 +14,14 @@ function Customer() {
 Customer.prototype.postCustomer = (socket)=> {
     return async (data, fu)=> {
         try {  
-            console.log(socket.account);
-            // fu(await project_db.inset({
-            //     fromCompany: 
-            //     name: data.name, 
-            //     service: data.uid
-            // }));
+            fu(await customer_db.inset({
+                fromCompany: socket.account.company.bossId,
+                name: data.name, 
+                companyName: data.companyName, 
+                phone: data.phone, 
+                QQ: data.QQ, 
+                wechat: data.wechat
+            }));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '创建发生错误'});
