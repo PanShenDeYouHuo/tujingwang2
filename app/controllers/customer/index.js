@@ -51,6 +51,7 @@ Customer.prototype.getCustomers = (socket)=> {
             let where = {
                 fromCompany: socket.account.company.bossId,
             };
+            if( data.search !== '') where.name = {$regex: data.search};
             let customers = await customer_db.findCustomers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await customer_db.count(where);
             count = Math.ceil(count/data.pageSize);
