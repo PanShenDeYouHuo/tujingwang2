@@ -17,7 +17,7 @@ Admin.prototype.getBossAccountStatistics = ()=> {
                 authority: 'boss'
             }
             let total = await user_db.count(where);
-            where.state = 2;
+            where.isDisable = 1;
             let disable = await user_db.count(where);
             fu({total, disable})
         } catch (err) {
@@ -40,10 +40,10 @@ Admin.prototype.getBossAccounts = ()=> {
         try {
             let where = {
                 authority: 'boss',
-                state: {$lt: 2}
+                isDisable: 0
             };
-            if(data.state === 2) {
-                where.state = 2;
+            if(data.isDisable === 1) {
+                where.isDisable = 1;
             }
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
@@ -80,7 +80,7 @@ Admin.prototype.getBossAccount = ()=> {
 Admin.prototype.putBossAccount = ()=> {
     return async (data, fu)=> {
         try{
-            fu(await user_db.findByIdAndUpdate(data._id, {$set: {state: data.state}}));
+            fu(await user_db.findByIdAndUpdate(data._id, {$set: {isDisable: data.isDisable}}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});

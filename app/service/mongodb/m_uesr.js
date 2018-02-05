@@ -3,6 +3,11 @@ const schema = mongoose.Schema;
 
 let user = {
 
+    //是否禁用账号， 0：不禁用， 1： 禁用
+    isDisable: {
+        type: Number,
+        default: 0,
+    },
     //账号状态 0：离线， 1：在线， 2：禁用
     state:{
         type:Number,
