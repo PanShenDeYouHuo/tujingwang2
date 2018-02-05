@@ -51,6 +51,7 @@ Customer.prototype.getCustomers = (socket)=> {
             let where = {
                 fromCompany: socket.account.company.bossId,
             };
+            console.log(data.search);
             if( data.search !== '') where.name = {$regex: data.search};
             let customers = await customer_db.findCustomers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await customer_db.count(where);
@@ -72,7 +73,6 @@ Customer.prototype.getCustomers = (socket)=> {
 Customer.prototype.putCustomer = (socket)=> {
     return async (data, fu)=> {
         try{
-            console.log(data);
             fu(await customer_db.findByIdAndUpdate(data._id, {$set: {name: data.name, companyName: data.companyName, phone: data.phone, QQ: data.QQ, wechat: data.wechat}}));
         } catch (err) {
             console.log(err);
