@@ -48,6 +48,7 @@ Customer.prototype.postCustomer = (socket)=> {
 Customer.prototype.getCustomers = (socket)=> {
     return async (data, fu)=> {
         try{
+            console.log(data);
             let where = {
                 fromCompany: socket.account.company.bossId,
             };
