@@ -72,7 +72,7 @@ Customer.prototype.putCustomer = (socket)=> {
     return async (data, fu)=> {
         try{
             console.log(data);
-            fu(await customer_db.findByIdAndUpdate(data._id, {$set: {name: data.name, companyName: data.companyName, phone: data.phone, QQ: date.QQ, wechat: data.wechat}}));
+            fu(await customer_db.findByIdAndUpdate(data._id, {$set: {name: data.name, companyName: data.companyName, phone: data.phone, QQ: data.QQ, wechat: data.wechat}}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
