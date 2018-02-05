@@ -40,10 +40,10 @@ Admin.prototype.getBossAccounts = ()=> {
         try {
             let where = {
                 authority: 'boss',
-                isDisable: 0
+                // isDisable: 0
             };
             if(data.isDisable === 1) {
-                where.isDisable = 1;
+                // where.isDisable = 1;
             }
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
