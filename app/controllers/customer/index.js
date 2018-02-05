@@ -48,7 +48,6 @@ Customer.prototype.postCustomer = (socket)=> {
 Customer.prototype.getCustomers = (socket)=> {
     return async (data, fu)=> {
         try{
-            console.log(data);
             let where = {
                 fromCompany: socket.account.company.bossId,
             };
@@ -72,7 +71,7 @@ Customer.prototype.getCustomers = (socket)=> {
 Customer.prototype.putCustomer = (socket)=> {
     return async (data, fu)=> {
         try{
-            fu(await project_db.findByIdAndUpdate(data._id, data));
+            fu(await customer_db.findByIdAndUpdate(data._id, data));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
@@ -89,7 +88,7 @@ Customer.prototype.putCustomer = (socket)=> {
 Customer.prototype.deleteCustomer = (socket)=> {
     return async (data, fu)=> {
         try{
-            fu(await project_db.findByIdAndRemove(data._id));
+            fu(await customer_db.findByIdAndRemove(data._id));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
