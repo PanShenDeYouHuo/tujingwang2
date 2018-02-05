@@ -221,7 +221,7 @@ CustomerDB.prototype.count = (where)=> {
  * @param {any} sort        排序条件
  * @returns 
  */
-CustomerDB.prototype.findcustomers = (whereStr,pageSize,currentPage,sort)=> {
+CustomerDB.prototype.findCustomers = (whereStr,pageSize,currentPage,sort)=> {
 
     //跳过数
     let skipnum = (currentPage - 1) * pageSize;

@@ -8,8 +8,8 @@ module.exports = (socket)=> {
     
         // //根据id获取客户信息
         // socket.on('getCustomer', customer.getCustomer());
-        //根据uid获取客户列表
-        // socket.on('getCustomers', customer.getCustomers(socket));
+        //获取客户列表
+        socket.on('getCustomers', customer.getCustomers(socket));
         
 
         // //跟新客户信息

@@ -21,7 +21,6 @@ Customer.prototype.postCustomer = (socket)=> {
                 ]
             };
             let count = await customer_db.count(where);
-            console.log(count);
             if (count !== 0) return fu({err: true, message: '重复登记'});
 
             fu(await customer_db.inset({
@@ -35,6 +34,30 @@ Customer.prototype.postCustomer = (socket)=> {
         } catch (err) {
             console.log(err);
             fu({err: true, message: '创建发生错误'});
+        }
+    }
+}
+
+
+/**
+ * 客户列表
+ * 
+ * @param {object} data.uid 客服id 
+ * @returns 
+ */
+Customer.prototype.getCustomers = ()=> {
+    return async (data, fu)=> {
+        try{
+            let where = {
+                fromCompany: socket.account.company.bossId,
+            };
+            let customers = await customer_db.findCustomers(where, data.pageSize, data.currentPage, {_id: -1});
+            let count = await customer_db.count(where);
+            count = Math.ceil(count/data.pageSize);
+            fu({customers, count});
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
         }
     }
 }
