@@ -11,7 +11,7 @@ function Customer() {
  * @param {string} name 项目名称
  * @param {string} service 客服
  */
-Project.prototype.postCustomer = (socket)=> {
+Customer.prototype.postCustomer = (socket)=> {
     return async (data, fu)=> {
         try {  
             console.log(socket.account);
