@@ -19,7 +19,7 @@ Admin.prototype.getBossAccountStatistics = ()=> {
             let total = await user_db.count(where);
             where.isDisable = 1;
             let disable = await user_db.count(where);
-            fu({total, disable})
+            fu({total, disable});
         } catch (err) {
             console.log(err);
             fu({err:true, message: '发生错误'});
