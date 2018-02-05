@@ -52,7 +52,7 @@ Customer.prototype.getCustomers = (socket)=> {
                 fromCompany: socket.account.company.bossId,
             };
             console.log(data.search);
-            if( data.search !== '') where.name = {$regex: data.search};
+            if( data.search ) where.name = {$regex: data.search};
             let customers = await customer_db.findCustomers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await customer_db.count(where);
             count = Math.ceil(count/data.pageSize);
