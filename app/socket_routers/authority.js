@@ -3,6 +3,7 @@ const boss = require('./boss');
 const user = require('./user');
 const oss = require('./oss');
 const project = require('./project');
+const serviceMaster = require('./serviceMaster');
 
 
 function Authority() {
@@ -56,7 +57,7 @@ Authority.prototype.service = (socket)=> {
  * 
  */
 Authority.prototype.serviceMaster = (socket)=> {
-    
+    serviceMaster(socket);
 }
 
 /**
