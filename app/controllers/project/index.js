@@ -38,7 +38,7 @@ Project.prototype.getProject = ()=> {
 }
 
 /**
- * 根据发布人获得项目列表
+ * 根据客服id获得项目列表
  * 
  * @param {object} data.uid 客服id 
  * @returns 
@@ -46,8 +46,14 @@ Project.prototype.getProject = ()=> {
 Project.prototype.getProjects = ()=> {
     return async (data, fu)=> {
         try{
-            let projects = await project_db.findProjects({service: data.uid}, data.pageSize, data.currentPage, {_id: -1});
-            let count = await project_db.count({service: data.uid});
+            let whereStr = {
+                service: data.uid
+            };
+            if(data.state !== 'all') {
+                whereStr['image.state'] = data.state;
+            }
+            let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
+            let count = await project_db.count(whereStr);
             count = Math.ceil(count/data.pageSize);
             fu({projects, count});
         } catch (err) {

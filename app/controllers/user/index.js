@@ -185,13 +185,13 @@ User.prototype.getNotify = function(socket) {
 }
 
 /**
- * 修改通知信息
+ * 修改通知信息,设置信息为已读
  * 
  * @param {any} account 
  * @returns 
  */
 User.prototype.putNotify = function(socket) {
-    return async (data, fu)=> {
+    return async (data, fu)=> { 
         try{
             await user_db.findOneAndUpdate({ '_id': socket.account._id, 'notify._id': data._id}, {$set: {'notify.$.state': 1}});
             fu( 's' );
