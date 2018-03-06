@@ -57,6 +57,7 @@ Project.prototype.getProjects = ()=> {
             if(data.state !== 'all') {
                 whereStr['image.state'] = map[data.state];
             }
+            console.log(data);
             console.log(whereStr);
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
             let count = await project_db.count(whereStr);
