@@ -49,8 +49,13 @@ Project.prototype.getProjects = ()=> {
             let whereStr = {
                 service: data.uid
             };
+            //映射
+            let map = {
+                finish: 1,
+                unfinished: 0
+            }
             if(data.state !== 'all') {
-                whereStr['image.state'] = data.state;
+                whereStr['image.state'] = map[data.state];
             }
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
             let count = await project_db.count(whereStr);
