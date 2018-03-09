@@ -10,9 +10,10 @@ function Project() {
  * @param {string} service 客服
  */
 Project.prototype.postProject = ()=> {
-    
+
     return async (data, fu)=> {
         try {  
+            console.log(data);
             fu(await project_db.inset({name: data.name, serviceId: data.uid, publisherId: data.publisherId}));
         } catch (err) {
             console.log(err);
