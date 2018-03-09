@@ -4,14 +4,13 @@ const schema = mongoose.Schema;
 let project = {
     creationTime: { type: Date, default:Date.now}, //创建时间
     name: { type: String },      //项目名
-    publisher: { type: String }, //发布人
-    service: { type: String },   //客服
-    // manager: { type: String },   //项目管理人
+    publisherId: { type: String }, //发布客户id
+    serviceId: { type: String },   //客服id
 
     referenceFile: [            //参考文件
         { name:{ type: String }, url:{ type: String } }
     ],
-    projectFile: [              //项目文件
+    projectFile: [              //项目模型文件
         { name:{ type: String }, url:{ type: String } }
     ],
 
@@ -43,7 +42,7 @@ function ProejctDB() {
 
 }
 
- ////////////////////////////////////////////////
+////////////////////////////////////////////////
  //////////////////*** 增 ***////////////////////
 ////////////////////////////////////////////////
 
@@ -63,7 +62,7 @@ ProejctDB.prototype.inset = (data)=> {
 }
 
 
-  ////////////////////////////////////////////////
+////////////////////////////////////////////////
  //////////////////*** 删 ***////////////////////
 ////////////////////////////////////////////////
 

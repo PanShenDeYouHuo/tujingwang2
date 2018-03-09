@@ -4,7 +4,7 @@ function Project() {
     this.name = 'project';
 }
 /**
- * 用项目名称和客服创建项目
+ * 用项目名称和客服id,客户id创建项目
  * 
  * @param {string} name 项目名称
  * @param {string} service 客服
@@ -12,7 +12,7 @@ function Project() {
 Project.prototype.postProject = ()=> {
     return async (data, fu)=> {
         try {  
-            fu(await project_db.inset({name: data.name, service: data.uid}));
+            fu(await project_db.inset({name: data.name, serviceId: data.uid, publisherId: data.publisherId}));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '创建发生错误'});
@@ -57,9 +57,6 @@ Project.prototype.getProjects = ()=> {
             if(data.state !== 'all') {
                 whereStr['image.state'] = map[data.state];
             }
-            console.log(data);
-            
-            console.log(whereStr);
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
             let count = await project_db.count(whereStr);
             count = Math.ceil(count/data.pageSize);
