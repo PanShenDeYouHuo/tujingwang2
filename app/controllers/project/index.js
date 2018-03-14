@@ -49,7 +49,7 @@ Project.prototype.getProjects = ()=> {
     return async (data, fu)=> {
         try{
             let whereStr = {
-                service: data.uid
+                serviceId: data.uid
             };
             //映射
             let map = {
