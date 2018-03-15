@@ -63,8 +63,6 @@ Project.prototype.getProjects = ()=> {
                 whereStr['image.state'] = map[data.state];
             }
 
-            console.log(whereStr);
-
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
             let count = await project_db.count(whereStr);
             count = Math.ceil(count/data.pageSize);
@@ -86,6 +84,22 @@ Project.prototype.putProject = ()=> {
     return async (data, fu)=> {
         try{
             fu(await project_db.findByIdAndUpdate(data._id, data));
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+/**
+ * 移除项目
+ * 
+ * @returns 
+ */
+Project.prototype.deleteProjectById = ()=> {
+    return async (data, fu)=> {
+        try {
+            console.log(data);
+            fu(await project_db.findByIdAndRemove(data.pid));
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
