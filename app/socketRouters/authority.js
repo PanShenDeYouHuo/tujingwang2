@@ -25,7 +25,8 @@ function Authority() {
  */
 Authority.prototype.mapping = (socket, functionNames)=> {
 	for( let i = 0; i < functionNames.length; i++) {
-		console.log(`role.${functionNames[i]}()`);
+        console.log(`role.${functionNames[i]}()`);
+        console.log(this.name);
 		this.role[functionNames[i]](socket);
 	}
 }
