@@ -1,5 +1,5 @@
-const stsToken = require('../controllers/oss/stsToken');
-const accountSts = require('../controllers/oss/accountSts');
+const stsToken = require('../../controllers/oss/stsToken');
+const accountSts = require('../../controllers/oss/accountSts');
 
 module.exports = (socket)=> {
 

@@ -1,5 +1,5 @@
 // const token = require('../modules/node-jwt');
-const user = require('../controllers/user');
+const user = require('../../controllers/user');
 
 module.exports = (socket)=> {
     // //token登入

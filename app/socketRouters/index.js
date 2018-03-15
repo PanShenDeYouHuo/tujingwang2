@@ -2,18 +2,14 @@ const user_db = require('../service/mongodb/m_uesr');
 const jwt = require('../modules/node-jwt');
 const authority = require('./authority');
 
-// const admin = require('./admin');
-// const user = require('./user');
-// const oss = require('./oss');
-// const project = require('./project');
 
-//权限映射
-function setAuthority(socket, functionNames) {
-	for( let i = 0; i < functionNames.length; i++) {
-		console.log(`authority.${functionNames[i]}()`);
-		authority[functionNames[i]](socket);
-	}
-};
+// //权限映射
+// function setAuthority(socket, functionNames) {
+// 	for( let i = 0; i < functionNames.length; i++) {
+// 		console.log(`authority.${functionNames[i]}()`);
+// 		authority[functionNames[i]](socket);
+// 	}
+// };
 
 module.exports = ()=> {
 	return (socket)=> {
@@ -62,7 +58,7 @@ module.exports = ()=> {
 				authority.public(socket);
 				
 				//根据权限开放接口
-				setAuthority(socket, account.authority);
+				authority.mapping(socket, account.authority);
 
 
 /////////////////////******成功返回*******////////////////////
