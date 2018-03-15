@@ -31,7 +31,10 @@ Project.prototype.postProject = ()=> {
 Project.prototype.getProject = ()=> {
     return async (data, fu)=> {
         try{
+            let project = await project_db.findById(data.pid, {});
+            console.log(project);
             fu(await project_db.findById(data.pid, {}));
+
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});
@@ -59,7 +62,9 @@ Project.prototype.getProjects = ()=> {
             if(data.state !== 'all') {
                 whereStr['image.state'] = map[data.state];
             }
+
             console.log(whereStr);
+
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
             let count = await project_db.count(whereStr);
             count = Math.ceil(count/data.pageSize);
