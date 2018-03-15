@@ -38,7 +38,7 @@ Authority.prototype.mapping = function(socket, functionNames) {
 Authority.prototype.public = function(socket) {
     user(socket);
     oss(socket);
-    project(socket);
+    // project(socket);
 }
 
 // /**
