@@ -3,14 +3,6 @@ const jwt = require('../modules/node-jwt');
 const authority = require('./authority');
 
 
-// //权限映射
-// function setAuthority(socket, functionNames) {
-// 	for( let i = 0; i < functionNames.length; i++) {
-// 		console.log(`authority.${functionNames[i]}()`);
-// 		authority[functionNames[i]](socket);
-// 	}
-// };
-
 module.exports = ()=> {
 	return (socket)=> {
 
@@ -36,8 +28,6 @@ module.exports = ()=> {
 				if(!jwt.jwtAuthentication(accessToken, 'meihaodeshijie,meihaodeshenghuo')) return;
 				//解析token的内容
 				let token = jwt.jwtParse(accessToken);
-				// socket.userId = token.payload._id;
-				// socket.authority = token.payload.authority;
 				
 				//检查是否过期,只实现了唯一登入时间,过期时间待实现
 				let isSame = await user_db.findById(token.payload._id, {'accessToken': 1});
