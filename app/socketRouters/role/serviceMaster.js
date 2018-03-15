@@ -1,4 +1,4 @@
-const customer = require('../controllers/customer');
+const customer = require('../../controllers/customer');
 
 module.exports = (socket)=> {
     

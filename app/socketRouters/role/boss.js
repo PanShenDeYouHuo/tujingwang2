@@ -1,5 +1,5 @@
-const boss = require('../controllers/user/boss');
-const accountSts = require('../controllers/oss/accountSts');
+const boss = require('../../controllers/user/boss');
+const accountSts = require('../../controllers/oss/accountSts');
 
 module.exports = (socket)=> {
     

@@ -7,7 +7,7 @@ let customer = {
     companyName: { type: String },  //所属公司
     QQ: {type:Number},              //qq
     wechat: {type: String},         //微信
-    phone:{type:Number},            //手机号码
+    phone: {type:Number},           //手机号码
 }
 
 let customerSchema = new schema(customer);
