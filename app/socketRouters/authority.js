@@ -13,6 +13,7 @@ function Authority() {
     this.role = {
         admin: require('./role/admin'),
         boss: require('./role/boss'),
+        service: require('./role/service'),
         serviceMaster: require('./role/serviceMaster'),
     }
 }
