@@ -4,7 +4,9 @@ const schema = mongoose.Schema;
 let project = {
     creationTime: { type: Date, default:Date.now}, //创建时间
     name: { type: String },      //项目名
+
     publisherId: { type: String }, //发布客户id
+
     serviceId: { type: String },   //客服id
 
     referenceFile: [            //参考文件
