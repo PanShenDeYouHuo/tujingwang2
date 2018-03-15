@@ -23,10 +23,9 @@ function Authority() {
  * @param {any} socket 
  * @param {any} functionNames 
  */
-Authority.prototype.mapping = (socket, functionNames)=> {
+Authority.prototype.mapping = function(socket, functionNames) {
 	for( let i = 0; i < functionNames.length; i++) {
         console.log(`role.${functionNames[i]}()`);
-        console.log(this.name);
 		this.role[functionNames[i]](socket);
 	}
 }
@@ -36,7 +35,7 @@ Authority.prototype.mapping = (socket, functionNames)=> {
  * 
  * @param {any} socket 
  */
-Authority.prototype.public = (socket)=> {
+Authority.prototype.public = function(socket) {
     user(socket);
     oss(socket);
     project(socket);
