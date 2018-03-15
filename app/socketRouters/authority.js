@@ -11,9 +11,9 @@ function Authority() {
     this.name = 'authority';
 
     this.role = {
-        admin = require('./role/admin'),
-        boss = require('./role/boss'),
-        serviceMaster = require('./role/serviceMaster'),
+        admin : require('./role/admin'),
+        boss : require('./role/boss'),
+        serviceMaster : require('./role/serviceMaster'),
     }
 }
 
