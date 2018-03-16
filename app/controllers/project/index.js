@@ -1,4 +1,5 @@
 const project_db = require('../../service/mongodb/m_project');
+const customer_db = require('../../service/mongodb/m_customer');
 
 function Project() {
     this.name = 'project';
@@ -33,6 +34,7 @@ Project.prototype.getProject = ()=> {
         try{
             let project = await project_db.findById(data.pid, {});
             console.log(project);
+            project.publisherName = await customer_db.findById(project.publisherId, {'name': 1});
             fu(await project_db.findById(data.pid, {}));
 
         } catch (err) {
