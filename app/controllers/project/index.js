@@ -35,7 +35,7 @@ Project.prototype.getProject = ()=> {
             let project = await project_db.findById(data.pid, {});
             console.log(project);
             project.publisherName = await customer_db.findById(project.publisherId, {'name': 1});
-            fu(await project_db.findById(data.pid, {}));
+            fu(project);
 
         } catch (err) {
             console.log(err);
