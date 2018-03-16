@@ -33,8 +33,8 @@ Project.prototype.getProject = ()=> {
     return async (data, fu)=> {
         try{
             let project = await project_db.findById(data.pid, {});
-            console.log(project);
             project.publisherName = await customer_db.findById(project.publisherId, {'name': 1});
+            console.log(project);
             fu(project);
 
         } catch (err) {
