@@ -24,5 +24,5 @@ module.exports = (socket)=> {
     socket.on('putProImage', project.putProImage(socket));
     
     //删除image任务
-    socket.on('deleteProImage', project.deleteProject(socket));
+    socket.on('deleteProImage', project.deleteProImage(socket));
 }
