@@ -18,17 +18,18 @@ let project = {
 
     image: [
         {
-            creationTime: { type: Date, default:Date.now}, //创建时间
-            state: { type: Number, default: 0 },//图片状态 0：未完成，1：完成
-            designType: { type: String },       //设计类型
-            style: { type: String },            //设计风格
-            space: { type: String },            //设计空间
-            area: { type: String},              //设计区域
-            imageType: { type: String },        //图片类型
-            price: { type: Number },            //价格
-            // murl: { type: String },             //模型地址
-            iurl: { type: String },             //图片地址
-            productionsGroup: [                 //工作类型和id
+            creationTime: { type: Date, default:Date.now},  //创建时间
+            state: { type: Number, default: 0 },            //图片状态 0：未完成，1：完成
+            designType: { type: String },                   //设计类型
+            style: { type: String },                        //设计风格
+            space: { type: String },                        //设计空间
+            area: { type: String},                          //设计区域
+            imageType: { type: String },                    //图片类型
+            price: { type: Number },                        //价格
+            payment: {type: Number, default: 0},            //付款
+            // murl: { type: String },                      //模型地址
+            iurl: { type: String },                         //图片地址
+            productionsGroup: [                             //工作类型和id
                 { workType: { type: String}, userId: { type: String} }
             ]
         }

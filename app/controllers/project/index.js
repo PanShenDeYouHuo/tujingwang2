@@ -127,7 +127,7 @@ Project.prototype.postProImage = (socket)=> {
 }
 
 /**
- * 跟新image任务
+ * 更新image任务
  * 
  * @param {any} socket 
  */
@@ -151,7 +151,7 @@ Project.prototype.putProImage = (socket)=> {
 Project.prototype.deleteProImage = (socket)=> {
     return async (data, fu)=> {
         try {
-            await project_db.findOneAndUpdate({'_id': data.pid}, {$pull: {'image':{'_id': data.iid}}});
+            await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
             fu('success');
         } catch (err) {
             console.log(err);
