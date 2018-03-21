@@ -44,10 +44,8 @@ module.exports = ()=> {
 				await user_db.findByIdAndUpdate(account._id, {$set: {'state': 1, 'socketId': socket.id}});
 
 /////////////////////******socket.io接口*******////////////////////
-				//公共接口
-				authority.public(socket);
 				
-				//根据权限开放接口
+				//根据权限开放接口和公共接口
 				authority.mapping(socket, account.authority);
 
 

@@ -10,7 +10,7 @@ function Project() {
  * @param {string} name 项目名称
  * @param {string} service 客服
  */
-Project.prototype.postProject = ()=> {
+Project.prototype.postProject = (socket)=> {
 
     return async (data, fu)=> {
         try {  
@@ -29,7 +29,7 @@ Project.prototype.postProject = ()=> {
  * @param {object} data.pid 项目编号 
  * @returns 
  */
-Project.prototype.getProject = ()=> {
+Project.prototype.getProject = (socket)=> {
     return async (data, fu)=> {
         try{
             let project = await project_db.findById(data.pid, {});
@@ -51,7 +51,7 @@ Project.prototype.getProject = ()=> {
  * @param {object} data.uid 客服id 
  * @returns 
  */
-Project.prototype.getProjects = ()=> {
+Project.prototype.getProjects = (socket)=> {
     return async (data, fu)=> {
         try{
             let whereStr = {
@@ -83,7 +83,7 @@ Project.prototype.getProjects = ()=> {
  * @param {object} data._id 项目编号
  * @returns 
  */
-Project.prototype.putProject = ()=> {
+Project.prototype.putProject = (socket)=> {
     return async (data, fu)=> {
         try{
             fu(await project_db.findByIdAndUpdate(data._id, data));
@@ -98,11 +98,61 @@ Project.prototype.putProject = ()=> {
  * 
  * @returns 
  */
-Project.prototype.deleteProjectById = ()=> {
+Project.prototype.deleteProjectById = (socket)=> {
     return async (data, fu)=> {
         try {
-            console.log(data);
             fu(await project_db.findByIdAndRemove(data.pid));
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * 创建image任务
+ * 
+ * @param {any} socket 
+ */
+Project.prototype.postProImage = (socket)=> {
+    return async (data, fu)=> {
+        try {
+            await project_db.findByIdAndUpdate(data.pid, {$push: {image: data.image}});
+            fu( 'success' );
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * 跟新image任务
+ * 
+ * @param {any} socket 
+ */
+Project.prototype.putProImage = (socket)=> {
+    return async (data, fu)=> {
+        try {
+            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.iid}, {$set: {'image.$': data.image}});
+            fu( 'success' );
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
+ * 删除image任务
+ * 
+ * @param {any} socket 
+ */
+Project.prototype.deleteProImage = (socket)=> {
+    return async (data, fu)=> {
+        try {
+            await project_db.findOneAndRemove({'_id': data.pid, 'image._id': data.iid});
+            fu('success');
         } catch (err) {
             console.log(err);
             fu({err: true, message: '发生错误'});

@@ -24,10 +24,14 @@ function Authority() {
  * @param {any} socket 
  * @param {any} functionNames 
  */
-Authority.prototype.mapping = function(socket, functionNames) {
-	for( let i = 0; i < functionNames.length; i++) {
-        console.log(`role.${functionNames[i]}()`);
-		this.role[functionNames[i]](socket);
+Authority.prototype.mapping = function(socket, roles) {
+    //公共接口
+    user(socket);
+    oss(socket);
+    //根据角色开放接口
+	for( let i = 0; i < roles.length; i++) {
+        console.log(`role.${roles[i]}()`);
+		this.role[roles[i]](socket);
 	}
 }
 
