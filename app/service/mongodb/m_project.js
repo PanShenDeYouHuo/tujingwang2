@@ -19,7 +19,7 @@ let project = {
     image: [
         {
             creationTime: { type: Date, default:Date.now},  //创建时间
-            state: { type: Number, default: 0 },            //图片状态 0：未完成，1：完成
+            state: { type: Number, default: 0 },            //图片状态 0：未完成，1：已完成, 2：已结算
             designType: { type: String },                   //设计类型
             style: { type: String },                        //设计风格
             space: { type: String },                        //设计空间
