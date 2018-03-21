@@ -151,7 +151,7 @@ Project.prototype.putProImage = (socket)=> {
 Project.prototype.deleteProImage = (socket)=> {
     return async (data, fu)=> {
         try {
-            await project_db.findOneAndRemove({'_id': data.pid, 'image._id': data.iid});
+            await project_db.findOneAndUpdate({'_id': data.pid}, {$pull: {'image':{'_id': data.iid}}});
             fu('success');
         } catch (err) {
             console.log(err);
