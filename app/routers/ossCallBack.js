@@ -8,5 +8,13 @@ const routers = router
         console.log('有回调');
 		ctx.body = {text:'osscallback'};
 	})
+	.get('/refFileUpload', async(ctx, next)=> {
+		console.log('get');
+		ctx.body = { text: 'osscallback'};
+	})
+	.post('/proFileUpload', async(ctx, next)=> {
+		console.log('post');
+		ctx.body = { text: 'osscallback'};
+	})
 
 module.exports = routers;

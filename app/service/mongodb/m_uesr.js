@@ -28,7 +28,7 @@ let user = {
         basicSalary:{type:Number, default:0},   //底薪
         commission:{                            //提成
             render:{type:Number, default:0},    //渲染提成单位百分比
-            model:{type:Number, default:0},     //渲染提成
+            model:{type:Number, default:0},     //建模提成
         }
     },
 
