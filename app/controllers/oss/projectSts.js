@@ -123,10 +123,10 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                 ],
                 "Version": "1"
             };
-        
+            console.log(policy.Resource);
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
             let sessionName = socket.account._id.toString();
-
+            
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
