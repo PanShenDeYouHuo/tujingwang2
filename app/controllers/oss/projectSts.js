@@ -69,8 +69,8 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:${this.companyName}/project/${ data.pid}`,
-                            `acs:oss:*:*:${this.companyName}/project/${ data.pid}/*`
+                            `acs:oss:*:*:${this.companyName}/project/`,
+                            `acs:oss:*:*:${this.companyName}/project/*`
                         ]
                     }
                 ],
