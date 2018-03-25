@@ -3,6 +3,7 @@ const STS = OSS.STS;
 
 
 module.exports = {
+    companyName: 'tujingcloud',
     oss:{
         sts: new STS({
             accessKeyId:'LTAIesg8W64WwrGI',

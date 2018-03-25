@@ -10,10 +10,10 @@ let project = {
     serviceId: { type: String },   //客服id
 
     referenceFile: [            //参考文件
-        { name:{ type: String }, url:{ type: String } }
+        { name:{ type: String }, objectKey:{ type: String } }
     ],
-    projectFile: [              //项目模型文件
-        { name:{ type: String }, url:{ type: String } }
+    modelFile: [              //项目模型文件
+        { name:{ type: String }, objectKey:{ type: String } }
     ],
 
     image: [
@@ -28,10 +28,13 @@ let project = {
             price: { type: Number },                        //价格
             payment: {type: Number, default: 0},            //付款
             // murl: { type: String },                      //模型地址
-            iurl: { type: String },                         //图片地址
-            productionsGroup: [                             //工作类型和id
-                { workType: { type: String}, userId: { type: String} }
-            ]
+            imageObjectKey: { type: String },               //图片地址
+            // productionsGroup: [                             //工作类型和id
+            //     { workType: { type: String}, userId: { type: String} }
+            // ]
+
+            modelId:{ type: String },                       //建模师id
+            randerId:{ type: String },                      //渲染师id
         }
     ]
 }
