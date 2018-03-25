@@ -107,7 +107,7 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                 "Statement": [
                     {
                         "Action": [
-                            // "oss:DeleteObject",
+                            "oss:DeleteObject",
                             "oss:ListParts",
                             "oss:AbortMultipartUpload",
                             "oss:PutObject",
