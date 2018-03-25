@@ -58,6 +58,7 @@ ProjectSts.prototype.getReadProjectStsToken = function(socket) {
 ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
     return async (data, fu)=> {
         try{
+            
             let policy = {
                 "Statement": [
                     {
@@ -77,10 +78,10 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                 "Version": "1"
             };
         
+            console.log(policy);
+            console.log(policy.Statement);
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = socket.account._id.toString();
-            console.log(policy);
-            console.log(policy.Statement.Resource);
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
