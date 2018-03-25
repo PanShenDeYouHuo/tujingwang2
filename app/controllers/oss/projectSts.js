@@ -79,7 +79,7 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
         
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = socket.account._id.toString();
-
+            console.log(policy);
             //获取token
             let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
