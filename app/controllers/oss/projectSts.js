@@ -76,7 +76,7 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                 ],
                 "Version": "1"
             };
-        
+            console.log(policy.Resource);
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = socket.account._id.toString();
 
