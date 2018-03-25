@@ -33,7 +33,7 @@ ProjectSts.prototype.getReadProjectStsToken = function(socket) {
                ],
                "Version": "1"
            };
-           console.log(policy.Resource);
+
            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
            let sessionName = socket.account._id.toString();
            
@@ -76,7 +76,7 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                 ],
                 "Version": "1"
             };
-            console.log(policy.Resource);
+            console.log(policy.Statement);
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = socket.account._id.toString();
 
@@ -123,7 +123,7 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                 ],
                 "Version": "1"
             };
-            console.log(policy.Resource);
+
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
             let sessionName = socket.account._id.toString();
             
