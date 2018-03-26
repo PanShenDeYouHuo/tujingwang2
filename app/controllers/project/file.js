@@ -19,7 +19,7 @@ ProjectFile.prototype.refFileUpload = function(){
             console.log(postData.size);
             //保存到数据库
             //成功返回
-            ctx.body = 'Success';
+            ctx.body = {name: postData.name, bucket: postData.object, object: postData.object, size: postData.size};
             
         } catch (err) {
             console.log(err);
