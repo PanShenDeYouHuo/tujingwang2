@@ -11,7 +11,7 @@ function ProjectFile() {
  */
 ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
-        let postData = await parsePostData(ctx);
+        let postData = await parsePost.parsePostData(ctx);
 		//拷贝文件
 		console.log(postData.bucket);
 		console.log(postData.object);
