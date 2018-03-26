@@ -13,7 +13,7 @@ const routers = router
 		// console.log(ctx.query);
 		// console.log(ctx.request.body);
 		// console.log('post');
-		ctx.body = { text:ctx.res};
+		ctx.body = { text:JSON.stringify(ctx.res)};
 	})
 	.post('/proFileUpload', async(ctx, next)=> {
 		console.log('post');
