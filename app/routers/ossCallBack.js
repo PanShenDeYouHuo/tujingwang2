@@ -11,6 +11,7 @@ const routers = router
 	})
 	.post('/refFileUpload', async(ctx, next)=> {
 		console.log(ctx.query);
+		console.log(ctx.request.body);
 		console.log('post');
 		ctx.body = { text: 'osscallback'};
 	})
