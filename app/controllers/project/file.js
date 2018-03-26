@@ -17,19 +17,23 @@ ProjectFile.prototype.refFileUpload = function(){
             let postData = await parsePost(ctx);
             postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
             postData.newObject = postData.object.substr(14);
+            console.log(postData.newObject);
+            console.log(postData.object);
+            
             //拷贝文件,删除原来的临时文件
             await this.client.copy(postData.newObject, postData.object);
             await this.client.delete(postData.object);
             //保存到数据库
-            let file = {
+            let referenceFile = {
                 name: postData.name,
                 object: postData.newObject,
                 size: postData.size,
                 bucket: postData.bucket
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
+            console.log(res);
             //成功返回
-            ctx.body = {file};
+            ctx.body = referenceFile;
             
         } catch (err) {
             console.log(err);
