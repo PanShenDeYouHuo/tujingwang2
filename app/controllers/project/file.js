@@ -12,7 +12,7 @@ function ProjectFile() {
 ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
         try {
-            let postData = await parsePost.parsePostData(ctx);
+            let postData = await parsePost(ctx);
             //拷贝文件
             console.log(postData.bucket);
             console.log(postData.object);
