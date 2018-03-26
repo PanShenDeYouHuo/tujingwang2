@@ -16,7 +16,7 @@ ProjectFile.prototype.refFileUpload = function(){
         try {
             let postData = await parsePost(ctx);
             postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
-            postData.newObject = postData.object.substr(14);
+            postData.newObject = postData.object.substr(15);
             console.log(postData.newObject);
             console.log(postData.object);
             
