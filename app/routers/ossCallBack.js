@@ -11,10 +11,9 @@ const routers = router
 	})
 	.post('/refFileUpload', async(ctx, next)=> {
 		console.log(ctx.query);
-		console.log(ctx)
-		console.log(ctx.res.params);
+		console.log(ctx.request.body);
 		console.log('post');
-		ctx.body = { res: ctx.res};
+		ctx.body = { text:'osscallback'};
 	})
 	.post('/proFileUpload', async(ctx, next)=> {
 		console.log('post');
