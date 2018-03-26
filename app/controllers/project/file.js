@@ -29,12 +29,7 @@ ProjectFile.prototype.refFileUpload = function(){
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
             //成功返回
-            ctx.body = {
-                name: postData.name, 
-                bucket: postData.bucket, 
-                object: postData.newObject, 
-                size: postData.size
-            };
+            ctx.body = referenceFile;
             
         } catch (err) {
             console.log(err);
