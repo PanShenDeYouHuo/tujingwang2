@@ -5,11 +5,13 @@ const routers = router
 		ctx.body = 'osscallback';
     })
     .post('/', async(ctx, next)=>{
-        console.log('有回调');
+		console.log(ctx.query);
+        console.log('post');
 		ctx.body = {text:'osscallback'};
 	})
-	.get('/refFileUpload', async(ctx, next)=> {
-		console.log('get');
+	.post('/refFileUpload', async(ctx, next)=> {
+		console.log(ctx.query);
+		console.log('post');
 		ctx.body = { text: 'osscallback'};
 	})
 	.post('/proFileUpload', async(ctx, next)=> {
