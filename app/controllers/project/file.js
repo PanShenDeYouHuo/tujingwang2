@@ -21,7 +21,7 @@ ProjectFile.prototype.refFileUpload = function(){
             await this.client.copy(postData.newObject, postData.object);
             await this.client.delete(postData.object);
             //保存到数据库
-            let referenceFile = {
+            let file = {
                 name: postData.name,
                 object: postData.newObject,
                 size: postData.size,
@@ -29,7 +29,7 @@ ProjectFile.prototype.refFileUpload = function(){
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
             //成功返回
-            ctx.body = referenceFile;
+            ctx.body = {file};
             
         } catch (err) {
             console.log(err);
