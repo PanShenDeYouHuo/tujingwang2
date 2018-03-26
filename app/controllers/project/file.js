@@ -11,14 +11,20 @@ function ProjectFile() {
  */
 ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
-        let postData = await parsePost.parsePostData(ctx);
-		//拷贝文件
-		console.log(postData.bucket);
-		console.log(postData.object);
-		console.log(postData.size);
-		//保存到数据库
-		//成功返回
-		ctx.body = 'Success';
+        try {
+            let postData = await parsePost.parsePostData(ctx);
+            //拷贝文件
+            console.log(postData.bucket);
+            console.log(postData.object);
+            console.log(postData.size);
+            //保存到数据库
+            //成功返回
+            ctx.body = 'Success';
+            
+        } catch (err) {
+            console.log(err);
+            ctx.body = ({err: true, message: '发生错误'});
+        }
     }
 }
 
