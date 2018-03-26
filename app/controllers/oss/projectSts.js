@@ -69,14 +69,13 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/project/`,
-                            `acs:oss:*:*:tujingcloud/project/*`
+                            `acs:oss:*:*:${this.companyName}/project/${data.pid}`,
+                            `acs:oss:*:*:${this.companyName}/project/${data.pid}/*`
                         ]
                     }
                 ],
                 "Version": "1"
             };
-            console.log(policy.Statement);
             let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
             let sessionName = socket.account._id.toString();
 
