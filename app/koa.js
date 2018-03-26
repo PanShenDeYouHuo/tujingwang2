@@ -7,7 +7,7 @@ const bodyParser = require('koa-bodyparser')                                //bo
 const static = require('koa-static');                                       //静态服务器
 
 // 使用ctx.body解析中间件
-app.use(bodyParser());
+koa.use(bodyParser());
 
 //初始化静态服务器
 koa.use(static(__dirname + '/public',{ maxage: 30*86400}));     
