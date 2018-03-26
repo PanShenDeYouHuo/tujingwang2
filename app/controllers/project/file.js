@@ -15,8 +15,12 @@ ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
         try {
             let postData = await parsePost(ctx);
+            postData.object = postData.object.substring(-1,(str-1));
+            postData.bucket = postData.bucket.substring(-1,(str-1));
+            postData.pid = postData.pid.substring(-1,(str-1));
+         
             postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
-            postData.newObject = postData.object.substr(15);
+            postData.newObject = postData.object.substr(14);
             console.log(postData.newObject);
             console.log(postData.object);
             
