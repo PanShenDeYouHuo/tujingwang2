@@ -15,5 +15,6 @@ module.exports = (socket)=> {
     //获取project文件的临时读或取权限
     socket.on('getReadProjectStsToken', projectSts.getReadProjectStsToken(socket));
     socket.on('getWriteProjectStsToken', projectSts.getWriteProjectStsToken(socket));
+    socket.on('getWriteAndReadProjectStsToken', projectSts.getWriteAndReadProjectStsToken(socket));
     
 }
