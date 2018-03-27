@@ -7,11 +7,7 @@ function parsePostData( ctx ) {
 		  postdata += data
 		})
 		ctx.req.addListener("end",function(){
-			postdata = postdata.replace(/&/g, ',')
-			postdata = postdata.replace(/=/g, ':')
-			postdata = '{' + postdata + '}';
-			console.log(JSON.parse(postdata));
-			// let parseData = parseQueryStr( postdata )
+			let parseData = parseQueryStr( postdata )
 			resolve( parseData )
 		})
 		} catch ( err ) {
@@ -26,7 +22,7 @@ function parseQueryStr( queryStr ) {
 	let queryStrList = queryStr.split('&')
 	for (  let [ index, queryStr ] of queryStrList.entries()  ) {
 		let itemList = queryStr.split('=')
-		queryData[ itemList[0] ] = itemList[1]
+		queryData[ itemList[0] ] = itemList[1].substr(1,(itemList[1].length-1));
 	}
 	return queryData
 }

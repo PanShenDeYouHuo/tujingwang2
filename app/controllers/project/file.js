@@ -15,6 +15,7 @@ ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
         try {
             let postData = await parsePost(ctx);
+            console.log(postData);
             // postData.object = postData.object.substr(1,postData.object.length - 1);
             // postData.bucket = postData.bucket.substr(1,(postData.bucket.length-1));
             // postData.pid = postData.pid.substr(1,(postData.pid.length-1));
