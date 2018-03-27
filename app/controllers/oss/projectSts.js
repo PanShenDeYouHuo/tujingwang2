@@ -116,7 +116,7 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                         "Effect": "Allow",
                         "Resource": [
                             `acs:oss:*:*:${this.companyName}/project/${data.pid}`,
-                            `acs:oss:*:*:${this.companyName}/project/${data.pid}/*`
+                            `acs:oss:*:*:${this.companyName}/project/${data.pid}/*`,
                             `acs:oss:*:*:${this.companyName}/temporaryFile/project/${data.pid}`,
                             `acs:oss:*:*:${this.companyName}/temporaryFile/project/${data.pid}/*`
                         ]
