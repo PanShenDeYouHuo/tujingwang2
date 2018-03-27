@@ -7,6 +7,7 @@ function parsePostData( ctx ) {
 		  postdata += data
 		})
 		ctx.req.addListener("end",function(){
+			postdata = postdata.replace(/&/g, ',')
 			console.log(JSON.parse(postdata));
 			let parseData = parseQueryStr( postdata )
 			resolve( parseData )
