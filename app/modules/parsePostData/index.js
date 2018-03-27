@@ -7,6 +7,7 @@ function parsePostData( ctx ) {
 		  postdata += data
 		})
 		ctx.req.addListener("end",function(){
+			console.log(postdata);
 			let parseData = parseQueryStr( postdata )
 			resolve( parseData )
 		})
@@ -23,7 +24,7 @@ function parseQueryStr( queryStr ) {
 	console.log( queryStrList )
 	for (  let [ index, queryStr ] of queryStrList.entries()  ) {
 		let itemList = queryStr.split('=')
-		queryData[ itemList[0] ] = decodeURIComponent(itemList[1])
+		queryData[ itemList[0] ] = itemList[1]
 	}
 	return queryData
 }
