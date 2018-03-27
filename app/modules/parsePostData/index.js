@@ -22,7 +22,7 @@ function parseQueryStr( queryStr ) {
 	let queryStrList = queryStr.split('&')
 	for (  let [ index, queryStr ] of queryStrList.entries()  ) {
 		let itemList = queryStr.split('=')
-		queryData[ itemList[0] ] = itemList[1].substr(1,(itemList[1].length-1));
+		queryData[ itemList[0] ] = itemList[1].substr(1,(itemList[1].length-2));
 	}
 	return queryData
 }
