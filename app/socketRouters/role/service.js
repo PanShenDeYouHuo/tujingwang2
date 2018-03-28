@@ -1,5 +1,5 @@
 const project = require('../../controllers/project');
-const projectFile = require('../controllers/project/file');
+const projectFile = require('../../controllers/project/file');
 
 module.exports = (socket)=> {
     
