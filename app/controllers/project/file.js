@@ -47,7 +47,8 @@ ProjectFile.prototype.refFileUpload = function(){
 ProjectFile.prototype.deleteRefFile = (socket)=> {
     return async (data, fu)=> {
         try{
-            await project_db.findOneAndUpdate({ '_id': data.pid}, {$pull: {'referenceFile.name': data.name}});
+            console.log(data);
+            await project_db.findByIdAndUpdate( data.pid, {$pull: {'referenceFile': {'name':data.name}}});
             fu( 'success' );
 
         } catch (err) {
