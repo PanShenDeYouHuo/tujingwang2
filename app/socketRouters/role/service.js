@@ -1,4 +1,5 @@
 const project = require('../../controllers/project');
+const projectFile = require('../controllers/project/file');
 
 module.exports = (socket)=> {
     
@@ -17,6 +18,7 @@ module.exports = (socket)=> {
     //移除项目
     socket.on('deleteProjectById', project.deleteProjectById(socket));
 
+
     //创建image任务
     socket.on('postProImage', project.postProImage(socket));
 
@@ -25,4 +27,8 @@ module.exports = (socket)=> {
     
     //删除image任务
     socket.on('deleteProImage', project.deleteProImage(socket));
+
+    //删除refFile
+    socket.on('deleteRefFile', projectFile.deleteRefFile(socket));
+
 }

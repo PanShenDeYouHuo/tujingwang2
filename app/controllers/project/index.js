@@ -11,7 +11,6 @@ function Project() {
  * @param {string} service 客服
  */
 Project.prototype.postProject = (socket)=> {
-
     return async (data, fu)=> {
         try {  
             console.log(data);
