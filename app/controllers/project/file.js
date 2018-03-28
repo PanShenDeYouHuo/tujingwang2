@@ -45,13 +45,15 @@ ProjectFile.prototype.refFileUpload = function(){
 }
 
 ProjectFile.prototype.deleteRefFile = (socket)=> {
-    try{
-        await project_db.findOneAndUpdate({ '_id': data.pid}, {$pull: {'referenceFile.name': data.name}});
-        fu( 'success' );
+    return async (data, fu)=> {
+        try{
+            await project_db.findOneAndUpdate({ '_id': data.pid}, {$pull: {'referenceFile.name': data.name}});
+            fu( 'success' );
 
-    } catch (err) {
-        console.log(err);
-        fu({err: true, message: '发生错误'});
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
     }
 }
 
