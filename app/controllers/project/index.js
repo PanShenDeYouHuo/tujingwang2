@@ -132,7 +132,7 @@ Project.prototype.postProImage = (socket)=> {
 Project.prototype.putProImage = (socket)=> {
     return async (data, fu)=> {
         try {
-            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.iid}, {$set: {'image.$': data.image}});
+            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$': data.image}});
             fu( 'success' );
         } catch (err) {
             console.log(err);

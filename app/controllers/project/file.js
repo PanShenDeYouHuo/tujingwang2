@@ -44,7 +44,12 @@ ProjectFile.prototype.refFileUpload = function(){
         }
     }
 }
-
+/**
+ * 删除项目参考文件
+ * 
+ * @param {any} socket 
+ * @returns 
+ */
 ProjectFile.prototype.deleteRefFile = function(socket) {
     return async (data, fu)=> {
         try{
