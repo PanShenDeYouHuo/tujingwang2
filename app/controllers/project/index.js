@@ -171,6 +171,7 @@ Project.prototype.pay = (socket)=> {
             for (let index in project.image) {
                 console.log(project.image[index]);
             }
+            console.log(project,image);
             console.log(project);
             fu('success');
         } catch (err) {
