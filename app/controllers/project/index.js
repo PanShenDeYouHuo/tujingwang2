@@ -168,6 +168,9 @@ Project.prototype.pay = (socket)=> {
     return async (data, fu)=> {
         try {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
+            for (let index in project.image) {
+                console.log(project.image[index]);
+            }
             console.log(project);
             fu('success');
         } catch (err) {
