@@ -2,42 +2,51 @@ const mongoose = require("./mongodb.js");
 const schema = mongoose.Schema;
 
 let project = {
-    creationTime: { type: Date, default:Date.now}, //创建时间
-    name: { type: String },      //项目名
+    creationTime: { type: Date, default:Date.now},      //创建时间
+    name: { type: String },                             //项目名
 
-    publisherId: { type: String }, //发布客户id
+    isRelease: { type: Number, default: 0},             //是否发布， 0未发布，1发布
+    releaseTime: { type: Date, default: Date.now},      //发布时间
+    isFinish: { type: Number, default: 0},              //是否完整， 0未完成，1完成
+    finishTime: {type: Number, default: 0},             //完成时间
 
-    serviceId: { type: String },   //客服id
+    publisherId: { type: String },                      //发布客户id
+    serviceId: { type: String },                        //客服id
 
-    referenceFile: [            //参考文件
+    referenceFile: [                                    //参考文件
         { name:{ type: String }, object:{ type: String }, size: { type: String}, bucket: { type: String} }
     ],
-    modelFile: [              //项目模型文件
+    modelFile: [                                        //项目模型文件
         { name:{ type: String }, object:{ type: String }, size: { type: String}, bucket: { type: String} }
     ],
 
     image: [
         {
             creationTime: { type: Date, default:Date.now},  //创建时间
-            state: { type: Number, default: 0 },            //图片状态 0：未完成，1：已完成, 2：已结算
+
+            isSettlement: { type: Number, default: 0},      //是否结算， 0未结算，1结算
+            settlementTime: { type: Number, default: 0},    //结算时间
+            isFinish: { type: Number, default: 0},          //是否完成， 0未完成，1完成
+            finishTime: { type: Number, default: 0},        //完成时间
+
             designType: { type: String },                   //设计类型
             style: { type: String },                        //设计风格
             space: { type: String },                        //设计空间
             area: { type: String},                          //设计区域
-            imageType: { type: String },                    //图片类型
+            imageType: { type: String },                    //图片类型 全景，单帧
+
             price: { type: Number },                        //价格
-            payment: {type: Number, default: 0},            //付款
-            // murl: { type: String },                      //模型地址
-            picture: {
-                name: {type: String},object: { type: String}, size: {type: Number}, bucket: {type: String}             //大图
-            },
-            // imageObjectKey: { type: String },               //图片地址
-            // productionsGroup: [                             //工作类型和id
-            //     { workType: { type: String}, userId: { type: String} }
-            // ]
+            payment: {type: Number, default: 0},            //已付款
 
             modelId:{ type: String },                       //建模师id
             randerId:{ type: String },                      //渲染师id
+
+            picture: {
+                name: {type: String}, object: {type: String}, size: {type: Number}, bucket: {type: String}              //大图
+            },
+            model: {
+                name: {type: String}, object: {type: String}, size: {type: Number}, bucket: {type: String}              //模型
+            },
         }
     ]
 }

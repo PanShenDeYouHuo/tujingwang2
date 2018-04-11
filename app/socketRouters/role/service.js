@@ -30,5 +30,9 @@ module.exports = (socket)=> {
 
     //删除refFile
     socket.on('deleteRefFile', projectFile.deleteRefFile(socket));
+    
+
+    //付款接口
+    socket.on('projectPay', project.pay(socket));
 
 }

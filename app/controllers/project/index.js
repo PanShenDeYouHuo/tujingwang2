@@ -158,4 +158,23 @@ Project.prototype.deleteProImage = (socket)=> {
     }
 }
 
+/**
+ * 付款接口
+ * 
+ * @param {any} socket 
+ * @returns 
+ */
+Project.prototype.pay = (socket)=> {
+    return async (data, fu)=> {
+        try {
+            let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
+            console.log(project);
+            fu('success');
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
 module.exports = new Project();
