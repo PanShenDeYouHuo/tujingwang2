@@ -176,11 +176,11 @@ Project.prototype.pay = (socket)=> {
             //payment已收款不能大于price价格
             if( image.price < image.payment + data.money ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
 
-            // //插入收款记录
-            // await project_db.inset({pid: data.pid, iid: data.image._id, money: data.money, voucher: data.voucher});
+            //插入收款记录
+            await project_db.inset({pid: data.pid, iid: data.image._id, money: data.money, voucher: data.voucher});
 
-            // //修改收款数
-            // await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': image.payment + data.money}});
+            //修改收款数
+            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': image.payment + data.money}});
             
             console.log(project);
             console.log(image);
