@@ -1,11 +1,23 @@
 const router = require('koa-router')();
 const projectFile = require('../controllers/project/file');
+const parsePost  = require('../modules/parsePostData');
 
 const routers = router
     .post('/', async(ctx, next)=>{
-		console.log(ctx.query);
-        console.log('post');
-		ctx.body = {text:'osscallback'};
+		let postData = await parsePost(ctx);
+         
+		postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
+		postData.newObject = postData.object.substr(14);
+		
+		//保存到数据库
+		let referenceFile = {
+			name: postData.name,
+			object: postData.newObject,
+			size: postData.size,
+			bucket: postData.bucket
+		}
+		//成功返回
+		ctx.body = referenceFile;
 	})
 	.post('/refFileUpload', projectFile.refFileUpload())
 	.post('/proFileUpload', async(ctx, next)=> {

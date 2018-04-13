@@ -16,16 +16,14 @@ ProjectFile.prototype.refFileUpload = function(){
     return async(ctx, next)=> {
         try {
             let postData = await parsePost(ctx);
-            console.log(postData);
          
             postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
             postData.newObject = postData.object.substr(14);
-            console.log(postData.newObject);
-            console.log(postData.name);
             
             //拷贝文件,删除原来的临时文件
             await this.client.copy(postData.newObject, postData.object);
             await this.client.delete(postData.object);
+
             //保存到数据库
             let referenceFile = {
                 name: postData.name,
