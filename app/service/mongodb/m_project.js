@@ -6,9 +6,9 @@ let project = {
     name: { type: String },                             //项目名
 
     isRelease: { type: Number, default: 0},             //是否发布， 0未发布，1发布
-    releaseTime: { type: Date, default: Date.now},      //发布时间
+    releaseTime: { type: Date },                        //发布时间
     isFinish: { type: Number, default: 0},              //是否完整， 0未完成，1完成
-    finishTime: {type: Number, default: 0},             //完成时间
+    finishTime:  { type: Date },                        //完成时间
 
     publisherId: { type: String },                      //发布客户id
     serviceId: { type: String },                        //客服id
@@ -25,9 +25,9 @@ let project = {
             creationTime: { type: Date, default:Date.now},  //创建时间
 
             isSettlement: { type: Number, default: 0},      //是否结算， 0未结算，1结算
-            settlementTime: { type: Number, default: 0},    //结算时间
+            settlementTime: { type: Date },                 //结算时间
             isFinish: { type: Number, default: 0},          //是否完成， 0未完成，1完成
-            finishTime: { type: Number, default: 0},        //完成时间
+            finishTime:  { type: Date },                    //完成时间
 
             designType: { type: String },                   //设计类型
             style: { type: String },                        //设计风格
@@ -36,7 +36,7 @@ let project = {
             imageType: { type: String },                    //图片类型 全景，单帧
 
             price: { type: Number },                        //价格
-            payment: {type: Number, default: 0},            //已付款
+            payment: {type: Number, default: 0},            //付款金额总和
 
             modelId:{ type: String },                       //建模师id
             randerId:{ type: String },                      //渲染师id

@@ -1,7 +1,7 @@
 const config = require('../../config');
 
-function ProjectSts() {
-    this.name = 'ProjectSts';
+function PaymentSts() {
+    this.name = 'PaymentSts';
     this.sts = config.oss.sts;
     this.companyName = config.companyName;
 };
@@ -26,8 +26,8 @@ ProjectSts.prototype.getReadProjectStsToken = function(socket) {
                        ],
                        "Effect": "Allow",
                        "Resource": [
-                           `acs:oss:*:*:${this.companyName}/project/${data.pid}`,
-                           `acs:oss:*:*:${this.companyName}/project/${data.pid}/*`
+                           `acs:oss:*:*:${this.companyName}/payment/${data.pid}`,
+                           `acs:oss:*:*:${this.companyName}/payment/${data.pid}/*`
                        ]
                    }
                ],
@@ -69,8 +69,8 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:${this.companyName}/temporaryFile/project/${data.pid}`,
-                            `acs:oss:*:*:${this.companyName}/temporaryFile/project/${data.pid}/*`
+                            `acs:oss:*:*:${this.companyName}/temporaryFile/payment/${data.pid}`,
+                            `acs:oss:*:*:${this.companyName}/temporaryFile/payment/${data.pid}/*`
                         ]
                     }
                 ],
@@ -115,8 +115,8 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:${this.companyName}/project/${data.pid}`,
-                            `acs:oss:*:*:${this.companyName}/project/${data.pid}/*`,
+                            `acs:oss:*:*:${this.companyName}/payment/${data.pid}`,
+                            `acs:oss:*:*:${this.companyName}/payment/${data.pid}/*`,
                             `acs:oss:*:*:${this.companyName}/temporaryFile/*`
                         ]
                     }

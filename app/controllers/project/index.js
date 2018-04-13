@@ -1,5 +1,6 @@
 const project_db = require('../../service/mongodb/m_project');
 const customer_db = require('../../service/mongodb/m_customer');
+const payment_db = require('../../service/mongodb/m_payment');
 
 function Project() {
     this.name = 'project';
@@ -168,8 +169,22 @@ Project.prototype.pay = (socket)=> {
     return async (data, fu)=> {
         try {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
+            let image = project[0].image;
+            //查看是否结算
+            if(!image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
+
+            //payment已收款不能大于price价格
+            if( image.price < image.payment + data.money ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
+
+            // //插入收款记录
+            // await project_db.inset({pid: data.pid, iid: data.image._id, money: data.money, voucher: data.voucher});
+
+            // //修改收款数
+            // await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': image.payment + data.money}});
+            
             console.log(project);
-            console.log(project[0].image);
+            console.log(image);
+
             fu('success');
         } catch (err) {
             console.log(err);
