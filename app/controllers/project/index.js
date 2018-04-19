@@ -182,7 +182,7 @@ Project.prototype.pay = (socket)=> {
 
             //拷贝文件,删除原来的临时文件 
             await config.oss.client.copy(data.voucher.object, data.voucher.object.object.substr(14));
-            await config.oss.client.delete(data.voucher.object); 
+            await config.oss.client.delete(data.voucher.object.object.substr(14)); 
 
             //插入收款记录
             await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
