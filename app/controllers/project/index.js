@@ -170,6 +170,9 @@ Project.prototype.pay = (socket)=> {
         try {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
             let image = project[0].image;
+
+            console.log(project);
+            console.log(image);
             //查看是否结算
             if(image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
 
