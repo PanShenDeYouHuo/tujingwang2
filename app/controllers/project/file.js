@@ -1,4 +1,4 @@
-const config = require('../../config')
+const config = require('../../config');
 const project_db = require('../../service/mongodb/m_project');
 const parsePost  = require('../../modules/parsePostData');
 

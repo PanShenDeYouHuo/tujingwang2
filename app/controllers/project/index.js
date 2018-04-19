@@ -1,6 +1,7 @@
 const project_db = require('../../service/mongodb/m_project');
 const customer_db = require('../../service/mongodb/m_customer');
 const payment_db = require('../../service/mongodb/m_payment');
+const config = require('../../config');
 
 function Project() {
     this.name = 'project';
@@ -180,8 +181,8 @@ Project.prototype.pay = (socket)=> {
             if( image.price < payment ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
 
             //拷贝文件,删除原来的临时文件
-            await this.client.copy(`temporaryFile/${postData.newObject}`, data.voucher.object);
-            await this.client.delete(`temporaryFile/${postData.newObject}`);
+            await config.oss.client.copy(`temporaryFile/${postData.newObject}`, data.voucher.object);
+            await config.oss.client.delete(`temporaryFile/${postData.newObject}`);
 
             //插入收款记录
             await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
