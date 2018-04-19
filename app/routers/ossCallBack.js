@@ -7,12 +7,12 @@ const routers = router
 		let postData = await parsePost(ctx);
          
 		postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
-		postData.newObject = postData.object.substr(14);
+		// postData.newObject = postData.object.substr(14);
 		
 		//保存到数据库
 		let referenceFile = {
 			name: postData.name,
-			object: postData.newObject,
+			object: postData.object,
 			size: postData.size,
 			bucket: postData.bucket
 		}
