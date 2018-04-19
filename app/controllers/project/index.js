@@ -169,7 +169,7 @@ Project.prototype.pay = (socket)=> {
     return async (data, fu)=> {
         try {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
-            let image = project.image;
+            let image = project[0].image[0];
 
             console.log(project);
             console.log(image);
