@@ -31,7 +31,7 @@ function PaymentDB() {
  */
 PaymentDB.prototype.inset = (data)=> {
     return new Promise((resolve, reject)=> {
-        let payment = new Customer(data);
+        let payment = new Payment(data);
         payment.save((err, res)=> {
             if(err) return reject(err);
             resolve(customer.id);
