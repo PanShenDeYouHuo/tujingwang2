@@ -173,7 +173,7 @@ Project.prototype.pay = (socket)=> {
 
             console.log(project);
             console.log(image);
-            console.log(image.payment + data.money);
+            console.log(image.payment + parseInt(data.money, 10));
             //查看是否结算
             if(image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
 
