@@ -34,7 +34,7 @@ PaymentDB.prototype.inset = (data)=> {
         let payment = new Payment(data);
         payment.save((err, res)=> {
             if(err) return reject(err);
-            resolve(customer.id);
+            resolve(payment.id);
         });
     });
 }
