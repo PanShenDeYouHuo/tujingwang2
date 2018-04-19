@@ -162,7 +162,7 @@ Project.prototype.deleteProImage = (socket)=> {
 /**
  * 付款接口
  * 
- * @param {any} socket 
+ * @param {any} socket data.pid：项目id，data.image：项目任务，data.money：收款金额，data.voucher：收款凭证记录
  * @returns 
  */
 Project.prototype.pay = (socket)=> {
@@ -171,7 +171,7 @@ Project.prototype.pay = (socket)=> {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
             let image = project[0].image;
             //查看是否结算
-            if(!image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
+            if(image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
 
             //payment已收款不能大于price价格
             if( image.price < image.payment + data.money ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
