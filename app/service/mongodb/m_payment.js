@@ -3,8 +3,12 @@ const schema = mongoose.Schema;
 
 let payment = {
     creationTime: { type: Date, default:Date.now},      //创建时间
-    pid: { type: String},                               //项目id
-    iid: { type: String },                              //任务id
+    list: [
+        {
+            pid: { type: String},                               //项目id
+            iid: { type: String },                              //任务id
+        }
+    ],
     money: { type: Number},                             //付款金额
     voucher: {                                          //交易凭证
         name: {type: String}, object: {type: String}, size: {type: Number}, bucket: {type: String}              

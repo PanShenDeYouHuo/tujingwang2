@@ -171,20 +171,17 @@ Project.prototype.pay = (socket)=> {
             let project = await project_db.find({'_id': data.pid, 'image._id': data.image._id}, {"image.$":1});
             let image = project[0].image[0];
 
-            console.log(project);
-            console.log(image);
-            console.log(image.payment + parseInt(data.money, 10));
+            let payment = image.payment + parseInt(data.money, 10);
+
             //查看是否结算
             if(image.isSettlement) return fu({err: true, message: '已经结算,无法继续付款'});
 
             //payment已收款不能大于price价格
-            if( image.price < image.payment + data.money ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
+            if( image.price < payment ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
 
             //插入收款记录
-            await payment_db.inset({pid: data.pid, iid: data.image._id, money: data.money, voucher: data.voucher});
+            await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
 
-            let payment = image.payment + data.money;
-            console.log(payment);
             //修改收款数
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': payment}});
             
