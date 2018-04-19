@@ -182,12 +182,17 @@ Project.prototype.pay = (socket)=> {
             //插入收款记录
             await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
 
-            //修改收款数
-            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': payment}});
-            
-            console.log(project);
-            console.log(image);
+            if ( image.price === payment ) {
+                
+                //结算
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': image._id}, {$set: {'image.$': {payment, isSettlement: 1, settlementTime: new Date()}}})
+            } else {
+                
+                //修改收款数
+                await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': payment}});
+            }
 
+          
             fu('success');
         } catch (err) {
             console.log(err);
