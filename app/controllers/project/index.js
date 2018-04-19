@@ -179,6 +179,10 @@ Project.prototype.pay = (socket)=> {
             //payment已收款不能大于price价格
             if( image.price < payment ) return fu({err: true, message: '付款金额超过总额,请核对金额'});
 
+            //拷贝文件,删除原来的临时文件
+            await this.client.copy(`temporaryFile/${postData.newObject}`, data.voucher.object);
+            await this.client.delete(`temporaryFile/${postData.newObject}`);
+
             //插入收款记录
             await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
 
