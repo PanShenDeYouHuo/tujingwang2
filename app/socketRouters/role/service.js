@@ -24,6 +24,9 @@ module.exports = (socket)=> {
 
     //更新image任务
     socket.on('putProImage', project.putProImage(socket));
+
+    //设置image任务为完成状态
+    socket.on('putProImageFinish', project.putProImageFinish(socket));
     
     //删除image任务
     socket.on('deleteProImage', project.deleteProImage(socket));

@@ -154,6 +154,25 @@ Project.prototype.putProImage = (socket)=> {
 }
 
 /**
+ * 设置image任务完成
+ * 
+ * @param {any} socket 
+ */
+Project.prototype.putProImageFinish = (socket)=> {
+    return async (data, fu)=> {
+        try {
+
+            //修改
+            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1}});
+            fu( 'success' );
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
  * 删除image任务
  * 
  * @param {any} socket 
