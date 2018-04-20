@@ -163,7 +163,7 @@ Project.prototype.putProImageFinish = (socket)=> {
         try {
 
             //修改
-            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1}});
+            await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
             fu( 'success' );
         } catch (err) {
             console.log(err);
