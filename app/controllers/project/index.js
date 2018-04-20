@@ -94,13 +94,16 @@ Project.prototype.putProject = (socket)=> {
     }
 }
 /**
- * 移除项目
+ * 删除项目
  * 
  * @returns 
  */
 Project.prototype.deleteProjectById = (socket)=> {
     return async (data, fu)=> {
         try {
+            let res = await project_db.findOne({'_id': data.pid},{});
+            console.log(res);
+            if( res.image ) return fu({err: true, message: '项目还有内容，无法删除'});
             fu(await project_db.findByIdAndRemove(data.pid));
         } catch (err) {
             console.log(err);
@@ -153,8 +156,9 @@ Project.prototype.deleteProImage = (socket)=> {
         try {
             let res = await project_db.findOne({'_id': data.pid, 'image._id': data.iid}, {'image.$': 1});
             let image= res.image[0];
-            console.log(image);
+            //付款无法删除
             if ( image.payment > 0 ) return fu({err: true, message: '已经付款，无法删除'});
+            //删除
             await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
             fu('success');
         } catch (err) {
