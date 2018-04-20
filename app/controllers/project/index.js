@@ -161,7 +161,11 @@ Project.prototype.putProImage = (socket)=> {
 Project.prototype.putProImageFinish = (socket)=> {
     return async (data, fu)=> {
         try {
-
+            let res = await project_db.findOne({'_id': data.pid, 'image._id': data.image._id}, {'image.$': 1});
+            let image= res.image[0];
+            //是否安排工作人员
+            if (!image.modelId) return fu({err: true, message: '无法完成，为安排工作人员'});
+            if (!image.randerId) return fu({err: true, message: '无法完成，为安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
             fu( 'success' );
