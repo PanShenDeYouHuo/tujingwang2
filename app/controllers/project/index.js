@@ -184,13 +184,15 @@ Project.prototype.pay = (socket)=> {
             await config.oss.client.copy(data.voucher.object.substr(14), data.voucher.object);
             await config.oss.client.delete(data.voucher.object);
 
+            data.voucher.object = data.voucher.object.substr(14);
+
             //插入收款记录
             await payment_db.inset({ list: [{pid: data.pid, iid: data.image._id,}], money: data.money, voucher: data.voucher});
 
             if ( image.price === payment ) {
                 
                 //结算
-                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': image._id}, {$set: {'image.$': {payment, isSettlement: 1, settlementTime: new Date()}}})
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': image._id}, {$set: {'image.$.payment': payment, 'image.$.isSettlement': 1, 'image.$.settlementTime': new Date()}});
             } else {
                 
                 //修改收款数
