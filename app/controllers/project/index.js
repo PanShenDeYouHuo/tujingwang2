@@ -103,9 +103,9 @@ Project.prototype.deleteProjectById = (socket)=> {
         try {
             let res = await project_db.findOne({'_id': data.pid},{});
             console.log(res);
-            if( res.image > 0 ) return fu({err: true, message: '项目还有任务，无法删除'});
-            if( res.referenceFile > 0 ) return fu({err: true, message: '项目还有参考文件，无法删除'});
-            if( res.modelFile > 0 ) return fu({err: true, message: '项目还有项目文件，无法删除'});
+            if( res.image.length > 0 ) return fu({err: true, message: '项目还有任务，无法删除'});
+            if( res.referenceFile.length > 0 ) return fu({err: true, message: '项目还有参考文件，无法删除'});
+            if( res.modelFile.length > 0 ) return fu({err: true, message: '项目还有项目文件，无法删除'});
             fu(await project_db.findByIdAndRemove(data.pid));
         } catch (err) {
             console.log(err);
