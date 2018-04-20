@@ -139,6 +139,11 @@ Project.prototype.postProImage = (socket)=> {
 Project.prototype.putProImage = (socket)=> {
     return async (data, fu)=> {
         try {
+            let res = await project_db.findOne({'_id': data.pid, 'image._id': data.image._id}, {'image.$': 1});
+            let image= res.image[0];
+            //报价不能低于收款
+            if ( image.price < image.payment) return fu({err: true, message: '报价不能低于收款数'});
+            //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$': data.image}});
             fu( 'success' );
         } catch (err) {
