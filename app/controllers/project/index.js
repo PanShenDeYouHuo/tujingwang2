@@ -152,7 +152,8 @@ Project.prototype.deleteProImage = (socket)=> {
     return async (data, fu)=> {
         try {
             let res = await project_db.findOne({'_id': data.pid, 'image._id': data.iid}, {'image.$': 1});
-            console.log(res);
+            let image= project.image[0];
+            if ( payment > 0 ) return fu({err: true, message: '已经付款，无法删除'});
             await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
             fu('success');
         } catch (err) {
