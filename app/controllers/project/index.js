@@ -104,6 +104,7 @@ Project.prototype.deleteProjectById = (socket)=> {
             let res = await project_db.findOne({'_id': data.pid},{});
             console.log(res);
             console.log(res.image);
+            console.log(res.image.length);
             if( res.image ) return fu({err: true, message: '项目还有内容，无法删除'});
             fu(await project_db.findByIdAndRemove(data.pid));
         } catch (err) {
