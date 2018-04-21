@@ -14,7 +14,8 @@ function Authority() {
         admin: require('./role/admin'),
         boss: require('./role/boss'),
         service: require('./role/service'),
-        serviceMaster: require('./role/serviceMaster'),
+        customerManager: require('./role/customerManager'),
+        projectManager: require('./role/projectManager')
     }
 }
 
