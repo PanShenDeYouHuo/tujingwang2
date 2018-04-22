@@ -46,6 +46,7 @@ Project.prototype.getProject = (socket)=> {
                     }
                     if ( project.image[index].renderId ) {
                         let user = await user_db.findById(project.image[index].renderId, {'realInformation': 1});
+                        console.log(user);
                         project.image[index]._doc.renderName = user.realInformation.name;
                     }
                 }
