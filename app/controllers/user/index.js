@@ -218,7 +218,7 @@ User.prototype.getRender = function(socket) {
                 'company.bossId': socket.account.company.bossId,
                 'realInformation.state': 2,
                 'realInformation.name': data.search,
-                'authority': data.authority
+                'authority': {$all: [data.authority]}
             };
             // console.log(where);
             // if(data.authority === 'all') {
