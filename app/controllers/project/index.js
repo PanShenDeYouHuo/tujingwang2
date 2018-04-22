@@ -208,11 +208,11 @@ Project.prototype.putProImgArrange = (socket)=> {
         try {
             console.log(data);
             if ( data.workType === 'model') {
-                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.modelId': uid}, $inc: {'image.$.arrangeWork': 1}});
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.modelId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
             }
 
             if ( data.workType === 'render') {
-                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.randerId': uid}, $inc: {'image.$.arrangeWork': 1}});
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.randerId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
             }
             
             fu('success');
