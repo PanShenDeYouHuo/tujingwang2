@@ -164,8 +164,8 @@ Project.prototype.putProImageFinish = (socket)=> {
             let res = await project_db.findOne({'_id': data.pid, 'image._id': data.image._id}, {'image.$': 1});
             let image= res.image[0];
             //是否安排工作人员
-            if (!image.modelId) return fu({err: true, message: '无法完成，为安排工作人员'});
-            if (!image.randerId) return fu({err: true, message: '无法完成，为安排工作人员'});
+            if (!image.modelId) return fu({err: true, message: '无法完成，没有安排工作人员'});
+            if (!image.randerId) return fu({err: true, message: '无法完成，没有安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
             fu( 'success' );
@@ -197,6 +197,31 @@ Project.prototype.deleteProImage = (socket)=> {
         }
     }
 }
+
+/**
+ * 安排工作人员
+ * 
+ * @param {any} socket 
+ */
+Project.prototype.putProImgArrange = (socket)=> {
+    return async (data, fu)=> {
+        try {
+            if ( data.workType === 'model') {
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.modelId': uid}, $inc: {'image.$.arrangeWork': 1}});
+            }
+
+            if ( data.workType === 'render') {
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.randerId': uid}, $inc: {'image.$.arrangeWork': 1}});
+            }
+            
+            fu('success');
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
 
 /**
  * 付款接口

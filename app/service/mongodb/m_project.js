@@ -5,8 +5,8 @@ let project = {
     creationTime: { type: Date, default:Date.now},      //创建时间
     name: { type: String },                             //项目名
 
-    isRelease: { type: Number, default: 0},             //是否发布， 0未发布，1发布
-    releaseTime: { type: Date },                        //发布时间
+    // isRelease: { type: Number, default: 0},             //是否发布， 0未发布，1发布
+    // releaseTime: { type: Date },                        //发布时间
     isFinish: { type: Number, default: 0},              //是否完整， 0未完成，1完成
     finishTime:  { type: Date },                        //完成时间
 
@@ -38,6 +38,7 @@ let project = {
             price: { type: Number },                        //价格
             payment: {type: Number, default: 0},            //付款金额总和
 
+            arrangeWork: {type: Number, default: 0},        //任务安排, 0无安排， 1安排一位， 2安排两位
             modelId:{ type: String },                       //建模师id
             randerId:{ type: String },                      //渲染师id
 

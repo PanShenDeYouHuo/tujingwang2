@@ -65,7 +65,7 @@ let user = {
             //通知状态
             state:{type:Number, default:0}, //0未点击, 1已点击
             //通知类型
-            ntype:{type:String},            //1系统、2团队、3任务  
+            ntype:{type:String},            //1系统、2任务
             // //通知标题
             // title:{type:String},
             //通知内容
