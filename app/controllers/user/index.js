@@ -218,14 +218,10 @@ User.prototype.getRender = function(socket) {
                 'company.bossId': socket.account.company.bossId,
                 'realInformation.state': 2,
                 'realInformation.name': data.search,
-                'authority': {$all: [data.authority]}
+                'authority': {'$all': [data.authority]}
             };
-            // console.log(where);
-            // if(data.authority === 'all') {
-            //     where.authority = {$nin:['boss', 'admin']};
-            // } else {
-            //     where.authority = {$all: [data.authority]};
-            // };
+            console.log(where);
+            console.log(1);
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
