@@ -204,4 +204,38 @@ User.prototype.putNotify = function(socket) {
 }
 
 
+
+/**
+ * 获取渲染师
+ * 
+ * @param {any} account 
+ * @returns 
+ */
+User.prototype.getRender = function(socket) {
+    return async (data, fu)=> {
+        try {
+            let where = {
+                'company.bossId': socket.account.company.bossId,
+                'realInformation.state': 2,
+                'realInformation.name': data.search
+            };
+            if(data.authority === 'all') {
+                where.authority = {$nin:['boss', 'admin']};
+            } else {
+                where.authority = {$all: [data.authority]};
+            };
+            let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
+            let count = await user_db.count(where);
+            count = Math.ceil(count/data.pageSize);
+            fu({users, count});
+        } catch (err) {
+            console.log(err);
+            fu({err:true, message: '发生错误'});
+        }
+    }
+}
+
+
+
+
 module.exports = new User();

@@ -1,5 +1,6 @@
 const project = require('../../controllers/project');
 const projectFile = require('../../controllers/project/file');
+const user = require('../../controllers/user');
 
 module.exports = (socket)=> {
     
@@ -36,6 +37,9 @@ module.exports = (socket)=> {
     
     //安排工作人员
     socket.on('putProImgArrange', project.putProImgArrange(socket));
+
+    //获取渲染师
+    socket.on('getRender', user.getRender(socket));
     
 
     //付款接口
