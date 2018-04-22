@@ -206,6 +206,7 @@ Project.prototype.deleteProImage = (socket)=> {
 Project.prototype.putProImgArrange = (socket)=> {
     return async (data, fu)=> {
         try {
+            console.log(data);
             if ( data.workType === 'model') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.modelId': uid}, $inc: {'image.$.arrangeWork': 1}});
             }
