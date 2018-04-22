@@ -40,7 +40,7 @@ let project = {
 
             arrangeWork: {type: Number, default: 0},        //任务安排, 0无安排， 1安排一位， 2安排两位
             modelId:{ type: String },                       //建模师id
-            randerId:{ type: String },                      //渲染师id
+            renderId:{ type: String },                      //渲染师id
 
             picture: {
                 name: {type: String}, object: {type: String}, size: {type: Number}, bucket: {type: String}              //大图

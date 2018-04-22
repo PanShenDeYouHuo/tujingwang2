@@ -227,7 +227,7 @@ Project.prototype.putProImgArrange = (socket)=> {
             }
 
             if ( data.workType === 'render') {
-                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.randerId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
+                await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.renderId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
             }
             
             fu('success');
