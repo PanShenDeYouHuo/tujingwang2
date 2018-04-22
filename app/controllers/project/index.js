@@ -1,5 +1,6 @@
 const project_db = require('../../service/mongodb/m_project');
 const customer_db = require('../../service/mongodb/m_customer');
+const user_db = require('../../service/mongodb/m_uesr');
 const payment_db = require('../../service/mongodb/m_payment');
 const config = require('../../config');
 
@@ -39,11 +40,11 @@ Project.prototype.getProject = (socket)=> {
             if ( project.image ) {
                 for ( index in project.image ) {
                     if ( project.image[index].modelId ) {
-                        let user = await customer_db.findById(project.publisherId, {'realInformation': 1});
+                        let user = await user_db.findById(project.publisherId, {'realInformation': 1});
                         project._doc.image[index].modelName = user.realInformation.name;
                     }
                     if ( project.image[index].renderId ) {
-                        let user = await customer_db.findById(project.publisherId, {'realInformation': 1});
+                        let user = await user_db.findById(project.publisherId, {'realInformation': 1});
                         project._doc.image[index].renderName = user.realInformation.name;
                     }
                 }
