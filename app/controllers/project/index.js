@@ -36,6 +36,18 @@ Project.prototype.getProject = (socket)=> {
             let project = await project_db.findById(data.pid, {});
             let customer = await customer_db.findById(project.publisherId, {'name': 1});
             project._doc.publisherName = customer.name;
+            if ( project.image ) {
+                for ( index in project.image ) {
+                    if ( project.image[index].modelId ) {
+                        let user = await customer_db.findById(project.publisherId, {'realInformation': 1});
+                        project._doc.image[index].modelName = user.realInformation.name;
+                    }
+                    if ( project.image[index].renderId ) {
+                        let user = await customer_db.findById(project.publisherId, {'realInformation': 1});
+                        project._doc.image[index].renderName = user.realInformation.name;
+                    }
+                }
+            } 
             fu(project);
 
         } catch (err) {
