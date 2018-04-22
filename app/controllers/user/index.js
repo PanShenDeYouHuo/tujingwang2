@@ -219,6 +219,7 @@ User.prototype.getRender = function(socket) {
                 'realInformation.state': 2,
                 'realInformation.name': data.search
             };
+            console.log(where);
             if(data.authority === 'all') {
                 where.authority = {$nin:['boss', 'admin']};
             } else {
