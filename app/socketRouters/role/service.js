@@ -34,6 +34,9 @@ module.exports = (socket)=> {
     //删除refFile
     socket.on('deleteRefFile', projectFile.deleteRefFile(socket));
     
+    //安排工作人员
+    socket.on('putProImgArrange', project.putProImgArrange(socket));
+    
 
     //付款接口
     socket.on('projectPay', project.pay(socket));
