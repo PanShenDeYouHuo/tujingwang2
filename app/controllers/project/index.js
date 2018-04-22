@@ -46,7 +46,6 @@ Project.prototype.getProject = (socket)=> {
                     }
                     if ( project.image[index].renderId ) {
                         let user = await user_db.findById(project.image[index].renderId, {'realInformation': 1});
-                        console.log(user);
                         project.image[index]._doc.renderName = user.realInformation.name;
                     }
                 }
@@ -180,7 +179,7 @@ Project.prototype.putProImageFinish = (socket)=> {
             let image= res.image[0];
             //是否安排工作人员
             if (!image.modelId) return fu({err: true, message: '无法完成，没有安排工作人员'});
-            if (!image.randerId) return fu({err: true, message: '无法完成，没有安排工作人员'});
+            if (!image.renderId) return fu({err: true, message: '无法完成，没有安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
             fu( 'success' );
@@ -221,7 +220,6 @@ Project.prototype.deleteProImage = (socket)=> {
 Project.prototype.putProImgArrange = (socket)=> {
     return async (data, fu)=> {
         try {
-            console.log(data);
             if ( data.workType === 'model') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid}, {$set: {'image.$.modelId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
             }
