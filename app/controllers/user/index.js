@@ -217,14 +217,15 @@ User.prototype.getRender = function(socket) {
             let where = {
                 'company.bossId': socket.account.company.bossId,
                 'realInformation.state': 2,
-                'realInformation.name': data.search
+                'realInformation.name': data.search,
+                'authority': data.authority
             };
-            console.log(where);
-            if(data.authority === 'all') {
-                where.authority = {$nin:['boss', 'admin']};
-            } else {
-                where.authority = {$all: [data.authority]};
-            };
+            // console.log(where);
+            // if(data.authority === 'all') {
+            //     where.authority = {$nin:['boss', 'admin']};
+            // } else {
+            //     where.authority = {$all: [data.authority]};
+            // };
             let users = await user_db.findUsers(where, data.pageSize, data.currentPage, {_id: -1});
             let count = await user_db.count(where);
             count = Math.ceil(count/data.pageSize);
