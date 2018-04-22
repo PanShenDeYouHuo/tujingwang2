@@ -43,7 +43,7 @@ Project.prototype.getProject = (socket)=> {
                         let user = await user_db.findById(project.image[index].modelId , {'realInformation': 1});
                         console.log(user);
                         console.log(user.realInformation.name);
-                        project._doc.image[index].modelName = user.realInformation.name;
+                        project.image[index]._doc.modelName = user.realInformation.name;
                         console.log(project.image[index].modelName)
                     }
                     if ( project.image[index].renderId ) {
