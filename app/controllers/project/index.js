@@ -92,6 +92,37 @@ Project.prototype.getProjects = (socket)=> {
 }
 
 /**
+ * 根据渲染师id获得项目列表
+ * 
+ * @param {object} data.uid 客服id 
+ * @returns 
+ */
+Project.prototype.getRenderProjects = (socket)=> {
+    return async (data, fu)=> {
+        try{
+            let whereStr = {
+                  $or: [
+                    {'image.modelId': data.uid},
+                    {'image.renderId': data.uid}
+                ]
+            };
+
+            if(data.state !== 'all') {
+                whereStr['image.state'] = data.state;
+            }
+
+            let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
+            let count = await project_db.count(whereStr);
+            count = Math.ceil(count/data.pageSize);
+            fu({projects, count});
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
+/**
  * 跟新项目数据
  * 
  * @param {object} data._id 项目编号
