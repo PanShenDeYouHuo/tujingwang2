@@ -75,9 +75,9 @@ Project.prototype.getProjects = (socket)=> {
             let map = {
                 finish: 1,
                 unfinished: 0
-            }
+            };
             if(data.state !== 'all') {
-                whereStr['image.state'] = map[data.state];
+                whereStr.isFinish = map[data.state];
             }
 
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
@@ -107,8 +107,13 @@ Project.prototype.getRenderProjects = (socket)=> {
                 ]
             };
 
+            let map = {
+                finish: 1,
+                unfinished: 0
+            };
+
             if(data.state !== 'all') {
-                whereStr['image.state'] = data.state;
+                whereStr.isFinish = map[data.state];
             }
 
             let projects = await project_db.findProjects(whereStr, data.pageSize, data.currentPage, {_id: -1});
