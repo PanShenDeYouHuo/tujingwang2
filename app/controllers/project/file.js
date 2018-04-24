@@ -68,7 +68,7 @@ ProjectFile.prototype.deleteRefFile = function(socket) {
  * 
  * @returns 
  */
-ProjectFile.prototype.refFileUpload = function(){
+ProjectFile.prototype.proFileUpload = function(){
     return async(ctx, next)=> {
         try {
             let postData = await parsePost(ctx);
@@ -89,7 +89,7 @@ ProjectFile.prototype.refFileUpload = function(){
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {modelFile}});
             //成功返回
-            ctx.body = referenceFile;
+            ctx.body = modelFile;
             
         } catch (err) {
             console.log(err);
@@ -99,15 +99,15 @@ ProjectFile.prototype.refFileUpload = function(){
 }
 
 /**
- * 删除项目参考文件
+ * 删除项目文件
  * 
  * @param {any} socket 
  * @returns 
  */
-ProjectFile.prototype.deleteRefFile = function(socket) {
+ProjectFile.prototype.deleteModFile = function(socket) {
     return async (data, fu)=> {
         try{
-            await this.client.delete(`project/${data.pid}/reference/${data.name}`);
+            await this.client.delete(`project/${data.pid}/model/${data.name}`);
             await project_db.findByIdAndUpdate( data.pid, {$pull: {'modelFile': {'name':data.name}}});
             fu( 'success' );
 
