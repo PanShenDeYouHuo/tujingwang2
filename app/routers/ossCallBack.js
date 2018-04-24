@@ -20,13 +20,7 @@ const routers = router
 		ctx.body = referenceFile;
 	})
 	.post('/refFileUpload', projectFile.refFileUpload())
-	.post('/proFileUpload', async(ctx, next)=> {
-		console.log('post');
-		//拷贝文件
-		//保存到数据库
-		//成功返回
-		ctx.body = { text: 'osscallback'};
-	})
+	.post('/proFileUpload', projectFile.proFileUpload())
 
 module.exports = routers;
 

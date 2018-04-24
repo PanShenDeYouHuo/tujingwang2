@@ -29,6 +29,7 @@ Authority.prototype.mapping = function(socket, roles) {
     //公共接口
     user(socket);
     oss(socket);
+    project(socket);
     //根据角色开放接口
 	for( let i = 0; i < roles.length; i++) {
         console.log(`role.${roles[i]}()`);
@@ -36,16 +37,16 @@ Authority.prototype.mapping = function(socket, roles) {
 	}
 }
 
-/**
- * 公共接口
- * 
- * @param {any} socket 
- */
-Authority.prototype.public = function(socket) {
-    user(socket);
-    oss(socket);
-    // project(socket);
-}
+// /**
+//  * 公共接口
+//  * 
+//  * @param {any} socket 
+//  */
+// Authority.prototype.public = function(socket) {
+//     user(socket);
+//     oss(socket);
+//     // project(socket);
+// }
 
 // /**
 //  * 管理员权限接口

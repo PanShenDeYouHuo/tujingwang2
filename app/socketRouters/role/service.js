@@ -7,8 +7,8 @@ module.exports = (socket)=> {
     //创建项目
     socket.on('postProject', project.postProject(socket));
 
-    //根据pid获取项目
-    socket.on('getProject', project.getProject(socket));
+    // //根据pid获取项目
+    // socket.on('getProject', project.getProject(socket));
 
     //根据uid获取项目列表
     socket.on('getProjects', project.getProjects(socket));
