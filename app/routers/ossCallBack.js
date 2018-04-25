@@ -19,8 +19,12 @@ const routers = router
 		//成功返回
 		ctx.body = referenceFile;
 	})
+	//添加参考文件
 	.post('/refFileUpload', projectFile.refFileUpload())
+	//添加项目文件
 	.post('/proFileUpload', projectFile.proFileUpload())
+	//添加图片文件
+	.post('/proFileUpload', projectFile.picFileUpload())
 
 module.exports = routers;
 
