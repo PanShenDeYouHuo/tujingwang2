@@ -118,4 +118,41 @@ ProjectFile.prototype.deleteModFile = function(socket) {
     }
 }
 
+
+/**
+ * 添加图片文件
+ * 
+ * @returns 
+ */
+ProjectFile.prototype.picFileUpload = function(){
+    return async(ctx, next)=> {
+        try {
+            let postData = await parsePost(ctx);
+         
+            postData.name = postData.object.substr(postData.object.lastIndexOf('/') + 1);
+            postData.newObject = postData.object.substr(14);
+            
+            //拷贝文件,删除原来的临时文件
+            await this.client.copy(postData.newObject, postData.object);
+            await this.client.delete(postData.object);
+
+            //保存到数据库
+            let modelFile = {
+                name: postData.name,
+                object: postData.newObject,
+                size: postData.size,
+                bucket: postData.bucket
+            }
+            console.log(postData);
+            // let res = await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid,}, {$set: {'image.$.modelId': data.uid}});
+            //成功返回
+            ctx.body = modelFile;
+            
+        } catch (err) {
+            console.log(err);
+            ctx.body = ({err: true, message: '发生错误'});
+        }
+    }
+}
+
 module.exports = new ProjectFile();
