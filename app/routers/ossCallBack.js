@@ -24,7 +24,7 @@ const routers = router
 	//添加项目文件
 	.post('/proFileUpload', projectFile.proFileUpload())
 	//添加图片文件
-	.post('/proFileUpload', projectFile.picFileUpload())
+	.post('/picFileUpload', projectFile.picFileUpload())
 
 module.exports = routers;
 
