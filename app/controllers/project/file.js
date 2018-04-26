@@ -144,7 +144,15 @@ ProjectFile.prototype.picFileUpload = function(){
                 bucket: postData.bucket
             }
             // console.log(postData);
-            let res = await project_db.findOneAndUpdate({'_id': postData.pid, 'image._id': postData.iid,}, {$set: {'image.$.picture': {picFile}}});
+            let res = await project_db.findOneAndUpdate({'_id': postData.pid, 'image._id': postData.iid,}, 
+                                                        {   $set: 
+                                                            {
+                                                                'image.$.picture.name': picFile.name, 
+                                                                'image.$.picture.object': picFile.object,
+                                                                'image.$.picture.size': picFile.size,
+                                                                'image.$.picture.bucket': picFile.bucket
+                                                            }
+                                                        });
             //成功返回
             ctx.body = picFile;
             
