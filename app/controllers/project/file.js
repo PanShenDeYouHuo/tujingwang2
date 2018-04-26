@@ -143,6 +143,14 @@ ProjectFile.prototype.picFileUpload = function(){
                 size: postData.size,
                 bucket: postData.bucket
             }
+
+            let res = await project_db.findOne({'_id': postData.pid, 'image._id': postData.iid}, {'image.$': 1});
+            let image= res.image[0];
+
+            //删除之前上传的
+            if ( image.picture ) {
+                await this.client.delete(image.picture.object);
+            }
             // console.log(postData);
             let res = await project_db.findOneAndUpdate({'_id': postData.pid, 'image._id': postData.iid,}, 
                                                         {   $set: 
