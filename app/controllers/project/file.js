@@ -144,8 +144,8 @@ ProjectFile.prototype.picFileUpload = function(){
                 bucket: postData.bucket
             }
 
-            let res = await project_db.findOne({'_id': postData.pid, 'image._id': postData.iid}, {'image.$': 1});
-            let image= res.image[0];
+            let pro = await project_db.findOne({'_id': postData.pid, 'image._id': postData.iid}, {'image.$': 1});
+            let image= pro.image[0];
 
             //删除之前上传的
             if ( image.picture ) {
