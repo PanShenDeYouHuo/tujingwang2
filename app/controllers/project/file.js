@@ -149,7 +149,9 @@ ProjectFile.prototype.picFileUpload = function(){
 
             //删除之前上传的
             if ( image.picture ) {
-                await this.client.delete(image.picture.object);
+                if( image.picture.object) {
+                    await this.client.delete(image.picture.object);
+                }
             }
             // console.log(postData);
             let res = await project_db.findOneAndUpdate({'_id': postData.pid, 'image._id': postData.iid,}, 
