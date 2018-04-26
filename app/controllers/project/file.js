@@ -137,16 +137,16 @@ ProjectFile.prototype.picFileUpload = function(){
             await this.client.delete(postData.object);
 
             //保存到数据库
-            let modelFile = {
+            let picFile = {
                 name: postData.name,
                 object: postData.newObject,
                 size: postData.size,
                 bucket: postData.bucket
             }
-            console.log(postData);
-            // let res = await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid,}, {$set: {'image.$.modelId': data.uid}});
+            // console.log(postData);
+            let res = await project_db.findOneAndUpdate({'_id': postData.pid, 'image._id': postData.iid,}, {$set: {'image.$.picture': {picFile}}});
             //成功返回
-            ctx.body = modelFile;
+            ctx.body = picFile;
             
         } catch (err) {
             console.log(err);
