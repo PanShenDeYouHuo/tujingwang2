@@ -118,6 +118,45 @@ ProjectFile.prototype.deleteModFile = function(socket) {
     }
 }
 
+/**
+ * 添加模型文件
+ * 
+ * @returns 
+ */
+ProjectFile.prototype.putProImgMod = function(socket){
+    return async(data, fu)=> {
+        try {
+            
+
+            // //保存到数据库
+            // let modelFile = {
+            //     name: postData.name,
+            //     object: postData.newObject,
+            //     size: postData.size,
+            //     bucket: postData.bucket
+            // }
+            // let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {modelFile}});
+            // //成功返回
+            // ctx.body = modelFile;
+
+            await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid,}, 
+                {   $set: 
+                    {
+                        'image.$.model.name': data.model.name, 
+                        'image.$.model.object': data.model.object,
+                        'image.$.model.size': data.model.size,
+                        'image.$.model.bucket': data.model.bucket
+                    }
+                });
+            fu( 'success' );
+            
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    }
+}
+
 
 /**
  * 添加图片文件

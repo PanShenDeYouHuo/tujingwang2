@@ -13,4 +13,7 @@ module.exports = (socket)=> {
     //删除refFile
     socket.on('deleteModFile', projectFile.deleteModFile(socket));
 
+    //添加模型文件
+    socket.on('putProImgMod', projectFile.putProImgMod(socket));
+
 }
