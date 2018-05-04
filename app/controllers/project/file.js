@@ -33,15 +33,8 @@ ProjectFile.prototype.refFileUpload = function(){
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
 
-            //保存到数据库
-            let referenceFilea = {
-                // name: postData.name,
-                // object: postData.newObject,
-                // size: postData.size ? postData.size : '0',
-                bucket: postData.bucket
-            }
             //成功返回
-            ctx.body = referenceFilea;
+            ctx.body = JOSN.stringify(referenceFile);
             
         } catch (err) {
             console.log(err);
