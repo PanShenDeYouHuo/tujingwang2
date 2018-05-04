@@ -36,8 +36,8 @@ ProjectFile.prototype.refFileUpload = function(){
             //保存到数据库
             let referenceFilea = {
                 // name: postData.name,
-                object: postData.newObject,
-                size: postData.size ? postData.size : '0',
+                // object: postData.newObject,
+                // size: postData.size ? postData.size : '0',
                 bucket: postData.bucket
             }
             //成功返回
