@@ -32,10 +32,16 @@ ProjectFile.prototype.refFileUpload = function(){
                 bucket: postData.bucket
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
-            console.log(res);
-            console.log(referenceFile);
+
+            //保存到数据库
+            let referenceFilea = {
+                // name: postData.name,
+                object: postData.newObject,
+                size: postData.size ? postData.size : '0',
+                bucket: postData.bucket
+            }
             //成功返回
-            ctx.body = referenceFile.toString();
+            ctx.body = referenceFilea;
             
         } catch (err) {
             console.log(err);
