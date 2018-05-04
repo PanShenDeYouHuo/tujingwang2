@@ -35,7 +35,7 @@ ProjectFile.prototype.refFileUpload = function(){
             console.log(res);
             console.log(referenceFile);
             //成功返回
-            ctx.body = referenceFile;
+            ctx.body = referenceFile.toString();
             
         } catch (err) {
             console.log(err);
