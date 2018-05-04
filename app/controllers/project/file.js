@@ -138,6 +138,7 @@ ProjectFile.prototype.putProImgMod = function(socket){
             // let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {modelFile}});
             // //成功返回
             // ctx.body = modelFile;
+            console.log(data);
 
             await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid,}, 
                 {   $set: 
