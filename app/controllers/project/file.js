@@ -28,12 +28,11 @@ ProjectFile.prototype.refFileUpload = function(){
             let referenceFile = {
                 name: postData.name,
                 object: postData.newObject,
-                size: postData.size,
+                size: postData.size ? postData.size : 0,
                 bucket: postData.bucket
             }
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
             console.log(res);
-            console.log(referenceFile);
             //成功返回
             ctx.body = referenceFile;
             
