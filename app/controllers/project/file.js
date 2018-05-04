@@ -34,7 +34,7 @@ ProjectFile.prototype.refFileUpload = function(){
             let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {referenceFile}});
 
             //成功返回
-            ctx.body = JSON.stringify(referenceFile);
+            ctx.body = referenceFile;
             
         } catch (err) {
             console.log(err);
