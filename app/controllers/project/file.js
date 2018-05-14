@@ -107,7 +107,7 @@ ProjectFile.prototype.proFileUpload = function(){
 ProjectFile.prototype.deleteModFile = function(socket) {
     return async (data, fu)=> {
         try{ 
-
+            console.log(data);
             console.log(data.name);
             let res = await project_db.findOne({'_id': data.pid, 'image.name': data.name}, {'image.$': 1});
             console.log(res);
