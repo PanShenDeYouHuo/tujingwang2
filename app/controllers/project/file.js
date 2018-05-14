@@ -110,7 +110,7 @@ ProjectFile.prototype.deleteModFile = function(socket) {
             console.log(data);
             console.log(data.name);
             let res = await project_db.findOne({'_id': data.pid, 'image.model.name': data.name}, {'image.$': 1});
-            console.log(res);
+            if ( !res ) return fu({err: true, message: '无法删除，文件被引用'});
 
             await this.client.delete(`project/${data.pid}/model/${data.name}`);
             await project_db.findByIdAndUpdate( data.pid, {$pull: {'modelFile': {'name':data.name}}});
