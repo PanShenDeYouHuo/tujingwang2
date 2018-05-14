@@ -109,7 +109,7 @@ ProjectFile.prototype.deleteModFile = function(socket) {
         try{ 
             console.log(data);
             console.log(data.name);
-            let res = await project_db.findOne({'_id': data.pid, 'image.name': data.name}, {'image.$': 1});
+            let res = await project_db.findOne({'_id': data.pid, 'image.model.name': data.name}, {'image.$': 1});
             console.log(res);
 
             await this.client.delete(`project/${data.pid}/model/${data.name}`);
