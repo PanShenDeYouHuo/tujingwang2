@@ -44,7 +44,7 @@ ProjectFile.prototype.refFileUpload = function(){
 }
 
 /**
- * 删除项目参考文件
+ * 删除参考文件
  * 
  * @param {any} socket 
  * @returns 
@@ -106,7 +106,11 @@ ProjectFile.prototype.proFileUpload = function(){
  */
 ProjectFile.prototype.deleteModFile = function(socket) {
     return async (data, fu)=> {
-        try{
+        try{ 
+
+            let res = await project_db.findOne({'_id': data.pid, 'image.name': data.name}, {'image.$': 1});
+            console.log(res);
+
             await this.client.delete(`project/${data.pid}/model/${data.name}`);
             await project_db.findByIdAndUpdate( data.pid, {$pull: {'modelFile': {'name':data.name}}});
             fu( 'success' );
@@ -126,20 +130,7 @@ ProjectFile.prototype.deleteModFile = function(socket) {
 ProjectFile.prototype.putProImgMod = function(socket){
     return async(data, fu)=> {
         try {
-            
-
-            // //保存到数据库
-            // let modelFile = {
-            //     name: postData.name,
-            //     object: postData.newObject,
-            //     size: postData.size,
-            //     bucket: postData.bucket
-            // }
-            // let res = await project_db.findByIdAndUpdate(postData.pid, {$push: {modelFile}});
-            // //成功返回
-            // ctx.body = modelFile;
-            console.log(data);
-
+           
             await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid,}, 
                 {   $set: 
                     {
