@@ -3,8 +3,6 @@ const customer_db = require('../../service/mongodb/m_customer');
 const user_db = require('../../service/mongodb/m_uesr');
 const payment_db = require('../../service/mongodb/m_payment');
 const config = require('../../config');
-//sokcet.io推送信息
-const sio = require('../../sio');
 
 function Project() {
     this.name = 'project';
@@ -270,6 +268,8 @@ Project.prototype.putProImgArrange = (socket)=> {
                     router: `/works/${data.pid}`
                 }
                 await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
+                //sokcet.io推送信息
+                const sio = require('../../sio');
 
                 sio.to(user.socketId).emit('notify');
                 // sio.to(admin.socketId).volatile.emit('notify');
@@ -287,7 +287,9 @@ Project.prototype.putProImgArrange = (socket)=> {
                     router: `/works/${data.pid}`
                 }
                 await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
-
+                
+                //sokcet.io推送信息
+                const sio = require('../../sio');
                 sio.to(user.socketId).emit('notify');
             }
             
