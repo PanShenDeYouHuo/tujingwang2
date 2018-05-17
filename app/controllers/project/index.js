@@ -3,6 +3,8 @@ const customer_db = require('../../service/mongodb/m_customer');
 const user_db = require('../../service/mongodb/m_uesr');
 const payment_db = require('../../service/mongodb/m_payment');
 const config = require('../../config');
+//sokcet.io推送信息
+const sio = require('../../sio');
 
 function Project() {
     this.name = 'project';
@@ -258,10 +260,35 @@ Project.prototype.putProImgArrange = (socket)=> {
         try {
             if ( data.workType === 'model') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid, 'image': {$elemMatch: {'isFinish': {$lt: 1}}}}, {$set: {'image.$.modelId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
+                //通知安排工作人员
+                let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
+                let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
+                let notify = {
+                    state: 0,
+                    ntype: 2,
+                    concent: `${project.name}项目有新的建模任务安排给你，赶紧去查看`,
+                    router: `/works/${data.pid}`
+                }
+                await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
+
+                sio.to(user.socketId).emit('notify');
+                // sio.to(admin.socketId).volatile.emit('notify');
             }
 
             if ( data.workType === 'render') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid, 'image': {$elemMatch: {'isFinish': {$lt: 1}}}}, {$set: {'image.$.renderId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
+                //通知安排工作人员
+                let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
+                let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
+                let notify = {
+                    state: 0,
+                    ntype: 2,
+                    concent: `${project.name}项目有新的建模任务安排给你，赶紧去查看`,
+                    router: `/works/${data.pid}`
+                }
+                await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
+
+                sio.to(user.socketId).emit('notify');
             }
             
             fu('success');
