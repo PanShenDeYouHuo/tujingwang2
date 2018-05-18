@@ -169,6 +169,7 @@ User.prototype.getNotify = function(socket) {
     return async (data, fu)=> {
         try{
             let result = {};
+            console.log(0 - (data.currentPage*8));
             if( data.notifyType === 0 ) {
                 result = await user_db.findById(socket.account._id, {'notify': {$slice: [0 - (data.currentPage*8), 8]}});
             } else {
