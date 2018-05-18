@@ -283,7 +283,7 @@ Project.prototype.putProImgArrange = (socket)=> {
                 let notify = {
                     state: 0,
                     ntype: 2,
-                    concent: `${project.name}项目有新的建模任务安排给你，赶紧去查看`,
+                    concent: `${project.name}项目有新的渲染任务安排给你，赶紧去查看`,
                     router: `/works/${data.pid}`
                 }
                 await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
