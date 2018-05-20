@@ -171,10 +171,13 @@ User.prototype.getNotify = function(socket) {
             let result = {};
             console.log(0 - (data.currentPage*8));
             if( data.notifyType === 0 ) {
-                result = await user_db.findById(socket.account._id, {'notify': {$slice: [0 - (data.currentPage*8), 8]}});
+                result = await user_db.findById(socket.account.id, {'notify': 1});
+                let count = data.currentPage*8 > result.notify.length ? result.notify.length % 8 : 8;
+                result = await user_db.findById(socket.account._id, {'notify': {$slice: [0 - (data.currentPage*8), count]}});
             } else {
-
-                result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [0 - (data.currentPage*8), 8]}});
+                result = await user_db.findById(socket.account.id, {'notify': 1});
+                let count = data.currentPage*8 > result.notify.length ? result.notify.length % 8 : 8;
+                result = await user_db.findOne({'_id': socket.account._id, 'notify.ntype': data.notifyType}, {'notify': {$slice: [0 - (data.currentPage*8), count]}});
             }
             if( !result ) return fu([]); 
             fu( result.notify );
