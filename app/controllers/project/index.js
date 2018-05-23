@@ -3,6 +3,8 @@ const customer_db = require('../../service/mongodb/m_customer');
 const user_db = require('../../service/mongodb/m_uesr');
 const payment_db = require('../../service/mongodb/m_payment');
 const config = require('../../config');
+//sokcet.io推送信息
+const io = require('../../sio');
 
 function Project() {
     this.name = 'project';
