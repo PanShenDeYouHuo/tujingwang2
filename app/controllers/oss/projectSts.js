@@ -149,7 +149,7 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
 ProjectSts.prototype.getAllWriteAndReadProjectStsToken = function(socket) {
     return async (data, fu)=> {
         try{
-            console.log(hahah);
+            console.log('hhaa');
             let policy = {
                 "Statement": [
                     {
