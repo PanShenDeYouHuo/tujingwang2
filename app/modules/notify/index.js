@@ -11,6 +11,7 @@ notify = async(uid, notifyContent)=> {
     if (!user.state) return console.log('lixian');
     const sio = require('../../sio');
     sio.to(user.socketId).emit('notify');
+    // sio.to(admin.socketId).volatile.emit('notify');
 }
 
 module.exports = notify;

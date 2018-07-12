@@ -241,6 +241,17 @@ Project.prototype.putProImageFinish = (socket)=> {
             if (!image.renderId) return fu({err: true, message: '无法完成，没有安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
+            //通知工作人员任务完成
+            let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
+            let notifyContent= {
+                state: 0,
+                ntype: 2,
+                concent: `${project.name}项目${image.name}任务完成`,
+                router: `/works/${data.pid}`
+            }
+            await notify(image.modelId, notifyContent);
+            await notify(image.renderId, notifyContent);
+
             await check(data.pid);
             fu( 'success' );
         } catch (err) {
@@ -284,7 +295,6 @@ Project.prototype.putProImgArrange = (socket)=> {
             if ( data.workType === 'model') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid, 'image': {$elemMatch: {'isFinish': {$lt: 1}}}}, {$set: {'image.$.modelId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
                 //通知安排工作人员
-                // let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
                 let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
                 let notifyContent= {
                     state: 0,
@@ -293,30 +303,20 @@ Project.prototype.putProImgArrange = (socket)=> {
                     router: `/works/${data.pid}`
                 }
                 await notify(data.uid, notifyContent);
-                // await user_db.findByIdAndUpdate(data.uid, {$push: {notifyContent}});
-                // //sokcet.io推送信息
-                // const sio = require('../../sio');
 
-                // sio.to(user.socketId).emit('notify');
-                // sio.to(admin.socketId).volatile.emit('notify');
             }
 
             if ( data.workType === 'render') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid, 'image': {$elemMatch: {'isFinish': {$lt: 1}}}}, {$set: {'image.$.renderId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
                 //通知安排工作人员
-                let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
                 let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
-                let notify = {
+                let notifyContent = {
                     state: 0,
                     ntype: 2,
                     concent: `${project.name}项目有新的渲染任务安排给你，赶紧去查看`,
                     router: `/works/${data.pid}`
                 }
-                await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
-                
-                //sokcet.io推送信息
-                const sio = require('../../sio');
-                sio.to(user.socketId).emit('notify');
+                await notify(data.uid, notifyContent);
             }
             
             fu('success');
