@@ -17,8 +17,12 @@ function Project() {
  */
 check = async (pid)=> {
     try {
-        let res = await project_db.findOne({'_id': pid, 'image.isFinish': 1}, {'image.$': 1});
+        let res = await project_db.findOne({'_id': pid, 'image.isFinish': 0}, {'image.$': 1});
         console.log(res);
+        if (res !== null) return await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 0}});
+        console.log('项目设置为完成');
+        await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 1}});
+        
     } catch (err) {
         console.log(err);
         fu({err: true, message: '检查任务发错错误'});
@@ -191,7 +195,7 @@ Project.prototype.postProImage = (socket)=> {
     return async (data, fu)=> {
         try {
             await project_db.findByIdAndUpdate(data.pid, {$push: {image: data.image}});
-            check(data.pid);
+            await check(data.pid);
             fu( 'success' );
         } catch (err) {
             console.log(err);
@@ -237,7 +241,7 @@ Project.prototype.putProImageFinish = (socket)=> {
             if (!image.renderId) return fu({err: true, message: '无法完成，没有安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
-
+            await check(data.pid);
             fu( 'success' );
         } catch (err) {
             console.log(err);
@@ -260,6 +264,7 @@ Project.prototype.deleteProImage = (socket)=> {
             if ( image.payment > 0 ) return fu({err: true, message: '已经付款，无法删除'});
             //删除
             await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
+            await check(data.pid);
             fu('success');
         } catch (err) {
             console.log(err);
