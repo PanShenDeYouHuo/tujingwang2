@@ -15,7 +15,7 @@ function Project() {
  *
  * @param {*} socket
  */
-check = (pid)=> {
+check = async (pid)=> {
     try {
         let res = await project_db.findOne({'_id': data.pid, 'image.isFinish': 1}, {'image.$': 1});
         console.log(res);
