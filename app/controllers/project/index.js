@@ -292,7 +292,7 @@ Project.prototype.putProImgArrange = (socket)=> {
                     concent: `${project.name}项目有新的建模任务安排给你，赶紧去查看`,
                     router: `/works/${data.pid}`
                 }
-                notify(data.uid, notifyContent);
+                await notify(data.uid, notifyContent);
                 // await user_db.findByIdAndUpdate(data.uid, {$push: {notifyContent}});
                 // //sokcet.io推送信息
                 // const sio = require('../../sio');
