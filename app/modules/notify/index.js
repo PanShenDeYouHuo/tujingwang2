@@ -9,7 +9,7 @@ notify = async(uid, notifyContent)=> {
 
     //获取通知用户是否离线
     let user = await user_db.findById(uid, {'_id': 1,'socketId': 1, 'state': 1});
-    if (user.state) return;
+    if (user.state) return console.log('lixian');
     sio.to(user.socketId).emit('notify');
 }
 
