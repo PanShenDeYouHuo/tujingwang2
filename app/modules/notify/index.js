@@ -3,6 +3,8 @@ const user_db = require('../../service/mongodb/m_uesr');
 
 notify = async(uid, notifyContent)=> {
     console.log('hh')
+    console.log(uid)
+    console.log(notifyContent);
     await user_db.findByIdAndUpdate(uid, {$push: {notifyContent}});
 
     //获取通知用户是否离线
