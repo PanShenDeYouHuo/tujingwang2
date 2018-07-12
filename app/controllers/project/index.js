@@ -17,7 +17,7 @@ function Project() {
  */
 check = async (pid)=> {
     try {
-        let res = await project_db.findOne({'_id': data.pid, 'image.isFinish': 1}, {'image.$': 1});
+        let res = await project_db.findOne({'_id': pid, 'image.isFinish': 1}, {'image.$': 1});
         console.log(res);
     } catch (err) {
         console.log(err);
