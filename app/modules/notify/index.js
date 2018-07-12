@@ -5,11 +5,11 @@ notify = async(uid, notifyContent)=> {
     console.log('hh')
     console.log(uid)
     console.log(notifyContent);
-    await user_db.findByIdAndUpdate(uid, {$push: {notifyContent}});
-
+    let res = await user_db.findByIdAndUpdate(uid, {$push: {notifyContent}});
+    console.log(res);
     //获取通知用户是否离线
     let user = await user_db.findById(uid, {'_id': 1,'socketId': 1, 'state': 1});
-    if (user.state) return console.log('lixian');
+    if (!user.state) return console.log('lixian');
     sio.to(user.socketId).emit('notify');
 }
 
