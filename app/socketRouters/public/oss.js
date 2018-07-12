@@ -16,6 +16,6 @@ module.exports = (socket)=> {
     socket.on('getReadProjectStsToken', projectSts.getReadProjectStsToken(socket));
     socket.on('getWriteProjectStsToken', projectSts.getWriteProjectStsToken(socket));
     socket.on('getWriteAndReadProjectStsToken', projectSts.getWriteAndReadProjectStsToken(socket));
-    socket.on('getWriteAndReadProjectStsToken', projectSts.getAllWriteAndReadProjectStsToken(socket));
+    socket.on('getAllWriteAndReadProjectStsToken', projectSts.getAllWriteAndReadProjectStsToken(socket));
     
 }
