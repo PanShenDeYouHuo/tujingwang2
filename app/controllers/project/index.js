@@ -246,11 +246,13 @@ Project.prototype.putProImageFinish = (socket)=> {
             let notifyContent= {
                 state: 0,
                 ntype: 2,
-                concent: `${project.name}项目${image.name}任务完成`,
+                concent: `${project.name}项目 ${image.style}-${image.designType}-${image.space}-${image.area}-${image.imageType}视角 任务完成`,
                 router: `/works/${data.pid}`
             }
             await notify(image.modelId, notifyContent);
-            await notify(image.renderId, notifyContent);
+            if( image.modelId !== image.renderId) {     
+                await notify(image.renderId, notifyContent);
+            }
 
             await check(data.pid);
             fu( 'success' );
