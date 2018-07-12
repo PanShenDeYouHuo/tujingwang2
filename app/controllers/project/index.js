@@ -9,6 +9,21 @@ const io = require('../../sio');
 function Project() {
     this.name = 'project';
 }
+
+/**
+ *检查任务是否完成
+ *
+ * @param {*} socket
+ */
+check = (pid)=> {
+    try {
+        let res = await project_db.findOne({'_id': data.pid, 'image.isFinish': 1}, {'image.$': 1});
+        console.log(res);
+    } catch (err) {
+        console.log(err);
+        fu({err: true, message: '检查任务发错错误'});
+    }
+}
 /**
  * 用项目名称和客服id,客户id创建项目
  * 
@@ -158,6 +173,7 @@ Project.prototype.deleteProjectById = (socket)=> {
             if( res.image.length > 0 ) return fu({err: true, message: '项目还有任务，无法删除'});
             if( res.referenceFile.length > 0 ) return fu({err: true, message: '项目还有参考文件，无法删除'});
             if( res.modelFile.length > 0 ) return fu({err: true, message: '项目还有项目文件，无法删除'});
+
             fu(await project_db.findByIdAndRemove(data.pid));
         } catch (err) {
             console.log(err);
@@ -175,6 +191,7 @@ Project.prototype.postProImage = (socket)=> {
     return async (data, fu)=> {
         try {
             await project_db.findByIdAndUpdate(data.pid, {$push: {image: data.image}});
+            check(data.pid);
             fu( 'success' );
         } catch (err) {
             console.log(err);
@@ -220,6 +237,7 @@ Project.prototype.putProImageFinish = (socket)=> {
             if (!image.renderId) return fu({err: true, message: '无法完成，没有安排工作人员'});
             //修改
             await project_db.findOneAndUpdate({ '_id': data.pid, 'image._id': data.image._id}, {$set: {'image.$.isFinish': 1, 'image.$.finishTime': new Date()}});
+
             fu( 'success' );
         } catch (err) {
             console.log(err);

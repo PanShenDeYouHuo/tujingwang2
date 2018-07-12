@@ -63,7 +63,7 @@ let user = {
     notify:[
         {   
             //通知状态
-            state:{type:Number, default:0}, //0未点击, 1已点击
+            state:{type:Number, default:0}, //0未查看, 1已查看
             //通知类型
             ntype:{type:String},            //1系统、2任务
             // //通知标题
@@ -74,6 +74,8 @@ let user = {
             router:{type:String},
         }
     ],
+    notifyNumber:{type:Number},             //通知总数
+    notifyNumberNot:{type:Number},          //通知未查看总数
     //权限
     authority:[
         

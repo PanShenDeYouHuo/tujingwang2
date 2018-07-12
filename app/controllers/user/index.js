@@ -159,6 +159,16 @@ User.prototype.putRealInformation = function(socket) {
     }
 }
 
+// User.prototype.setNotify = function(uid, notify) {
+//     try {
+//         let user = await user_db.findById(uid, {'_id': 1,'socketId': 1});
+//         //将通知保存到数据库
+//         let result = await user_db.findByIdAndUpdate(uid, {$push: {notify}});
+//     } catch (err) {
+        
+//     }
+// }
+
 /**
  * 获得通知信息
  * 
