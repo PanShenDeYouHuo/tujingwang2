@@ -3,8 +3,11 @@ const customer_db = require('../../service/mongodb/m_customer');
 const user_db = require('../../service/mongodb/m_uesr');
 const payment_db = require('../../service/mongodb/m_payment');
 const config = require('../../config');
-//sokcet.io推送信息
-const io = require('../../sio');
+
+//推送消息
+const notify = require('../../modules/notify');
+// //sokcet.io推送信息
+// const io = require('../../sio');
 
 function Project() {
     this.name = 'project';
@@ -18,11 +21,8 @@ function Project() {
 check = async (pid)=> {
     try {
         let res = await project_db.findOne({'_id': pid, 'image.isFinish': 0}, {'image.$': 1});
-        console.log(res);
         if (res !== null) return await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 0}});
-        console.log('项目设置为完成');
-        await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 1}});
-        
+        await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 1}});     
     } catch (err) {
         console.log(err);
         fu({err: true, message: '检查任务发错错误'});
@@ -284,19 +284,20 @@ Project.prototype.putProImgArrange = (socket)=> {
             if ( data.workType === 'model') {
                 await project_db.findOneAndUpdate({'_id': data.pid, 'image._id': data.iid, 'image': {$elemMatch: {'isFinish': {$lt: 1}}}}, {$set: {'image.$.modelId': data.uid}, $inc: {'image.$.arrangeWork': 1}});
                 //通知安排工作人员
-                let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
+                // let user = await user_db.findById(data.uid, {'_id': 1,'socketId': 1});
                 let project = await project_db.findById(data.pid, {'_id': 1, 'name': 1});
-                let notify = {
+                let notifyContent= {
                     state: 0,
                     ntype: 2,
                     concent: `${project.name}项目有新的建模任务安排给你，赶紧去查看`,
                     router: `/works/${data.pid}`
                 }
-                await user_db.findByIdAndUpdate(data.uid, {$push: {notify}});
-                //sokcet.io推送信息
-                const sio = require('../../sio');
+                notify(data.uid, notifyContent);
+                // await user_db.findByIdAndUpdate(data.uid, {$push: {notifyContent}});
+                // //sokcet.io推送信息
+                // const sio = require('../../sio');
 
-                sio.to(user.socketId).emit('notify');
+                // sio.to(user.socketId).emit('notify');
                 // sio.to(admin.socketId).volatile.emit('notify');
             }
 
