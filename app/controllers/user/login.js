@@ -33,6 +33,11 @@ Login.prototype.wechat = ()=> {
 
             //根据unionid查询，用户是否注册
             let where = {'wechat.unionid': wxuser.unionid};
+
+            if( await user_db.count(where) < 1 ) {
+                ctx.body = html;
+                return sio.to(ctx.query.state).emit('appError','请注册');
+            }
             // let isReg = await user_db.count(where) < 1 ? true : false;
             
             // if(isReg) {
@@ -88,10 +93,9 @@ Login.prototype.wechat = ()=> {
             
             //登入成功返回给客户端
             account.accessToken = accessToken;
-            let socket = sio.to(ctx.query.state);
-            socket.emit('loginSuccess', account);
-            
             ctx.body = html;
+            sio.to(ctx.query.state).emit('loginSuccess',account);
+            
             
         } catch (error) {
             ctx.body = html;
