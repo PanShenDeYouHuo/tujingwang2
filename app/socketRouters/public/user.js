@@ -17,5 +17,8 @@ module.exports = (socket)=> {
 
     //更改通知状态未已读
     socket.on('putNotify', user.putNotify(socket));
+
+    //更改通知状态未已读
+    socket.on('deleteNotify', user.deleteNotify(socket));
     
 }

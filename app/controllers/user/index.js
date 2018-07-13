@@ -218,6 +218,24 @@ User.prototype.putNotify = function(socket) {
 }
 
 
+/**
+ * 删除已经读取通知
+ * 
+ * @param {any} account 
+ * @returns 
+ */
+User.prototype.deleteNotify = function(socket) {
+    return async (data, fu)=> { 
+        try{
+            await project_db.findOneAndUpdate({ '_id': socket.account._id, 'notify._id': data._id}, {$pull: {'notify':{'_id': data.iid}}});
+            fu( 'success' );
+
+        } catch (err) {
+            console.log(err);
+            fu({err: true, message: '发生错误'});
+        }
+    } 
+}
 
 /**
  * 获取渲染师
