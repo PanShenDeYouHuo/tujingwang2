@@ -34,7 +34,7 @@ Login.prototype.wechat = ()=> {
             //根据unionid查询，用户是否注册
             let where = {'wechat.unionid': wxuser.unionid};
 
-            if( await user_db.count(where) < 1 ) sio.to(ctx.query.state).emit('appError','请注册');
+            if( await user_db.count(where) < 1 ) return sio.to(ctx.query.state).emit('appError','请注册');
             // let isReg = await user_db.count(where) < 1 ? true : false;
             
             // if(isReg) {
