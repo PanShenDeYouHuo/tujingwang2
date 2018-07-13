@@ -171,7 +171,7 @@ ProjectSts.prototype.getAllWriteAndReadProjectStsToken = function(socket) {
             let sessionName = socket.account._id.toString();
             
             //获取token
-            let token = await this.sts.assumeRole( arn, policy, 60 * 60 * 6, sessionName);
+            let token = await this.sts.assumeRole( arn, policy, 60 * 60, sessionName);
 
             fu(token);
         } catch (err) {
