@@ -4,6 +4,7 @@ function PaymentSts() {
     this.name = 'PaymentSts';
     this.sts = config.oss.sts;
     this.companyName = config.companyName;
+    this.oss = config.oss;
 };
 
 
@@ -34,7 +35,7 @@ ProjectSts.prototype.getReadProjectStsToken = function(socket) {
                "Version": "1"
            };
 
-           let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
+           let arn = this.oss.tujingcloudRead;
            let sessionName = socket.account._id.toString();
            
            //获取token
@@ -76,7 +77,7 @@ ProjectSts.prototype.getWriteProjectStsToken = function(socket) {
                 ],
                 "Version": "1"
             };
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
+            let arn = this.oss.tujingcloudWrite;
             let sessionName = socket.account._id.toString();
 
             //获取token
@@ -124,7 +125,7 @@ ProjectSts.prototype.getWriteAndReadProjectStsToken = function(socket) {
                 "Version": "1"
             };
 
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
+            let arn = this.oss.tujingcloudReadandWrite;
             let sessionName = socket.account._id.toString();
             
             //获取token

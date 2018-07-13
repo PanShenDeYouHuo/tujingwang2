@@ -4,6 +4,7 @@ const config = require('../../config')
 function StsToken() {
     this.name = 'sts';
     this.sts = config.oss.sts;
+    this.companyName = config.companyName;
 };
 
 

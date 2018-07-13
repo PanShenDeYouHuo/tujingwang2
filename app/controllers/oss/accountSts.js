@@ -4,6 +4,8 @@ const config = require('../../config')
 function AccountSts() {
     this.name = 'accountSts';
     this.sts = config.oss.sts;
+    this.companyName = config.companyName;
+    this.oss = config.oss;
 };
 
 
@@ -26,15 +28,15 @@ AccountSts.prototype.getReadAccountStsToken = function(socket) {
                        ],
                        "Effect": "Allow",
                        "Resource": [
-                           `acs:oss:*:*:tujingcloud/account/${socket.account._id}`,
-                           `acs:oss:*:*:tujingcloud/account/${socket.account._id}/*`
+                           `acs:oss:*:*:${this.companyName}/account/${socket.account._id}`,
+                           `acs:oss:*:*:${this.companyName}/account/${socket.account._id}/*`
                        ]
                    }
                ],
                "Version": "1"
            };
        
-           let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
+           let arn = this.oss.tujingcloudRead;
            let sessionName = socket.account._id.toString();
            
            //获取token
@@ -68,15 +70,15 @@ AccountSts.prototype.getReadAccountStsTokenBoss = function(socket) {
                       ],
                       "Effect": "Allow",
                       "Resource": [
-                          `acs:oss:*:*:tujingcloud/account/${uid}`,
-                          `acs:oss:*:*:tujingcloud/account/${uid}*`
+                          `acs:oss:*:*:${this.companyName}/account/${uid}`,
+                          `acs:oss:*:*:${this.companyName}/account/${uid}*`
                       ]
                   }
               ],
               "Version": "1"
           };
        
-          let arn = 'acs:ram::1647720766129117:role/tujingcloud-readonly';
+          let arn = this.oss.tujingcloudRead;
           let sessionName = socket.account._id.toString();
           
           //获取token
@@ -111,15 +113,15 @@ AccountSts.prototype.getWriteAccountStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}`,
-                            `acs:oss:*:*:tujingcloud/temporaryFile/account/${socket.account._id}/*`
+                            `acs:oss:*:*:${this.companyName}/temporaryFile/account/${socket.account._id}`,
+                            `acs:oss:*:*:${this.companyName}/temporaryFile/account/${socket.account._id}/*`
                         ]
                     }
                 ],
                 "Version": "1"
             };
         
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-write';
+            let arn = this.oss.tujingcloudWrite;
             let sessionName = socket.account._id.toString();
 
             //获取token
@@ -158,15 +160,15 @@ AccountSts.prototype.getWriteAndReadAccountStsToken = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}`,
-                            `acs:oss:*:*:tujingcloud/account/${socket.account._id}/*`
+                            `acs:oss:*:*:${this.companyName}/account/${socket.account._id}`,
+                            `acs:oss:*:*:${this.companyName}/account/${socket.account._id}/*`
                         ]
                     }
                 ],
                 "Version": "1"
             };
         
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
+            let arn = this.oss.tujingcloudReadandWrite;
             let sessionName = socket.account._id.toString();
 
             //获取token
@@ -205,15 +207,15 @@ AccountSts.prototype.getWriteAndReadAccountStsTokenBoss = function(socket) {
                         ],
                         "Effect": "Allow",
                         "Resource": [
-                            `acs:oss:*:*:tujingcloud/account/${uid}`,
-                            `acs:oss:*:*:tujingcloud/account/${uid}/*`
+                            `acs:oss:*:*:${this.companyName}/account/${uid}`,
+                            `acs:oss:*:*:${this.companyName}/account/${uid}/*`
                         ]
                     }
                 ],
                 "Version": "1"
             };
         
-            let arn = 'acs:ram::1647720766129117:role/tujingcloud-readandwrite';
+            let arn = this.oss.tujingcloudReadandWrite;
             let sessionName = socket.account._id.toString();
 
             //获取token

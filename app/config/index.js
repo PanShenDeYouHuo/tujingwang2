@@ -15,6 +15,9 @@ module.exports = {
             accessKeySecret:'3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
             bucket:'tujingcloud',
         }),
+        tujingcloudRead: 'acs:ram::1647720766129117:role/tujingcloud-readonly',
+        tujingcloudWrite: 'acs:ram::1647720766129117:role/tujingcloud-write',
+        tujingcloudReadandWrite: 'acs:ram::1647720766129117:role/tujingcloud-readandwrite',
     },
     wechat:{
         appId:'wx578ee588948c8fcc',
