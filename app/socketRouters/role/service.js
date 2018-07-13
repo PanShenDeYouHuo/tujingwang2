@@ -41,7 +41,6 @@ module.exports = (socket)=> {
     //获取渲染师
     socket.on('getRender', user.getRender(socket));
     
-
     //付款接口
     socket.on('projectPay', project.pay(socket));
 
