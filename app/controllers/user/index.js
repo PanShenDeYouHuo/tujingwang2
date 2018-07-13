@@ -226,7 +226,7 @@ User.prototype.putNotify = function(socket) {
 User.prototype.deleteNotify = function(socket) {
     return async (data, fu)=> { 
         try{
-            await user_db.findOneAndUpdate({ '_id': socket.account._id, 'notify._id': data._id}, {$pull: {'notify':{'_id': data.iid}}});
+            await user_db.findOneAndUpdate({ '_id': socket.account._id, 'notify._id': data._id}, {$pull: {'notify':{'_id': data._id}}});
             fu( 'success' );
 
         } catch (err) {
