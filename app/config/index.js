@@ -28,7 +28,7 @@ module.exports = {
             accessKeySecret:'0iti686SDosBuoaBYL6h5imevR4IC7',
         }),
         client: new OSS({
-            region:'oss-cn-beijing',
+            region:'oss-cn-hangzhou',
             accessKeyId:'LTAI1xGrNz8uGY3a',
             accessKeySecret:'0iti686SDosBuoaBYL6h5imevR4IC7',
             bucket:'tujing',

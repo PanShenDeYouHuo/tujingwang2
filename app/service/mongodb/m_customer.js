@@ -2,7 +2,7 @@ const mongoose = require("./mongodb.js");
 const schema = mongoose.Schema;
 
 let customer = {
-    fromCompany: { type: String},   //属于那个公司的客户，公司ID
+    fromCompany: { type: String},   //属于那个公司的客户，公司bossID
     name: { type: String },         //客户名
     companyName: { type: String },  //所属公司
     QQ: {type:Number},              //qq
