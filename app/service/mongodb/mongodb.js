@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 mongoose.Promise = global.Promise;
 //////// 连接 ////////
-let db_url = "mongodb://tujing1:1574587@60.205.225.197:27017/tujing";
+let db_url = "mongodb://tujing1:1574587@47.97.215.115:27017/tujing";
 mongoose.connect(db_url, {useMongoClient: true});
 
 //////// 连接成功 ////////
