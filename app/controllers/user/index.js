@@ -96,8 +96,6 @@ User.prototype.putRealInformation = function(socket) {
                 prefix: `temporaryFile/account/${socket.account._id}/authenticate/`,
                 delimiter: '/'
             });
-            console.log(list);
-
    
             //拷贝文件
             for (let i = 0; i < list.objects.length; i++ ) {
