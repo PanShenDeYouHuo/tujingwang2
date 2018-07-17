@@ -4,12 +4,14 @@ const OSS = require('ali-oss').Wrapper;                 //Promise函数
 
 function User() {
     this.name = 'user';
-    this.client = new OSS({
-        region: 'oss-cn-beijing',
-        accessKeyId: 'LTAIesg8W64WwrGI',
-        accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
-        bucket: 'tujingcloud',
-    });
+    // this.client = new OSS({
+    //     region: 'oss-cn-beijing',
+    //     accessKeyId: 'LTAIesg8W64WwrGI',
+    //     accessKeySecret: '3iz2f7iwwGPMoicQE9kQJRPACPOPwK',
+    //     bucket: 'tujingcloud',
+    // });
+
+    this.client = config.oss.client;
 }
 /**
  * 用项目名称和客服创建项目
@@ -94,6 +96,7 @@ User.prototype.putRealInformation = function(socket) {
                 prefix: `temporaryFile/account/${socket.account._id}/authenticate/`,
                 delimiter: '/'
             });
+            console.log(list);
 
    
             //拷贝文件
