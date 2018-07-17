@@ -54,7 +54,7 @@ let user = {
         IDCardFrontObjectKey:{type:String},         //身份证正面
         IDCardReverseObjectKey:{type:String},       //身份证反面
 
-        bankCardAccount:{type:Number},              //银行卡账号
+        bankCardAccount:{type:String},              //银行卡账号
         openingBank:{type:String},                  //开户行
         bankCardFrontObjectKey:{type:String},       //银行卡正面
     },
