@@ -239,10 +239,10 @@ User.prototype.deleteNotify = function(socket) {
 }
 
 /**
- * 获取渲染师
+ * 根据权限获取员工信息
  * 
- * @param {any} account 
- * @returns 
+ * @param {any} account
+ * @returns
  */
 User.prototype.getRender = function(socket) {
     return async (data, fu)=> {

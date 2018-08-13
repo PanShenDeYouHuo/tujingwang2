@@ -6,7 +6,6 @@ const user = require('./public/user');
 const oss = require('./public/oss');
 const project = require('./public/project');
 
-
 function Authority() {
     this.name = 'authority';
 
@@ -15,7 +14,8 @@ function Authority() {
         boss: require('./role/boss'),
         service: require('./role/service'),
         customerManager: require('./role/customerManager'),
-        render: require('./role/render')
+        render: require('./role/render'),
+        financial: require('./role/financial')
     }
 }
 
