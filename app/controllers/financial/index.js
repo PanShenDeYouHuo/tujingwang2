@@ -11,7 +11,7 @@ function Financial() {
  * @param {string} name 项目名称
  * @param {string} service 客服
  */
-Customer.prototype.postCustomer = (socket)=> {
+Financial.prototype.postCustomer = (socket)=> {
     return async (data, fu)=> {
         try {  
             let where = {
@@ -39,4 +39,4 @@ Customer.prototype.postCustomer = (socket)=> {
 }
 
 
-module.exports = new Customer();
+module.exports = new Financial();
