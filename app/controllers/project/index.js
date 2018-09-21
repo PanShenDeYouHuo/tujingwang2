@@ -21,6 +21,7 @@ function Project() {
 check = async (pid)=> {
     try {
         let res = await project_db.findOne({'_id': pid, 'image.isFinish': 0}, {'image.$': 1});
+        console.log(res);
         if (res !== null) return await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 0}});
         await project_db.findByIdAndUpdate(pid, {$set:{isFinish: 1}});     
     } catch (err) {
@@ -277,6 +278,7 @@ Project.prototype.deleteProImage = (socket)=> {
             if ( image.payment > 0 ) return fu({err: true, message: '已经付款，无法删除'});
             //删除
             await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
+            if (res.image)
             await check(data.pid);
             fu('success');
         } catch (err) {
