@@ -278,7 +278,8 @@ Project.prototype.deleteProImage = (socket)=> {
             if ( image.payment > 0 ) return fu({err: true, message: '已经付款，无法删除'});
             //删除
             await project_db.findOneAndUpdate({'_id': data.pid, 'image':{$elemMatch: {'payment': {$lte: 0}}}}, {$pull: {'image':{'_id': data.iid}}});
-            if (res.image)
+            res = await project_db.findOne({'_id': data.pid}, {});
+            if (res.image.length < 1) return fu('success');
             await check(data.pid);
             fu('success');
         } catch (err) {
